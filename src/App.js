@@ -1,5 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { 
+  BrowserRouter as Router, 
+  Route, 
+  Redirect, 
+  Switch 
+} from 'react-router-dom';
+
 import Home from './shared/pages/Home';
 import About from './shared/pages/About';
 import Clients from './shared/pages/Clients';
