@@ -9,7 +9,6 @@ import slide2 from '../../../images/slide2.jpg';
 import slide3 from '../../../images/slide3.jpg';
 
 
-
 const Jumbotron = () => {
   return (
     <Carousel className="slide" showArrows={true} autoPlay={true} showThumbs={false} infiniteLoop={true} transitionTime={400}>

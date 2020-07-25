@@ -18,7 +18,6 @@ main {
 /* Below code runs until window below 768px */
 @media (min-width: 859px) {
   .main-header {
-    justify-content: space-between;
-    padding: 0 15vw;
+    justify-content: center;
   }
 }
