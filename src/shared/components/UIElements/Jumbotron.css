@@ -1,0 +1,13 @@
+.slide img {
+  height: 250px;
+}
+
+@media (min-width: 859px) {
+
+  .slide img {
+    object-fit: fill;
+    width: auto;
+    height: 30vw;
+  }
+
+}
