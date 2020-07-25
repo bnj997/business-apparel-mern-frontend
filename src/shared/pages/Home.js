@@ -1,11 +1,11 @@
 import React from 'react';
-import Jumbotron from '../components/UIElements/Jumbotron';
+import Carousel from '../components/UIElements/Carousel';
 
 
 const Home = () => {
   return (
     <React.Fragment>
-      <Jumbotron />
+      <Carousel />
     </React.Fragment>
   )
 };
