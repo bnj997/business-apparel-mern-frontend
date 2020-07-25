@@ -7,19 +7,19 @@ const NavLinks = props => {
   return (
     <ul className="nav-links">
       <li>
-        <NavLink to="/" exact> HOME </NavLink>
+        <NavLink to="/" exact> Home </NavLink>
       </li>
       <li>
-        <NavLink to="/about"> ABOUT </NavLink>
+        <NavLink to="/about"> About </NavLink>
       </li>
       <li>
-        <NavLink to="/clients"> CLIENTS </NavLink>
+        <NavLink to="/clients"> Clients </NavLink>
       </li>
       <li>
-        <NavLink to="/services"> SERVICES </NavLink>
+        <NavLink to="/services"> Services </NavLink>
       </li>
       <li>
-        <NavLink to="/contact"> CONTACT </NavLink>
+        <NavLink to="/contact"> Contact </NavLink>
       </li>
     </ul>
   );

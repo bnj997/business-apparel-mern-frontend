@@ -1,24 +1,34 @@
-.main-header {
+.second-header {
   width: 100%;
   display: flex;
   align-items: center;
   position: fixed;
-  top: 2rem;
+  margin: 0;
   left: 0;
-  background: #000000;
+  top: 0;
+  height: 2rem; 
+
+  justify-content: space-between;
+  padding: 0 5vw;
+
+  background: #202020;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
-  padding: 0 2rem;
   z-index: 5;
 }
 
-main {
-  margin-top: 9rem;
+.second-header p {
+  margin: 1rem;
+  color: 	#8c8c8c;
+  display: block;
 }
+
 
 /* Below code runs until window below 768px */
 @media (min-width: 859px) {
-  .main-header {
+  .second-header {
     justify-content: space-between;
     padding: 0 15vw;
   }
+
+
 }
