@@ -9,7 +9,7 @@
   height: 2rem; 
 
   justify-content: space-between;
-  padding: 0 5vw;
+  padding: 0;
 
   background: #202020;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.26);
@@ -17,18 +17,20 @@
 }
 
 .second-header p {
-  margin: 1rem;
   color: 	#8c8c8c;
   display: block;
+  margin-left: 0;
 }
 
 
 /* Below code runs until window below 859px */
 @media (min-width: 859px) {
   .second-header {
-    justify-content: space-between;
     padding: 0 15vw;
   }
 
+  .second-header p {
+    margin: 1rem;
+  }
 
 }

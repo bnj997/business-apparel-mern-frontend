@@ -26,6 +26,10 @@
   height: 100%;
 }
 
+.email {
+  visibility: hidden;
+}
+
 /* Below code runs until window below 859px */
 @media (min-width: 859px) {   
   .main-navigation__menu-btn {
@@ -34,6 +38,10 @@
 
   .main-navigation__header-nav {
     display: block;
+  }
+
+  .email {
+    visibility: visible;
   }
 
 }
