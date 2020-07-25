@@ -31,7 +31,7 @@
 }
 
 /* Below code runs until window below 859px */
-@media (min-width: 859px) {   
+@media (min-width: 1200px) {   
   .main-navigation__menu-btn {
     display: none;
   }

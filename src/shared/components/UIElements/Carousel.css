@@ -2,7 +2,7 @@
   height: 250px;
 }
 
-@media (min-width: 859px) {
+@media (min-width: 1200px) {
 
   .slide img {
     object-fit: fill;

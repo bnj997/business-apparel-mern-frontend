@@ -16,7 +16,7 @@ main {
 }
 
 /* Below code runs until window below 768px */
-@media (min-width: 859px) {
+@media (min-width: 1200px) {
   .main-header {
     justify-content: center;
   }

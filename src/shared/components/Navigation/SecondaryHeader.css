@@ -17,20 +17,19 @@
 }
 
 .second-header .email {
-  color: 	#8c8c8c;
-  display: block;
-  margin-left: 0;
+  margin-right: 25rem;
 }
 
 
 /* Below code runs until window below 859px */
-@media (min-width: 859px) {
+@media (min-width: 1200px) {
   .second-header {
     justify-content: center;
   }
 
   .second-header p {
-    margin: 0 16rem;
+    color: 	#8c8c8c;
+    display: block;
   }
 
 }
