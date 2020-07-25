@@ -1,9 +1,13 @@
 import React from 'react';
+import Jumbotron from '../components/UIElements/Jumbotron';
+
 
 const Home = () => {
   return (
-    <h1> Home </h1>
-  );
+    <React.Fragment>
+      <Jumbotron />
+    </React.Fragment>
+  )
 };
 
 export default Home;
