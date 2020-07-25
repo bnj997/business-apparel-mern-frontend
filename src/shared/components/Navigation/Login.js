@@ -8,7 +8,7 @@ const NavLinks = props => {
   return (
     <ul className="nav-links login" >
       <li>
-        <NavLink to="/hello" exact> Log In / Sign Up </NavLink>
+        <NavLink to="/hello" exact> Log In </NavLink>
       </li>
     </ul>
   );

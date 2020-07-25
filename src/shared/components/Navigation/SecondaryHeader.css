@@ -23,7 +23,7 @@
 }
 
 
-/* Below code runs until window below 768px */
+/* Below code runs until window below 859px */
 @media (min-width: 859px) {
   .second-header {
     justify-content: space-between;

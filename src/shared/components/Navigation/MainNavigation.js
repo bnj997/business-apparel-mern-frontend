@@ -8,6 +8,7 @@ import SideDrawer from './SideDrawer';
 import Backdrop from '../UIElements/Backdrop';
 import Logo from '../UIElements/Logo';
 import './MainNavigation.css';
+import MyAccount from './MyAccount';
 
 
 
@@ -28,14 +29,15 @@ const MainNavigation = props => {
       {drawerIsOpen && <Backdrop onClick={closeDrawer} /> }
       <SideDrawer show={drawerIsOpen} onClick={closeDrawer}>
         <nav className="main-navigation__drawer-nav">
-          <Logo width="150" height="150" drawerIsOpen={drawerIsOpen}/>
+          <Logo width="120" height="120" drawerIsOpen={drawerIsOpen}/>
+          <MyAccount drawerIsOpen={drawerIsOpen} />
           <NavLinks drawerIsOpen={drawerIsOpen} />
           <Login />
         </nav>
       </SideDrawer>
       <SecondaryHeader>
         <p> orders@businessapparel.com</p>
-        <p> My Account | C:  0 </p>
+        <MyAccount />
       </SecondaryHeader>
       <MainHeader>
         <Logo width="75" height="75"/>
