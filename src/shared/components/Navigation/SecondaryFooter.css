@@ -1,0 +1,11 @@
+.second-footer {
+  margin: 0;
+  background-color: #202020;
+  text-align: center;
+  color: white;
+}
+
+.second-footer p {
+  margin: 0;
+  padding: 0.5rem 0;
+}

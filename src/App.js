@@ -13,6 +13,7 @@ import Services from './shared/pages/Services';
 import Contact from './shared/pages/Contact';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import MainFooter from './shared/components/Navigation/MainFooter';
+import SecondaryFooter from './shared/components/Navigation/SecondaryFooter';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
         </Switch>
       </main>
       <MainFooter />
+      <SecondaryFooter />
     </Router>
   );
 }

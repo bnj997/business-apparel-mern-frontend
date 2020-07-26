@@ -3,8 +3,14 @@ import React from 'react';
 import './SecondaryFooter.css';
 
 const SecondaryFooter = props => {
+
+  const d = new Date();
+  const year = d.getFullYear();
+
   return (
-    <h1> Hello </h1>
+    <div className="second-footer">
+      <p> © {year} Copyright: Business Apparel </p>
+    </div>
   );
 };
 
