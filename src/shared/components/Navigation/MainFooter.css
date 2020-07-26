@@ -1,8 +1,14 @@
 .footer {
+  padding-top: 4rem;
+  padding-bottom: 5rem;
   background-color: black;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
   justify-content: center;
   color: white;
+}
+
+.footer h2 {
+  padding-bottom: 2rem;
 }

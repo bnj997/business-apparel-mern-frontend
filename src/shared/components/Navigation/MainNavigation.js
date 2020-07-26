@@ -31,7 +31,7 @@ const MainNavigation = props => {
         <nav className="main-navigation__drawer-nav">
           <Logo width="120" height="120" drawerIsOpen={drawerIsOpen}/>
           <MyAccount drawerIsOpen={drawerIsOpen} />
-          <NavLinks drawerIsOpen={drawerIsOpen} />
+          <NavLinks />
           <Login />
         </nav>
       </SideDrawer>

@@ -5,7 +5,7 @@ import './NavLinks.css';
 
 const NavLinks = props => {
   return (
-    <ul className='nav-links'>
+    <ul className={`${props.mode === 'footerMode'? 'nav-links--footerMode' : 'nav-links'}`}>
       <li>
         <NavLink to="/" exact> Home </NavLink>
       </li>
