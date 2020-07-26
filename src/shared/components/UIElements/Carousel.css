@@ -1,5 +1,5 @@
 .slide img {
-  height: 250px;
+  height: 50%;
 }
 
 @media (min-width: 1200px) {

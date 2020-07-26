@@ -20,16 +20,15 @@
   margin-right: 25rem;
 }
 
+.second-header p {
+  color: 	#8c8c8c;
+  display: block;
+}
+
 
 /* Below code runs until window below 859px */
 @media (min-width: 1200px) {
   .second-header {
     justify-content: center;
   }
-
-  .second-header p {
-    color: 	#8c8c8c;
-    display: block;
-  }
-
 }

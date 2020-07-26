@@ -10,7 +10,7 @@ const SideDrawer = props => {
     <CSSTransition
       //"in" keyword dictates whether the sidedrawer shouyld show or not. true is to show and false not to show
       in={props.show}
-      timeout={200}
+      timeout={400}
       //These classnames are defined in index.css which this 3rd parrt CSStransition module knows how to use
       classNames="slide-in-left"
       //Tells 3nd party module to either be added to DOM or completely removed from DOM - not just hidden

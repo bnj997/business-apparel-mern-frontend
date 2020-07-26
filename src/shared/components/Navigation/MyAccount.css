@@ -7,7 +7,17 @@
 }
 
 .header {
-  margin-left: 23rem;
+  display: flex;
+  right: 1.5rem; 
+  position:absolute;
+}
+
+@media (min-width: 1200px) {
+  .header {
+    margin-left: 23rem;
+    right: 0;
+    position: relative;
+  }
 }
 
 
