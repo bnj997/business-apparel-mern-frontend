@@ -5,7 +5,7 @@ import './SecondaryFooter.css';
 const SecondaryFooter = props => {
 
   const d = new Date();
-  const year = d.getFullYear() - 1;
+  const year = d.getFullYear();
 
   return (
     <div className="second-footer">

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Formik, Form} from 'formik';
-import { Button, withTheme } from "@material-ui/core";
 import * as yup from 'yup';
 
 import FooterCard from '../UIElements/FooterCard';
+import MailIcon from '@material-ui/icons/Mail';
+import PhoneIcon from '@material-ui/icons/Phone';
+
 import NavLinks from './NavLinks';
+import MyButton from '../FormElements/MyButton'
 import FormTextField from '../FormElements/FormTextField';
 import './MainFooter.css';
 
@@ -41,10 +44,14 @@ const MainFooter = () => {
 
       <FooterCard >
         <h2>Get in Touch </h2>
-        <p> dsjfksdjfklsdjfkldsjfkdslfjkdls </p>
-        <p> dsjfksdjfklsdjfkldsjfkdslfjkdls </p>
-        <p> dsjfksdjfklsdjfkldsjfkdslfjkdls </p>
-        <p> dsjfksdjfklsdjfkldsjfkdslfjkdls </p>
+        <div style={{display: 'flex',alignItems: 'center'}}>
+          <MailIcon color="white" />
+          <p style={{marginLeft: "1rem"}}> info@businessapparel.com </p>
+        </div>
+        <div style={{display: 'flex',alignItems: 'center'}}>
+          <PhoneIcon color="white" />
+          <p style={{marginLeft: "1rem"}}> +61400 000 000 </p>
+        </div>
       </FooterCard>
       
       <FooterCard >
@@ -90,7 +97,7 @@ const MainFooter = () => {
                 isMultiline={true}
               />
               <div>
-                <Button variant="outlined" disabled={isSubmitting} type="submit">Submit</Button>
+                <MyButton disabled={isSubmitting} type="submit">Submit</MyButton>
               </div>
             </Form>
           )}
