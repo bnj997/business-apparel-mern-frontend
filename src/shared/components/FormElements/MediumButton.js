@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  withStyles
+  withStyles, withTheme
 } from "@material-ui/core/styles";
 
 import './MediumButton.css';
@@ -15,8 +15,8 @@ const OutLineButton = withStyles({
     marginRight: "auto",
     marginTop: "1rem",  
     "&:hover": {
-      backgroundColor: "black",
-      color: "white"
+      color: "white",
+      backgroundColor: "black"
     }
   }
 })(Button);

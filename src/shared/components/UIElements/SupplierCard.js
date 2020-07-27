@@ -16,9 +16,11 @@ const MyCard = withStyles({
     color: "black",
     fontSize: "1.3rem",
     margin: "1rem",
-    width: "20rem"
+    width: "20rem",
   }
 })(Card);
+
+
 
 
 const SupplierCard = props => {
@@ -29,7 +31,7 @@ const SupplierCard = props => {
       {...(!props.leader ? { timeout: 1000 } : {})} 
     >
       <MyCard>
-        <CardActionArea>
+        <CardActionArea className="focus">
           <CardMedia
             style={{height: "420px",  backgroundSize: "cover"}}
             image={props.image}
