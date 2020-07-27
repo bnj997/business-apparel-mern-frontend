@@ -104,7 +104,7 @@ const MainFooter = () => {
         </Formik>
 
       </FooterCard>
-    </div>
+    </div >
   );
 };
 

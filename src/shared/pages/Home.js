@@ -1,8 +1,12 @@
 import React from 'react';
+
 import Carousel from '../components/UIElements/Carousel';
 import TextSection from '../components/UIElements/TextSection';
 import MediumButton from '../components/FormElements/MediumButton'
+import SupplierCard from '../components/UIElements/SupplierCard';
+import CardRow from '../components/UIElements/CardRow';
 
+import placeholder from '../../images/placeholder.png';
 
 
 const Home = () => {
@@ -17,6 +21,20 @@ const Home = () => {
       <TextSection color="white">
         <h1> Our Suppliers </h1>
         <p> We source your uniforms from reputable suppliers only.</p>
+        <CardRow>
+          <SupplierCard image={placeholder}>
+            <h1> Biz Collection </h1>
+            <p> Access Catalogue Here</p>
+          </SupplierCard>
+          <SupplierCard image={placeholder}>
+            <h1> Winning Spirit </h1>
+            <p> Access Catalogue Here </p>
+          </SupplierCard>
+          <SupplierCard image={placeholder}>
+            <h1> JB Wears </h1>
+            <p> Access Catalogue Here </p>
+          </SupplierCard>
+        </CardRow>
       </TextSection>
     </React.Fragment>
   )
