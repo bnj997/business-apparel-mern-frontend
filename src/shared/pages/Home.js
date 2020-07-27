@@ -7,6 +7,9 @@ import SupplierCard from '../components/UIElements/SupplierCard';
 import CardRow from '../components/UIElements/CardRow';
 
 import placeholder from '../../images/placeholder.png';
+import bizCollection from '../../images/biz-collection.jpg';
+import winningSpirit from '../../images/winning-spirit.jpg';
+import jbWears from '../../images/jb-wear.jpg';
 
 
 const Home = () => {
@@ -22,17 +25,17 @@ const Home = () => {
         <h1> Our Suppliers </h1>
         <p> We source your uniforms from reputable suppliers only.</p>
         <CardRow>
-          <SupplierCard image={placeholder}>
+          <SupplierCard image={bizCollection}>
             <h1> Biz Collection </h1>
-            <p> Access Catalogue Here</p>
+            <h3> Access Catalogue Here </h3>
           </SupplierCard>
-          <SupplierCard image={placeholder}>
+          <SupplierCard image={winningSpirit}>
             <h1> Winning Spirit </h1>
-            <p> Access Catalogue Here </p>
+            <h3> Access Catalogue Here </h3>
           </SupplierCard>
-          <SupplierCard image={placeholder}>
+          <SupplierCard image={jbWears}>
             <h1> JB Wears </h1>
-            <p> Access Catalogue Here </p>
+            <h3> Access Catalogue Here </h3>
           </SupplierCard>
         </CardRow>
       </TextSection>

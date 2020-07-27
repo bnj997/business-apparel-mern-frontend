@@ -5,8 +5,10 @@ import {
   withStyles
 } from "@material-ui/core/styles";
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Grow from '@material-ui/core/Grow';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import './SupplierCard.css';
 
 
 const MyCard = withStyles({
@@ -18,19 +20,27 @@ const MyCard = withStyles({
   }
 })(Card);
 
+
 const SupplierCard = props => {
   return (
-    <MyCard>
-      <CardActionArea>
-        <CardMedia
-          style={{height: "300px"}}
-          image={props.image}
-        />
-        <CardContent>
-          {props.children}
-        </CardContent>
-      </CardActionArea>
-    </MyCard>  
+    <Grow 
+      in={true} 
+      style={{ transformOrigin: '0 0 0' }}
+      {...(!props.leader ? { timeout: 1000 } : {})} 
+
+    >
+      <MyCard>
+        <CardActionArea>
+          <CardMedia
+            style={{height: "420px",  backgroundSize: "cover"}}
+            image={props.image}
+          />
+          <CardContent className="content" style={{height: "7rem"}}>
+            {props.children}
+          </CardContent>
+        </CardActionArea>
+      </MyCard>  
+    </Grow>
   );
 };
 
