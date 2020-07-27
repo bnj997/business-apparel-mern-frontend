@@ -27,7 +27,6 @@ const SupplierCard = props => {
       in={true} 
       style={{ transformOrigin: '0 0 0' }}
       {...(!props.leader ? { timeout: 1000 } : {})} 
-
     >
       <MyCard>
         <CardActionArea>

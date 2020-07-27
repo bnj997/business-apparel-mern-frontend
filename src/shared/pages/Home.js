@@ -6,7 +6,6 @@ import MediumButton from '../components/FormElements/MediumButton'
 import SupplierCard from '../components/UIElements/SupplierCard';
 import CardRow from '../components/UIElements/CardRow';
 
-import placeholder from '../../images/placeholder.png';
 import bizCollection from '../../images/biz-collection.jpg';
 import winningSpirit from '../../images/winning-spirit.jpg';
 import jbWears from '../../images/jb-wear.jpg';
