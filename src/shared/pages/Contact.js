@@ -1,7 +1,15 @@
 import React from 'react';
+import Jumbotron from '../components/UIElements/Jumbotron';
 
 const Contact = () => {
-  return <h1> Contact </h1>
+  return (
+    <React.Fragment>
+      <Jumbotron 
+        heading="Contact Us" 
+        text="We are happy to help! Just contact Tom!"
+      />
+    </React.Fragment>
+  );
 };
 
 export default Contact;

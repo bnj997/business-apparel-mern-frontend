@@ -1,12 +1,19 @@
 import React from 'react';
 
 import './Jumbotron.css';
+import slide1 from '../../../images/banner13.jpg';
+
 
 const Jumbotron = props => {
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <React.Fragment>
+      <div style={{background:`url(${slide1})`, backgroundSize: "cover"}}>
+        <div className="jumbotron-content">
+          <h1> {props.heading} </h1>
+          <h2> {props.text}</h2>
+        </div>
+      </div>
+    </React.Fragment>
   );
 };
 
