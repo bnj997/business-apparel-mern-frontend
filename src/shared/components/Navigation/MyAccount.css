@@ -1,23 +1,29 @@
 .header-drawer {
-  margin: 1rem;
+  display: flex;
+  align-items: center;
   font-weight: bold;
   padding-bottom: 1rem;
+  justify-content: center;
   color: 	white;
   text-align: center;
 }
 
 .header {
+  color: #8c8c8c;
   display: flex;
+  align-items: center;
   right: 1.5rem; 
   position:absolute;
 }
 
 @media (min-width: 1200px) {
   .header {
-    margin-left: 23rem;
+    margin-left: 19rem;
     right: 0;
+    align-items: center;
     position: relative;
   }
+
 }
 
 
