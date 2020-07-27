@@ -3,13 +3,12 @@ import {
   withStyles
 } from "@material-ui/core/styles";
 
-import './MyButton.css';
+import './SmallButton.css';
 import { Button} from "@material-ui/core";
 
 const InverseOutLineButton = withStyles({
   root: {
     border: "1px solid white",
-    borderRadius: "0px",
     color: "white",
     display: "flex",
     marginLeft: "auto",
@@ -23,7 +22,7 @@ const InverseOutLineButton = withStyles({
 })(Button);
 
 
-const MyButton = props => {
+const SmallButton = props => {
   return (
     <InverseOutLineButton variant={`${props.outlined}`} disabled={props.isSubmitting} type="submit"> 
       {props.children}
@@ -31,5 +30,5 @@ const MyButton = props => {
   );
 };
 
-export default MyButton;
+export default SmallButton;
 

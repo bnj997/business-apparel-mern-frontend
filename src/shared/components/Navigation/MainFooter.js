@@ -7,7 +7,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import PhoneIcon from '@material-ui/icons/Phone';
 
 import NavLinks from './NavLinks';
-import MyButton from '../FormElements/MyButton'
+import SmallButton from '../FormElements/SmallButton'
 import FormTextField from '../FormElements/FormTextField';
 import './MainFooter.css';
 
@@ -97,7 +97,7 @@ const MainFooter = () => {
                 isMultiline={true}
               />
               <div>
-                <MyButton disabled={isSubmitting} type="submit">Submit</MyButton>
+                <SmallButton disabled={isSubmitting} type="submit">Submit</SmallButton>
               </div>
             </Form>
           )}

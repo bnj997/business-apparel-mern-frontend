@@ -4,9 +4,12 @@ import './TextSection.css';
 
 
 const TextSection = props => {
+  const color = props.color
   return (
-    <div>
-      <h1> Hello </h1>
+    <div className="section" style={{backgroundColor: `${color}`}}>
+      <div className="content">
+        {props.children}
+      </div>
     </div>
   );
 };
