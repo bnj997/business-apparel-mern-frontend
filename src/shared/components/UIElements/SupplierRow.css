@@ -1,12 +1,3 @@
-.card-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-
-
 .fade0-appear {
   opacity: 0;
 }
@@ -31,12 +22,3 @@
 }
 
 
-
-@media (min-width: 1200px) {
-  .card-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-}

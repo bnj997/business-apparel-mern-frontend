@@ -24,7 +24,7 @@ const InverseOutLineButton = withStyles({
 
 const SmallButton = props => {
   return (
-    <InverseOutLineButton variant={`${props.outlined}`} disabled={props.isSubmitting} type="submit"> 
+    <InverseOutLineButton disabled={props.isSubmitting} type="submit"> 
       {props.children}
     </InverseOutLineButton>
   );

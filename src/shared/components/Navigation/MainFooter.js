@@ -45,11 +45,11 @@ const MainFooter = () => {
       <FooterCard >
         <h2>Get in Touch </h2>
         <div style={{display: 'flex',alignItems: 'center'}}>
-          <MailIcon color="white" />
+          <MailIcon />
           <p style={{marginLeft: "1rem"}}> info@businessapparel.com </p>
         </div>
         <div style={{display: 'flex',alignItems: 'center'}}>
-          <PhoneIcon color="white" />
+          <PhoneIcon />
           <p style={{marginLeft: "1rem"}}> +61400 000 000 </p>
         </div>
       </FooterCard>

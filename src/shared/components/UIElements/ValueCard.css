@@ -1,0 +1,14 @@
+.value-card p {
+  text-align: center;
+  color: white;
+}
+
+@media (min-width: 1200px) {
+  .value-card {
+    padding: 2%;
+    width: 30%;
+  }
+}
+
+
+

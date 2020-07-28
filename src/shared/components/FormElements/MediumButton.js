@@ -24,7 +24,7 @@ const OutLineButton = withStyles({
 
 const  MediumButton = props => {
   return (
-    <OutLineButton variant={`${props.outlined}`} disabled={props.isSubmitting} type="submit"> 
+    <OutLineButton disabled={props.isSubmitting} type="submit"> 
       {props.children}
     </OutLineButton>
   );

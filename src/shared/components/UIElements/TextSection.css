@@ -1,6 +1,25 @@
-.section {
+.inverse {
+  color: white;
+}
+
+.normal p {
+  color: #696969;
+}
+
+
+/* center configue */
+.alignment-center {
   text-align: center;
-  color: black;
+}
+
+/* half-half on smaller screen */
+.alignment-half-half {
+  text-align: center;
+}
+.alignment-half-half img {
+  padding-top: 10%;
+  height: 50%;
+  width: 50%;
 }
 
 .content {
@@ -13,12 +32,10 @@
 
 .content h1 {
   margin: 0;
+  padding-bottom: 1rem;
 }
 
 .content p {
-  text-align: center;
-  color: #696969;
-  padding-top: 1rem;
   padding-bottom: 2rem;
   line-height: 2.2;
   font-size: 1rem;
@@ -28,4 +45,22 @@
   .content {
     max-width: 1150px;
   }
+
+  /* half half configue */
+  .alignment-half-half {
+    display: flex;
+    text-align: justify;
+  }
+  .alignment-half-half div {
+    padding-right: 6vw;
+  }
+
+  .alignment-half-half img {
+    padding-top: 0;
+    height: 100%;
+    width: 400px;
+  }
+
+
+  
 }
