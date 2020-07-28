@@ -5,7 +5,6 @@ import {
   withStyles
 } from "@material-ui/core/styles";
 import CardActionArea from '@material-ui/core/CardActionArea';
-import Grow from '@material-ui/core/Grow';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import './SupplierCard.css';
@@ -22,26 +21,20 @@ const MyCard = withStyles({
 
 
 
-
 const SupplierCard = props => {
   return (
-    <Grow 
-      in={true} 
-      style={{ transformOrigin: '0 0 0' }}
-      {...(!props.leader ? { timeout: 1000 } : {})} 
-    >
-      <MyCard>
-        <CardActionArea className="focus">
-          <CardMedia
-            style={{height: "420px",  backgroundSize: "cover"}}
-            image={props.image}
-          />
-          <CardContent className="content" style={{height: "7rem"}}>
-            {props.children}
-          </CardContent>
-        </CardActionArea>
-      </MyCard>  
-    </Grow>
+    <MyCard>
+      <CardActionArea className="focus" >
+        <CardMedia
+          style={{height: "420px",  backgroundSize: "cover"}}
+          image={props.imageURL}
+        />
+        <CardContent className="content" style={{height: "7rem"}}>
+          <h1>{props.heading}</h1>
+          <h3>Access Catalgoue Here</h3>
+        </CardContent>
+      </CardActionArea>
+    </MyCard>  
   );
 };
 

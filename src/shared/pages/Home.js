@@ -11,6 +11,23 @@ import winningSpirit from '../../images/winning-spirit.jpg';
 import jbWears from '../../images/jb-wear.jpg';
 
 
+const suppliers =  [
+  {
+    imageURL: bizCollection,
+    heading: "Biz Collection",
+  },
+  {
+    imageURL: winningSpirit,
+    heading: "Winning Spirit",
+  },
+  {
+    imageURL: jbWears,
+    heading: "JB Wears",
+  }
+];
+
+
+
 const Home = () => {
   return (
     <React.Fragment>
@@ -23,7 +40,7 @@ const Home = () => {
       <TextSection color="white">
         <h1> Our Suppliers </h1>
         <p> We source your uniforms from reputable suppliers only.</p>
-        <CardRow>
+        {/* <CardRow>
           <SupplierCard image={bizCollection}>
             <h1> Biz Collection </h1>
             <h3> Access Catalogue Here </h3>
@@ -36,7 +53,8 @@ const Home = () => {
             <h1> JB Wears </h1>
             <h3> Access Catalogue Here </h3>
           </SupplierCard>
-        </CardRow>
+        </CardRow> */}
+        <CardRow supplier={suppliers}></CardRow>
       </TextSection>
     </React.Fragment>
   )

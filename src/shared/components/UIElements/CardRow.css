@@ -5,6 +5,33 @@
   align-items: center;
 }
 
+
+
+.fade0-appear {
+  opacity: 0;
+}
+.fade0-appear.fade0-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms linear 500ms
+}
+.fade1-appear {
+  opacity: 0;
+}
+.fade1-appear.fade1-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms linear 1000ms
+}
+
+.fade2-appear {
+  opacity: 0;
+}
+.fade2-appear.fade2-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms linear 1500ms
+}
+
+
+
 @media (min-width: 1200px) {
   .card-row {
     display: flex;
