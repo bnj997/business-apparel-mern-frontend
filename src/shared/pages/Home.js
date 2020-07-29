@@ -3,7 +3,7 @@ import React from 'react';
 import Carousel from '../components/UIElements/Carousel';
 import TextSection from '../components/UIElements/TextSection';
 import MediumButton from '../components/FormElements/MediumButton'
-import SupplierRow from '../components/UIElements/SupplierRow';
+import CardRow from '../components/UIElements/CardRow';
 
 import bizCollection from '../../images/biz-collection.jpg';
 import winningSpirit from '../../images/winning-spirit.jpg';
@@ -39,7 +39,7 @@ const Home = () => {
       <TextSection type="center normal" >
         <h1> Our Suppliers </h1>
         <p> We source your uniforms from reputable suppliers only.</p>
-        <SupplierRow content={suppliers} type="supplier"></SupplierRow>
+        <CardRow content={suppliers} type="supplier"></CardRow>
       </TextSection>
     </React.Fragment>
   )

@@ -1,12 +1,25 @@
+.value-card {
+  width: 100%;
+}
+
 .value-card p {
   text-align: center;
   color: white;
 }
 
+.value-card svg {
+  font-size: 70px;
+}
+
+
 @media (min-width: 1200px) {
   .value-card {
     padding: 2%;
     width: 30%;
+  }
+
+  .value-card svg {
+    font-size: 5vw;
   }
 }
 

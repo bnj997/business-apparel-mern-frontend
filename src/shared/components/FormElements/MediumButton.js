@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  withStyles, withTheme
+  withStyles
 } from "@material-ui/core/styles";
 
 import './MediumButton.css';

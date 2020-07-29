@@ -1,0 +1,15 @@
+.slider {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.slick-prev:before{
+  color: grey !important;;
+}
+
+.slick-next:before{
+  color: grey !important;;
+}
+
+
+

@@ -1,15 +1,15 @@
 import React from 'react';
 import Jumbotron from '../components/UIElements/Jumbotron';
 
-const Clients = () => {
+const Team = () => {
   return (
     <React.Fragment>
       <Jumbotron 
-        heading="Our Partners" 
-        text="We would not be here without our loyal clients."
+        heading="Our Team" 
+        text="The behind the scenes of our operation"
       />
     </React.Fragment>
   );
 };
 
-export default Clients;
+export default Team;

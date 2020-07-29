@@ -1,9 +1,10 @@
 import React from 'react';
 import {
 } from "@material-ui/core/styles";
-import './SupplierRow.css';
+import './CardRow.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import SupplierCard from './SupplierCard';
+import ValueCard from './ValueCard';
 
 
 // var delay = 0;
@@ -25,8 +26,18 @@ import SupplierCard from './SupplierCard';
 // });
 
 
-const SupplierRow = props => {
+const CardRow = props => {
 
+  const Render = ({
+    elements,
+  }) => {
+    if (props.type === "supplier") {
+      return <SupplierCard {...elements}/>
+    } else if (props.type === "value")  {
+      return <ValueCard {...elements}/>
+    }
+  }
+  
   return (
     <TransitionGroup className="center">
       {props.content.map((item, index) => 
@@ -38,9 +49,7 @@ const SupplierRow = props => {
             //classNames={classes.fade}
             classNames={`fade${index}`}
           > 
-            <SupplierCard
-              {...item}
-            />       
+            <Render elements={item}/>       
 
           </CSSTransition> 
         )
@@ -50,4 +59,4 @@ const SupplierRow = props => {
   );
 };
 
-export default SupplierRow;
+export default CardRow;

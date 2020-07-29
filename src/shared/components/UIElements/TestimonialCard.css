@@ -1,0 +1,26 @@
+.testimonial-card {
+  background-color: grey;
+  margin: 1%;
+  font-size: 1.3rem;
+  width: 17rem;
+}
+
+.centered {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 1200px) {
+  .testimonial-card {
+    background-color: grey;
+    margin: 1%;
+    font-size: 1.3rem;
+    width: 20rem;
+  }
+
+  .centered {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+}
