@@ -5,6 +5,7 @@ import './CardRow.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import SupplierCard from './SupplierCard';
 import ValueCard from './ValueCard';
+import TeamCard from './TeamCard';
 
 
 // var delay = 0;
@@ -35,6 +36,8 @@ const CardRow = props => {
       return <SupplierCard {...elements}/>
     } else if (props.type === "value")  {
       return <ValueCard {...elements}/>
+    } else if (props.type === "team")  {
+      return <TeamCard {...elements}/>
     }
   }
   
