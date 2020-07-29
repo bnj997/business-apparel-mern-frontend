@@ -51,7 +51,8 @@
     display: flex;
     text-align: justify;
   }
-  .alignment-half-half div {
+
+  .alignment-half-half p {
     padding-right: 6vw;
   }
 

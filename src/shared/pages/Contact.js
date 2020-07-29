@@ -1,11 +1,15 @@
 import React from 'react';
+
 import Jumbotron from '../components/UIElements/Jumbotron';
+
 
 import MailIcon from '@material-ui/icons/Mail';
 import PhoneIcon from '@material-ui/icons/Phone';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
-
 import TextSection from '../components/UIElements/TextSection';
+import EnquiryForm from '../components/FormElements/EnquiryForm';
+
+
 
 const Contact = () => {
   return (
@@ -35,6 +39,7 @@ const Contact = () => {
         </div>
         <div>
           <h1> Shoot us a message </h1>
+          <EnquiryForm type="outlined" button="black"/>
         </div>
       </TextSection>
     </React.Fragment>

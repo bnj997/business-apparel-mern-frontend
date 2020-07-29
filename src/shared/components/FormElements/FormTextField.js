@@ -10,7 +10,7 @@ const FormTextField = ({placeholder, ...props}) => {
   return (
     <TextField className="field"
       error={!!errorText} 
-      variant="filled"
+      variant={props.variant}
       label={placeholder}
       multiline = {props.isMultiline}
       rows = {props.isMultiline && 5}

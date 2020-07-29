@@ -11,6 +11,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import Tom from '../../images/Tom.jpg';
+import EnquiryForm from '../components/FormElements/EnquiryForm';
 
 const values =  [
   {
@@ -64,7 +65,9 @@ const About = () => {
           <p> In the 1980’s, Tom Gilmour came to Australia with his young family from Scotland and could not believe his luck. A country where the sun shone, the children could play for extended hours outdoors and you had limitless opportunity. As a person with solid core values of integrity, honesty and hard work Tom set about creating a new life for his family and giving his children the opportunity to grow and prosper in this great country. Melbourne was the chosen home for its four seasons, sporting and cultural energy and the lifestyle it afforded. It was always Tom’s ambition to one day run his own company and after many years of working in the fashion, event management and business apparel sector, Tom set about to create a new business – one that would represent his commitment to client service and delivering quality - Business Apparel was formed in 2011.</p>
           <MediumButton>Our Services</MediumButton>
         </div>
-        <img src={Tom} alt="tom" /> 
+        <div>
+          <img src={Tom} alt="tom" /> 
+        </div>
       </TextSection>
       <TextSection type="center inverse" color="#323133">
         <h1> We have got you covered </h1>

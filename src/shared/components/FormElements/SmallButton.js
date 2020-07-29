@@ -8,12 +8,11 @@ import { Button} from "@material-ui/core";
 
 const InverseOutLineButton = withStyles({
   root: {
-    border: "1px solid white",
-    color: "white",
     display: "flex",
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: "1rem",  
+    fontSize: "1.1rem",
     "&:hover": {
       backgroundColor: "white",
       color: "black"
@@ -23,8 +22,9 @@ const InverseOutLineButton = withStyles({
 
 
 const SmallButton = props => {
+  //setColours(props.color);
   return (
-    <InverseOutLineButton disabled={props.isSubmitting} type="submit"> 
+    <InverseOutLineButton style={{color: `${props.color}`, border: `1px solid ${props.color}`}}disabled={props.isSubmitting} type="submit"> 
       {props.children}
     </InverseOutLineButton>
   );

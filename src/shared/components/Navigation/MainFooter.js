@@ -1,32 +1,12 @@
 import React from 'react';
-import { Formik, Form} from 'formik';
-import * as yup from 'yup';
 
 import FooterCard from '../UIElements/FooterCard';
 import MailIcon from '@material-ui/icons/Mail';
 import PhoneIcon from '@material-ui/icons/Phone';
 
 import NavLinks from './NavLinks';
-import SmallButton from '../FormElements/SmallButton'
-import FormTextField from '../FormElements/FormTextField';
 import './MainFooter.css';
-
-
-const validationSchema = yup.object({
-  name: yup
-    .string()
-    .required()
-    .max(15),
-  email: yup
-    .string()
-    .email()
-    .required(),
-  organisation: yup
-    .string()
-    .required()
-    .max(15)
-});
-
+import EnquiryForm from '../FormElements/EnquiryForm';
 
 
 const MainFooter = () => {
@@ -56,53 +36,7 @@ const MainFooter = () => {
       
       <FooterCard >
         <h2> Enquire Now </h2>
-
-        <Formik 
-          initialValues={{
-            name: "",
-            email: "",
-            organisation: "",
-            message: ""
-          }} 
-          validationSchema={validationSchema}
-          onSubmit={(data, {setSubmitting, resetForm}) =>  {
-            setSubmitting(true)
-            //make async call
-            console.log("submit: ", data); 
-            setSubmitting(false)
-            resetForm();
-          }}
-        >
-          {({values, errors, isSubmitting}) => (
-            <Form>
-              <FormTextField 
-                placeholder="Name:" 
-                name="name" 
-                type="input"
-              />
-              <FormTextField
-                placeholder="Email:" 
-                name="email" 
-                type="input" 
-              />
-               <FormTextField
-                placeholder="Your Organisation" 
-                name="organisation" 
-                type="input" 
-              />
-              <FormTextField
-                placeholder="Your Message:" 
-                name="message" 
-                type="input" 
-                isMultiline={true}
-              />
-              <div>
-                <SmallButton disabled={isSubmitting} type="submit">Submit</SmallButton>
-              </div>
-            </Form>
-          )}
-        </Formik>
-
+        <EnquiryForm type="filled" button="white" />
       </FooterCard>
     </div >
   );
