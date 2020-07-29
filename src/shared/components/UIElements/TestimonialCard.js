@@ -1,9 +1,6 @@
 import React from 'react';
 
 import { Card } from '@material-ui/core';
-import {
-  withStyles
-} from "@material-ui/core/styles";
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import './TestimonialCard.css';

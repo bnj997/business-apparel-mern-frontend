@@ -1,32 +1,46 @@
 import React from 'react';
 import {
-  withStyles
+  makeStyles
 } from "@material-ui/core/styles";
 
 import './SmallButton.css';
 import { Button} from "@material-ui/core";
 
-const InverseOutLineButton = withStyles({
-  root: {
+const useStyles = makeStyles({
+  buttonType: {
+    border: inputs => `1px solid ${inputs.mainColor}`,
+    color: inputs => inputs.mainColor,
     display: "flex",
     marginLeft: "auto",
     marginRight: "auto",
     marginTop: "1rem",  
     fontSize: "1.1rem",
     "&:hover": {
-      backgroundColor: "white",
-      color: "black"
+      backgroundColor: inputs => inputs.mainColor,
+      color: inputs => inputs.inverseColor,
     }
   }
-})(Button);
+});
 
+function findInverse(color) {
+  if (color === "black") {
+    return "white";
+  } else {
+    return "black";
+  }
+}
 
 const SmallButton = props => {
-  //setColours(props.color);
+  const inputs = { mainColor: props.color, inverseColor: findInverse(props.color) }
+  const classes = useStyles(inputs);
   return (
-    <InverseOutLineButton style={{color: `${props.color}`, border: `1px solid ${props.color}`}}disabled={props.isSubmitting} type="submit"> 
+    <Button 
+      className={classes.buttonType} 
+      disabled={props.isSubmitting} 
+      type="submit"
+    > 
       {props.children}
-    </InverseOutLineButton>
+    </Button>
   );
 };
 

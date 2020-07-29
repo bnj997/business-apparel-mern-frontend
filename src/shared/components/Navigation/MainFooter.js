@@ -1,9 +1,7 @@
 import React from 'react';
 
 import FooterCard from '../UIElements/FooterCard';
-import MailIcon from '@material-ui/icons/Mail';
-import PhoneIcon from '@material-ui/icons/Phone';
-
+import Details from '../UIElements/Details';
 import NavLinks from './NavLinks';
 import './MainFooter.css';
 import EnquiryForm from '../FormElements/EnquiryForm';
@@ -24,14 +22,7 @@ const MainFooter = () => {
 
       <FooterCard >
         <h2>Get in Touch </h2>
-        <div style={{display: 'flex',alignItems: 'center'}}>
-          <MailIcon />
-          <p style={{marginLeft: "1rem"}}> info@businessapparel.com </p>
-        </div>
-        <div style={{display: 'flex',alignItems: 'center'}}>
-          <PhoneIcon />
-          <p style={{marginLeft: "1rem"}}> +61400 000 000 </p>
-        </div>
+        <Details />
       </FooterCard>
       
       <FooterCard >

@@ -11,7 +11,6 @@ import WorkIcon from '@material-ui/icons/Work';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 import Tom from '../../images/Tom.jpg';
-import EnquiryForm from '../components/FormElements/EnquiryForm';
 
 const values =  [
   {

@@ -4,7 +4,6 @@ import { Formik, Form} from 'formik';
 import * as yup from 'yup';
 import FormTextField from './FormTextField';
 import SmallButton from './SmallButton';
-import MediumButton from './MediumButton'
 import './EnquiryForm.css';
 
 const validationSchema = yup.object({

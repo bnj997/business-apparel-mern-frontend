@@ -1,0 +1,16 @@
+.detail-section div {
+  display: flex;
+  align-items: center;
+}
+
+.detail-section p {
+  margin-left: 1rem;
+  padding-bottom: 0rem;
+}
+  
+
+
+@media (min-width: 1200px) {
+
+
+}
