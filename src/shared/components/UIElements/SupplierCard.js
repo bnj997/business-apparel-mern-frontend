@@ -29,7 +29,7 @@ const SupplierCard = props => {
           style={{height: "420px",  backgroundSize: "cover"}}
           image={props.imageURL}
         />
-        <CardContent className="content" style={{height: "7rem"}}>
+        <CardContent className="content">
           <h1>{props.heading}</h1>
           <h3>Access Catalgoue Here</h3>
         </CardContent>
