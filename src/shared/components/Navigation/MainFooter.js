@@ -27,7 +27,7 @@ const MainFooter = () => {
       
       <FooterCard >
         <h2> Enquire Now </h2>
-        <EnquiryForm type="filled" button="white" />
+        <EnquiryForm type="filled" button="black" />
       </FooterCard>
     </div >
   );

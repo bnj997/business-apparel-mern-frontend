@@ -8,16 +8,21 @@ import { Button} from "@material-ui/core";
 
 const useStyles = makeStyles({
   buttonType: {
-    border: inputs => `1px solid ${inputs.mainColor}`,
-    color: inputs => inputs.mainColor,
+    border: inputs => `1px solid ${inputs.inverseColor}`,
+    color: inputs => inputs.inverseColor,
+    backgroundColor: inputs => inputs.mainColor,
     display: "flex",
     marginLeft: "auto",
+
+    width: inputs => inputs.width,
+    padding: "1%",
+
     marginRight: "auto",
     marginTop: "1rem",  
     fontSize: "1.1rem",
     "&:hover": {
-      backgroundColor: inputs => inputs.mainColor,
-      color: inputs => inputs.inverseColor,
+      backgroundColor: inputs => inputs.inverseColor,
+      color: inputs => inputs.mainColor,
     }
   }
 });
@@ -31,7 +36,11 @@ function findInverse(color) {
 }
 
 const SmallButton = props => {
-  const inputs = { mainColor: props.color, inverseColor: findInverse(props.color) }
+  const inputs = { 
+    width: props.width,
+    mainColor: props.color, 
+    inverseColor: findInverse(props.color) 
+  }
   const classes = useStyles(inputs);
   return (
     <Button 

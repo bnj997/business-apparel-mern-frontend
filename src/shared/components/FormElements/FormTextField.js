@@ -12,8 +12,10 @@ const FormTextField = ({placeholder, ...props}) => {
       error={!!errorText} 
       variant={props.variant}
       label={placeholder}
+      type={props.type}
       multiline = {props.isMultiline}
       rows = {props.isMultiline && 5}
+      style= {{width: `${props.width}`, marginTop: `${props.spacing}`, backgroundColor: `${props.color}`  }}
       {...field} 
       helperText = {errorText} 
     />
