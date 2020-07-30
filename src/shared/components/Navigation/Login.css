@@ -2,10 +2,27 @@
   font-weight: bold;
 }
 
+.plogout__modal-actions {
+  text-align: right;
+}
+
+.logout__actions button,
+.logout__actions a {
+  margin: 0.5rem;
+}
+
 .login a:hover,
 .login a:active,
 .login a.active {
   background: #000000;
   border-color: #000000;
   color: #ffffff;
+}
+
+.login-buttons {
+  border: 1px solid black;
+  color: "white";
+  background-color: "black";
+  display: flex;
+  margin-left: auto;
 }

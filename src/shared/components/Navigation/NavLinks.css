@@ -72,17 +72,14 @@
   padding: 0.5rem;
 }
 
-.nav-links a:hover,
-.nav-links a:active,
-.nav-links a.active {
+.nav-links a:hover {
   opacity: 0.6;
   transition: 1s;
 }
 
 .nav-links button {
   cursor: pointer;
-  border: 1px solid #292929;
-  color: #292929;
+  color: white;
   background: transparent;
   padding: 0.5rem;
   font: inherit;
@@ -92,11 +89,6 @@
   outline: none;
 }
 
-.nav-links button:hover,
-.nav-links button:active {
-  background: #292929;
-  color: white;
-}
 
 @media (min-width: 1200px) {
 
@@ -115,4 +107,6 @@
     color: white;
     text-decoration: none;
   }
+
+
 }

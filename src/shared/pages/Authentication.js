@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext} from 'react';
 
 import TextSection from '../components/UIElements/TextSection';
 import LoginCard from '../../shared/components/UIElements/LoginCard';
 
 import { Formik, Form} from 'formik';
+import { AuthContext } from '../../shared/context/auth-context';
 import * as yup from 'yup';
 import FormTextField from '../components/FormElements/FormTextField';
 import SmallButton from '../components/FormElements/SmallButton';
@@ -22,6 +23,9 @@ const validationSchema = yup.object({
 
 
 const Authentication = () => {
+
+  const auth = useContext(AuthContext)
+
   return (
     <React.Fragment>
       <TextSection type="center normal" color="#404040" >
@@ -34,12 +38,13 @@ const Authentication = () => {
               password: "",
             }} 
             validationSchema={validationSchema}
+
             onSubmit={(data, {setSubmitting, resetForm}) =>  {
               setSubmitting(true)
               //make async call
-              console.log("submit: ", data); 
               setSubmitting(false)
               resetForm();
+              auth.login();
             }}
           >
             {({values, errors, isSubmitting}) => (

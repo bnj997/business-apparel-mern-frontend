@@ -46,7 +46,7 @@ const SmallButton = props => {
     <Button 
       className={classes.buttonType} 
       disabled={props.isSubmitting} 
-      type="submit"
+      type={props.type}
     > 
       {props.children}
     </Button>

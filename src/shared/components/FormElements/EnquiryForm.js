@@ -75,7 +75,7 @@ const EnquiryForm = props => {
             color="white"
           />
           <div>
-            <SmallButton disabled={isSubmitting} type="submit" color={props.button} width="10rem">Send form</SmallButton>
+            <SmallButton disabled={isSubmitting} type="submit" color={props.button} width="10rem" >Send form</SmallButton>
           </div>
         </Form>
       )}
