@@ -106,9 +106,6 @@ const SideDrawerDash = props => {
           >
             <MenuIcon />
           </IconButton>
-          <h1 style={{marginLeft: "3rem"}}>
-            Business Apparel Dashboard
-          </h1>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
