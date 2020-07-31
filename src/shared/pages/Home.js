@@ -12,8 +12,6 @@ import CardRow from '../components/UIElements/CardRow';
 import bizCollection from '../../images/biz-collection.jpg';
 import winningSpirit from '../../images/winning-spirit.jpg';
 import jbWears from '../../images/jb-wear.jpg';
-import Authentication from './Authentication';
-
 
 const suppliers =  [
   {

@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {Suspense, lazy, useState, useCallback} from 'react';
 import { 
   BrowserRouter as Router, 
   Route, 
@@ -6,12 +6,7 @@ import {
   Switch 
 } from 'react-router-dom';
 
-import Home from './shared/pages/Home';
-import About from './shared/pages/About';
-import Team from './shared/pages/Team';
-import Contact from './shared/pages/Contact';
-import Dashboard from './admin/pages/Dashboard';
-import Authentication from './shared/pages/Authentication';
+
 import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
@@ -25,43 +20,51 @@ const App = () => {
 
   let routes;
 
+  const Home = lazy(() => import('./shared/pages/Home'));
+  const About = lazy(() => import('./shared/pages/About'));
+  const Team = lazy(() => import('./shared/pages/Team'));
+  const Contact = lazy(() => import('./shared/pages/Contact'));
+  const Dashboard = lazy(() => import('./admin/pages/Dashboard'));
+  const Authentication = lazy(() => import('./shared/pages/Authentication'));
+
+
   if (isLoggedIn) {
     routes = (
       <Switch>
-        <Route path="/" exact> 
+        <Route path="/" component={Home} exact> 
           <Home />
         </Route>
-        <Route path="/about" exact> 
+        <Route path="/about" component={About} exact> 
           <About />
         </Route>
-        <Route path="/team" exact> 
+        <Route path="/team" component={Team} exact> 
           <Team />
         </Route>
-        <Route path="/contact" exact> 
+        <Route path="/contact" component={Contact} exact> 
           <Contact />
         </Route>
-        <Route path="/:userId/dashboard" exact> 
+        <Route path="/:userId/dashboard" component={Dashboard} exact> 
           <Dashboard />
         </Route>
-        <Redirect to="/" />
+        <Redirect to="/" component={Home} />
       </Switch>
     );  
   } else {
     routes = (
       <Switch>
-        <Route path="/" exact> 
+        <Route path="/" component={Home} exact> 
           <Home />
         </Route>
-        <Route path="/about" exact> 
+        <Route path="/about" component={About} exact> 
           <About />
         </Route>
-        <Route path="/team" exact> 
+        <Route path="/team" component={Team} exact> 
           <Team />
         </Route>
-        <Route path="/contact" exact> 
+        <Route path="/contact" component={Contact} exact> 
           <Contact />
         </Route>
-        <Route path="/login" exact> 
+        <Route path="/login" component={Authentication} exact> 
           <Authentication />
         </Route>
         <Redirect to="/" />
@@ -79,7 +82,9 @@ const App = () => {
       }}
     >
       <Router>
-        {routes}
+        <Suspense fallback={<div>Loading...</div>}>
+          {routes}
+        </Suspense>
       </Router>
     </AuthContext.Provider>
   );
