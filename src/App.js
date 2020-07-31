@@ -11,19 +11,14 @@ import About from './shared/pages/About';
 import Team from './shared/pages/Team';
 import Contact from './shared/pages/Contact';
 import Dashboard from './admin/pages/Dashboard';
-import MainNavigation from './shared/components/Navigation/MainNavigation';
-import MainFooter from './shared/components/Navigation/MainFooter';
-import SecondaryFooter from './shared/components/Navigation/SecondaryFooter';
 import Authentication from './shared/pages/Authentication';
 import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
   const login = useCallback(()=>{
     setIsLoggedIn(true);
   }, [])
-
   const logout = useCallback(()=>{
     setIsLoggedIn(false);
   }, [])
@@ -50,7 +45,7 @@ const App = () => {
         </Route>
         <Redirect to="/" />
       </Switch>
-    ); 
+    );  
   } else {
     routes = (
       <Switch>
@@ -74,6 +69,7 @@ const App = () => {
     );
   }
 
+
   return (
     <AuthContext.Provider
       value={{
@@ -83,14 +79,8 @@ const App = () => {
       }}
     >
       <Router>
-        <MainNavigation />
-        <main>
-          {routes}
-        </main>
-        <MainFooter />
-        <SecondaryFooter />
+        {routes}
       </Router>
-      
     </AuthContext.Provider>
   );
 };

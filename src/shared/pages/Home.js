@@ -1,5 +1,9 @@
 import React from 'react';
 
+import MainNavigation from '../components/Navigation/MainNavigation';
+import MainFooter from '../components/Navigation/MainFooter';
+import SecondaryFooter from '../components/Navigation/SecondaryFooter';
+
 import Carousel from '../components/UIElements/Carousel';
 import TextSection from '../components/UIElements/TextSection';
 import MediumButton from '../components/FormElements/MediumButton'
@@ -8,6 +12,7 @@ import CardRow from '../components/UIElements/CardRow';
 import bizCollection from '../../images/biz-collection.jpg';
 import winningSpirit from '../../images/winning-spirit.jpg';
 import jbWears from '../../images/jb-wear.jpg';
+import Authentication from './Authentication';
 
 
 const suppliers =  [
@@ -30,6 +35,7 @@ const suppliers =  [
 const Home = () => {
   return (
     <React.Fragment>
+      <MainNavigation />
       <Carousel />
       <TextSection type="center normal" color="#F5F5F5">
         <h1> Our Story</h1>
@@ -41,6 +47,8 @@ const Home = () => {
         <p> We source your uniforms from reputable suppliers only.</p>
         <CardRow content={suppliers} type="supplier"></CardRow>
       </TextSection>
+      <MainFooter />
+      <SecondaryFooter />
     </React.Fragment>
   )
 };

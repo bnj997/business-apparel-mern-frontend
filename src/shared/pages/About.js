@@ -1,5 +1,9 @@
 import React from 'react';
 
+import MainNavigation from '../components/Navigation/MainNavigation';
+import MainFooter from '../components/Navigation/MainFooter';
+import SecondaryFooter from '../components/Navigation/SecondaryFooter';
+
 import Jumbotron from '../components/UIElements/Jumbotron';
 import TextSection from '../components/UIElements/TextSection';
 import MediumButton from '../components/FormElements/MediumButton'
@@ -54,6 +58,7 @@ const testimonials =  [
 const About = () => {
   return (
     <React.Fragment>
+      <MainNavigation />
       <Jumbotron 
         heading="About Us" 
         text="Learn more about our history and services"
@@ -78,6 +83,8 @@ const About = () => {
         <p> Don't just listen to us; hear what our clients have to say! </p>
         <Slider content={testimonials}></Slider> 
       </TextSection>
+      <MainFooter />
+      <SecondaryFooter />
     </React.Fragment>
   );
 };

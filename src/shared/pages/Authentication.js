@@ -1,5 +1,9 @@
 import React, { useContext} from 'react';
 
+import MainNavigation from '../components/Navigation/MainNavigation';
+import MainFooter from '../components/Navigation/MainFooter';
+import SecondaryFooter from '../components/Navigation/SecondaryFooter';
+
 import TextSection from '../components/UIElements/TextSection';
 import LoginCard from '../../shared/components/UIElements/LoginCard';
 
@@ -28,6 +32,7 @@ const Authentication = () => {
 
   return (
     <React.Fragment>
+      <MainNavigation />
       <TextSection type="center normal" color="#404040" >
         <LoginCard>
           <h1 style={{marginTop: "5%"}}> Log in </h1>
@@ -75,6 +80,8 @@ const Authentication = () => {
           </Formik>
         </LoginCard>
       </TextSection>
+      <MainFooter />
+      <SecondaryFooter />
     </React.Fragment>
   );
 };

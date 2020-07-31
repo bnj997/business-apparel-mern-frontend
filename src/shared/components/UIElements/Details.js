@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 
 import './Details.css';
 import MailIcon from '@material-ui/icons/Mail';

@@ -1,0 +1,57 @@
+.table-center {
+  margin-left: 3rem;
+  margin-right: 3rem;
+  padding-top: 2% ;
+}
+
+.makeStyles-content-5 .MuiGrid-item {
+  margin-top: 3rem;
+}
+
+.MuiToolbar-root h6 {
+  padding-left: 1rem;
+  margin-top: 3%;
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.MuiPaper-root table {
+  margin-top: 1%;
+  width: 96%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.MuiPaper-root .MuiTableCell-head {
+  background-color: #EBEBEB;
+}
+
+.MuiTableRow-root td:nth-child(2) {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.MuiTableCell-head span{
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
+/* .MuiTableCell-head .MuiButtonBase-root svg{
+  color: white !important;
+} */
+
+/* .MuiTableCell-head .MUIDataTableHeadCell-sortActive-85 {
+  color: white;
+} */
+
+.MuiTableBody-root td{
+  font-size: 1.1rem;
+}
+
+.MuiTableCell-footer .MuiTablePagination-root {
+  margin-left: auto;
+  margin-right: auto;
+}
+

@@ -1,6 +1,10 @@
 import React from 'react';
 import Jumbotron from '../components/UIElements/Jumbotron';
 
+import MainNavigation from '../components/Navigation/MainNavigation';
+import MainFooter from '../components/Navigation/MainFooter';
+import SecondaryFooter from '../components/Navigation/SecondaryFooter';
+
 import TextSection from '../components/UIElements/TextSection';
 import CardRow from '../components/UIElements/CardRow';
 
@@ -35,6 +39,7 @@ const team =  [
 const Team = () => {
   return (
     <React.Fragment>
+      <MainNavigation />
       <Jumbotron 
         heading="Our Team" 
         text="The behind the scenes of our operation"
@@ -42,6 +47,8 @@ const Team = () => {
       <TextSection type="center normal" >
         <CardRow content={team} type="team"></CardRow> 
       </TextSection>
+      <MainFooter />
+      <SecondaryFooter />
     </React.Fragment>
   );
 };

@@ -11,8 +11,8 @@
   z-index: 5;
 }
 
-main {
-  margin-top: 7rem;
+.main {
+  margin-bottom: 7rem;
 }
 
 /* Below code runs until window below 768px */
@@ -21,7 +21,7 @@ main {
     justify-content: center;
   }
 
-  main {
-    margin-top: 9rem;
+  .main {
+    margin-bottom: 9rem;
   }
 }

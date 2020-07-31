@@ -1,5 +1,6 @@
 .slide img {
   height: 50%;
+  margin-top: 7rem;
 }
 
 @media (min-width: 1200px) {
@@ -8,6 +9,7 @@
     object-fit: fill;
     width: auto;
     height: 30vw;
+    margin-top: 9rem;
   }
 
 }

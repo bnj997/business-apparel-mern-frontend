@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+
+
 import Modal from '../UIElements/Modal'
-import SmallButton from '../FormElements/SmallButton';
 import { Button} from "@material-ui/core";
 import {AuthContext} from '../../context/auth-context';
 import './Login.css';
