@@ -1,11 +1,11 @@
 .table-center {
-  margin-left: 3rem;
-  margin-right: 3rem;
-  padding-top: 2% ;
+  margin-top: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .makeStyles-content-5 .MuiGrid-item {
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
 
 .MuiToolbar-root h6 {
@@ -25,7 +25,7 @@
 
 
 .MuiPaper-root .MuiTableCell-head {
-  background-color: #EBEBEB;
+  background-color: #D9D9D9;
 }
 
 .MuiTableRow-root td:nth-child(2) {
@@ -37,6 +37,12 @@
   font-weight: bold;
   font-size: 1.0rem;
 }
+
+.MuiTableBody-root tr:nth-child(2n) {
+  background-color: #F5F5F5;
+}
+
+
 
 /* .MuiTableCell-head .MuiButtonBase-root svg{
   color: white !important;
@@ -53,5 +59,13 @@
 .MuiTableCell-footer .MuiTablePagination-root {
   margin-left: auto;
   margin-right: auto;
+}
+
+@media (min-width: 960px) {
+  .table-center {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-top: 5rem;
+  }
 }
 

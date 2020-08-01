@@ -2,11 +2,8 @@ import React from 'react'
 
 import './OrderTable.css';
 import Grid from '@material-ui/core/Grid';
-import { Button} from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 
-import MUIDataTable from "mui-datatables";
+import MaterialTable from 'material-table'
 
 
 const columns = [
@@ -33,34 +30,6 @@ const columns = [
   {
     name: "requirements",
     label: "Requirements",
-  },
-  {
-    name: "actions",
-    label: "Actions",
-    options: {
-      customBodyRender: (value, tableMeta, updateValue) => {
-        return (
-          <React.Fragment>
-            <Button
-              variant="contained"
-              color="default"
-              startIcon={<EditIcon />}
-              style={{margin: "0"}}
-            >
-              Edit
-            </Button>
-            <Button
-              variant="contained"
-              color="default"
-              startIcon={<DeleteIcon />}
-              style={{margin: "0"}}
-            >
-              delete
-            </Button>
-          </React.Fragment>
-        )
-      }
-    }
   }
 ]
 
@@ -190,23 +159,45 @@ const orders =  [
 
 
 
-const OrderTable = props => {
-  const options = {
-    tableBodyHeight: props.height,
-    rowsPerPage: 10,
-    // onRowClick: (rowData, rowMeta) => {
-    //   console.log("----RowClick");
-    //   console.log("rowData: ", rowData);
-    // }
-  };
+const OrderTableNew = props => {
+  // const options = {
+  //   tableBodyHeight: props.height,
+  //   responsive: 'stacked',
+  //   filterType: 'checkbox',
+  //   rowsPerPage: 15,
+  // };
   return (
-    <MUIDataTable
-      className="table-center"
-      data={orders}
-      columns={columns}
-      options={options}
-    />
-  );
+    <div style={{ maxWidth: '100%' }}>
+      <MaterialTable
+        title="Actions On Selected Rows Preview"
+        columns={[
+          { title: 'Name', field: 'name' },
+          { title: 'Surname', field: 'surname' },
+          { title: 'Birth Year', field: 'birthYear', type: 'numeric' },
+          {
+            title: 'Birth Place',
+            field: 'birthCity',
+            lookup: { 34: 'İstanbul', 63: 'Şanlıurfa' },
+          },
+        ]}
+        data={[
+          { name: 'Mehmet', surname: 'Baran', birthYear: 1987, birthCity: 63 },
+          { name: 'Zerya Betül', surname: 'Baran', birthYear: 2017, birthCity: 34 },
+        ]}        
+        options={{
+          selection: true
+        }}
+        actions={[
+          {
+            tooltip: 'Remove All Selected Users',
+            icon: 'delete',
+            onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+          }
+        ]}
+      />
+    </div>
+  )
+
 }
 
-export default OrderTable;
+export default OrderTableNew;

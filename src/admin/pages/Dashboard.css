@@ -1,0 +1,18 @@
+.dashboard {
+  display: grid;
+  grid-template: auto 1fr auto / auto 1fr auto;
+}
+
+.two-side {
+  display: grid;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(auto-fit, minmax(375px, 100%));
+}
+
+@media (min-width: 960px) {
+  .two-side {
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(700px, 1fr));
+  }
+}
