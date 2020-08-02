@@ -11,9 +11,11 @@ import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
+
   const login = useCallback(()=>{
     setIsLoggedIn(true);
   }, [])
+
   const logout = useCallback(()=>{
     setIsLoggedIn(false);
   }, [])
@@ -26,7 +28,6 @@ const App = () => {
   const Contact = lazy(() => import('./shared/pages/Contact'));
   const Dashboard = lazy(() => import('./admin/pages/Dashboard'));
   const Authentication = lazy(() => import('./shared/pages/Authentication'));
-
 
   if (isLoggedIn) {
     routes = (
