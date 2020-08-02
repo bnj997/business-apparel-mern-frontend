@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: drawerWidth,
     },
     backgroundColor: "black",
+    
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -105,6 +106,7 @@ const SideDrawerDash = props => {
           >
             <MenuIcon />
           </IconButton>
+          <h1> Hello </h1>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
