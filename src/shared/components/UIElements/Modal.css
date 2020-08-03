@@ -58,7 +58,7 @@
 @media (min-width: 1200px) {
   .modal {
     height: 80vh;
-    overflow: auto;
+    overflow: hidden;
     /* left: calc(50% - 20rem);
     width: 40rem;  */
     left: calc(50% - 37.5rem);

@@ -6,17 +6,19 @@ import { Button } from "@material-ui/core";
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
+import { useForm } from '../../../shared/components/hooks/form-hook';
 
 import * as yup from 'yup';
 import FormTextField from '../../../shared/components/FormElements/FormTextField';
 import FormRadio from '../../../shared/components/FormElements/FormRadio';
 import FormCheckbox from '../../../shared/components/FormElements/FormCheckbox';
 import Modal from '../../../shared/components/UIElements/Modal';
+import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 
 
 const validationSchema = yup.object({
   garmentImg: yup
-    .string()
+    .mixed()
     .required(),
   name: yup
     .string()
@@ -71,35 +73,37 @@ const GarmentModal = props => {
 
       <Formik 
         initialValues={{
-          garmentImg: "",
+          garmentImg: null,
           name: "",
           styleNum: "",
           price: "",
           category: "",
           supplier: "Biz Collection",
           description: "",
-          colours: [""],
-          sizes: []
+          colours: ["Black", "Navy"],
+          sizes: ["N/A"]
 
         }} 
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
           setSubmitting(true)
           console.log("submit: ", data); 
+
+
+
           //make async call
           props.onAdd(data)
           setSubmitting(false)
           resetForm();
         }}
       >
-        {({values, errors, isSubmitting}) => (
+        {({values, errors, setFieldValue, isSubmitting}) => (
         <Form >
           <div style={{display: "flex", flexWrap: "wrap"}}>
-            <div style={{flex: "1 1 500px", margin: "1%" }}>
-              <FormTextField 
-                placeholder="Image:" 
-                name="garmentImg" 
-                type="input"
+            <div style={{flex: "1 1 300px", margin: "1%" }}>
+              <FormLabel component="legend" style={{marginBottom: "1rem"}}>Garment Image</FormLabel>
+              <ImageUpload
+                name="garmentImg"
               />
               <FormTextField 
                 placeholder="Name:" 
@@ -130,7 +134,7 @@ const GarmentModal = props => {
               />
           
             </div>
-            <div style={{flex: "1 1 500px", margin: "1%" }}>
+            <div style={{flex: "1 1 300px", margin: "1rem 1% 1% 1%" }}>
               <FormLabel component="legend">Supplier</FormLabel>
                 <RadioGroup row aria-label="gender" name="gender1" style={{paddingBottom: "3%", display: "flex", justifyContent: "space-between"}}>
                   <FormRadio
@@ -156,13 +160,13 @@ const GarmentModal = props => {
                   />
                 </RadioGroup >
 
-              <FormLabel component="legend" style={{paddingTop: "3%", paddingBottom: "1rem"}}>Sizes</FormLabel>
+              <FormLabel component="legend" style={{paddingTop: "2rem", paddingBottom: "1rem"}}>Sizes</FormLabel>
                 <div style={{display: "flex", justifyContent: "space-between"}}>
                   <Button variant="contained" onClick={() => setType(sizes1)}> N/A - 7XL</Button>
                   <Button variant="contained" onClick={() => setType(sizes2)}> 8 - 30</Button>
                   <Button variant="contained" onClick={() => setType(sizes3)}> 72R - 137R</Button>
                 </div>
-                <FormGroup row  style={{paddingTop: "2rem"}}>
+                <FormGroup row  style={{paddingTop: "1rem"}}>
                   {sizeType.map(function(item, i) {
                     return (
                     <FormCheckbox
@@ -176,7 +180,7 @@ const GarmentModal = props => {
                   })}
                 </FormGroup>
 
-              <FormLabel component="legend" style={{paddingTop: "3.5%", paddingBottom: "3%"}}>Colours</FormLabel>
+              <FormLabel component="legend" style={{paddingTop: "2rem"}}>Colours</FormLabel>
               <FieldArray name="colours">
                 {({ push, remove }) => (
                   <div>
@@ -204,7 +208,7 @@ const GarmentModal = props => {
                 )}
               </FieldArray>
             
-              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+              <pre>{JSON.stringify(values, null, 2)}</pre>
             </div>
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>Submit</Button>
           </div>
