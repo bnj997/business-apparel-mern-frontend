@@ -5,8 +5,8 @@
   /* top: 22vh;
   left: 10%; 
   width: 80%;  */
-  height: 70vh;
-  top: 17vh;
+  height: 75vh;
+  top: 10vh;
   left: 10%;
   width: 80%;
   background: white;
@@ -26,7 +26,6 @@
 }
 
 .modal__content {
-  text-align: center;
   /*padding: 1rem 5.5rem; */
   padding: 1rem 2.5rem;
 }
@@ -62,8 +61,8 @@
     overflow: auto;
     /* left: calc(50% - 20rem);
     width: 40rem;  */
-    left: calc(50% - 40rem);
-    width: 80rem;
+    left: calc(50% - 37.5rem);
+    width: 75rem;
   }
 }
 

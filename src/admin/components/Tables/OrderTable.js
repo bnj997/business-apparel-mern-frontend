@@ -4,7 +4,6 @@ import './OrderTable.css';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Garment from '../Forms/Garment';
 
 import MUIDataTable from "mui-datatables";
 import Modal from '../../../shared/components/UIElements/Modal';
@@ -130,7 +129,7 @@ const OrderTable = props => {
           </React.Fragment>
         }
       >
-        <Garment />
+        {/* <Garment /> */}
       </Modal>
       <MUIDataTable
         title={"Orders"}

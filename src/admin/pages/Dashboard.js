@@ -6,7 +6,7 @@ import SideDrawerDash from '../components/SideDrawerDash';
 import OrderTable from '../components/Tables/OrderTable';
 import GarmentTable from '../components/Tables/GarmentTable';
 import './Dashboard.css';
-import Garment from '../components/Forms/Garment';
+
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {

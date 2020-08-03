@@ -2,13 +2,11 @@ import React, {useState} from 'react'
 
 import './OrderTable.css';
 import { Button} from "@material-ui/core";
-import { garments } from '../Tables/garmentsData';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Garment from '../Forms/Garment';
+import GarmentModal from '../Forms/GarmentModal';
 
 import MUIDataTable from "mui-datatables";
-import Modal from '../../../shared/components/UIElements/Modal';
 
 
 const columns = [
@@ -85,17 +83,23 @@ const columns = [
 
 
 const GarmentTable = props => {
+
+  const [garments, setGarment] = useState([]);
+
+  function addGarment(newGarment) {
+    setGarment(prevGarments => {
+      return [...prevGarments, newGarment];
+    });
+  }
+
+
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   function showWarning() {
     setShowConfirmModal(true)
   }
-  function cancelLogout() {
-    setShowConfirmModal(false)
-  }
 
-  function confirmLogout() {
-    
+  function cancelLogout() {
     setShowConfirmModal(false)
   }
 
@@ -126,7 +130,7 @@ const GarmentTable = props => {
   };
   return (
     <React.Fragment>
-      <Modal 
+      {/* <Modal 
         show={showConfirmModal}
         onCancel={cancelLogout}
         header="Add new Entry?" 
@@ -137,9 +141,15 @@ const GarmentTable = props => {
             <Button danger onClick={confirmLogout}> CANCEL </Button>
           </React.Fragment>
         }
-      >
-        <Garment />
-      </Modal>
+      > */}
+
+        <GarmentModal 
+          show={showConfirmModal}
+          onAdd={addGarment}
+          onCancel={cancelLogout}
+        />
+
+      {/* </Modal> */}
       <MUIDataTable
         title={"Garments"}
         className="table-center"
