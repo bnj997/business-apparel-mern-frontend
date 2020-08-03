@@ -46,24 +46,18 @@ const EnquiryForm = props => {
             name="name" 
             type="input"
             variant={props.type}
-            width="100%"
-            color="white"
           />
           <FormTextField
             placeholder="Email:" 
             name="email" 
             type="input" 
             variant={props.type}
-            width="100%"
-            color="white"
           />
           <FormTextField
             placeholder="Your Organisation" 
             name="organisation" 
             type="input" 
             variant={props.type}
-            width="100%"
-            color="white"
           />
           <FormTextField
             placeholder="Your Message:" 
@@ -71,8 +65,6 @@ const EnquiryForm = props => {
             type="input" 
             variant={props.type}
             isMultiline={true}
-            width="100%"
-            color="white"
           />
           <div>
             <SmallButton disabled={isSubmitting} type="submit" color={props.button} width="10rem" >Send form</SmallButton>

@@ -1,7 +1,12 @@
 .modal {
-  z-index: 100;
+  z-index: 500;
   position: fixed;
-  top: 22vh;
+  overflow: scroll;
+  /* top: 22vh;
+  left: 10%; 
+  width: 80%;  */
+  height: 70vh;
+  top: 17vh;
   left: 10%;
   width: 80%;
   background: white;
@@ -22,7 +27,8 @@
 
 .modal__content {
   text-align: center;
-  padding: 1rem 5.5rem;
+  /*padding: 1rem 5.5rem; */
+  padding: 1rem 2.5rem;
 }
 
 .modal__footer {
@@ -50,10 +56,14 @@
   color: black;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .modal {
-    left: calc(50% - 20rem);
-    width: 40rem;
+    height: 80vh;
+    overflow: auto;
+    /* left: calc(50% - 20rem);
+    width: 40rem;  */
+    left: calc(50% - 40rem);
+    width: 80rem;
   }
 }
 
