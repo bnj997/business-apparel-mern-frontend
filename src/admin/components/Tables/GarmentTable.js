@@ -11,26 +11,28 @@ import MUIDataTable from "mui-datatables";
 
 const GarmentTable = props => {
   
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [info, setInfo] = useState(undefined);
+  const [rowData, setRowData] = useState([null, "", "", "", "", "Biz Collection", "", [], ["N/A"]]);
 
-  function showWarning() {
-    setShowConfirmModal(true)
+
+  function showModal() {
+    setShowAddEditModal(true)
   }
-  
+
+  function exitModal() {
+    setRowData("")
+    setIsEditing(false)
+    setShowAddEditModal(false)
+  }
+
   function setEditModeHandler(data, rowIndex) {
     data.push(rowIndex)
-    setInfo(data)
+    setRowData(data)
     setIsEditing(true)
-    setShowConfirmModal(true)
+    setShowAddEditModal(true)
   }
 
-  function cancelLogout() {
-    setInfo(undefined)
-    setIsEditing(false)
-    setShowConfirmModal(false)
-  }
 
 
   const columns = [
@@ -126,7 +128,7 @@ const GarmentTable = props => {
     setGarment(prevGarments => {
       return [...prevGarments, newGarment];
     });
-    setShowConfirmModal(false)
+    setShowAddEditModal(false)
   }
 
   function editGarment(currentGarment, rowIndex) {
@@ -134,7 +136,7 @@ const GarmentTable = props => {
       prevGarments[rowIndex] = currentGarment
       return (prevGarments)
     });
-    setShowConfirmModal(false)
+    setShowAddEditModal(false)
   }
 
   const options = {
@@ -150,7 +152,7 @@ const GarmentTable = props => {
           color="primary"
           startIcon={<EditIcon />}
           style={{marginLeft: "2%"}}
-          onClick={showWarning}
+          onClick={showModal}
         > 
           New Item
         </Button>
@@ -164,11 +166,11 @@ const GarmentTable = props => {
     <React.Fragment>
       <GarmentModal
         isEditing={isEditing}
-        rowData={info}
-        show={showConfirmModal}
+        rowData={rowData}
+        show={showAddEditModal}
         onEdit={editGarment}
         onAdd={addGarment}
-        onCancel={cancelLogout}
+        onCancel={exitModal}
       />
 
       <MUIDataTable

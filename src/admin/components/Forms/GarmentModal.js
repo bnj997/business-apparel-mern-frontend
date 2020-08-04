@@ -1,7 +1,6 @@
 import React,{ useState} from 'react';
 
-import { Formik, Form, Field, FieldArray} from 'formik';
-import { TextField} from "@material-ui/core";
+import { Formik, Form, FieldArray} from 'formik';
 import { Button } from "@material-ui/core";
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -40,9 +39,6 @@ const GarmentModal = props => {
 
   const [sizeType, setType] = useState(sizes1)
 
-  // var empty = {garmentImg: null,  name: "", styleNum: "",  price: "", category: "", supplier: "Biz Collection", description: "", colours: ["Black", "Navy"], sizes: ["N/A"]  }
-  // var filled = {garmentImg: props.data[1],  name: props.data[2], styleNum: props.data[0],  price: props.data[3], category: props.data[4], supplier: props.data[5], description: props.data[6], colours: props.data[7], sizes: props.data[8]  }
-
   return (
     <Modal 
       show={props.show}
@@ -52,32 +48,17 @@ const GarmentModal = props => {
     >
 
       <Formik 
-        initialValues={
-          props.rowData === undefined ? 
-            {
-              garmentImg: null,
-              name: "",
-              styleNum: "",
-              price: "",
-              category: "",
-              supplier: "Biz Collection",
-              description: "",
-              colours: ["Black", "Navy"],
-              sizes: ["N/A"]
-            }
-            :
-            {
-              garmentImg: props.rowData[1],
-              name: props.rowData[2],
-              styleNum: props.rowData[0],
-              price: props.rowData[3],
-              category: props.rowData[4],
-              supplier: props.rowData[5],
-              description: props.rowData[6],
-              colours: props.rowData[7],
-              sizes: props.rowData[8]
-            }
-        }
+        initialValues={{
+          styleNum: props.rowData[0],
+          garmentImg: props.rowData[1],
+          name: props.rowData[2],
+          price: props.rowData[3],
+          category: props.rowData[4],
+          supplier: props.rowData[5],
+          description: props.rowData[6],
+          colours: props.rowData[7],
+          sizes: props.rowData[8]
+        }}
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
           setSubmitting(true)
