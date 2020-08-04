@@ -16,7 +16,6 @@ const GarmentTable = props => {
   const [info, setInfo] = useState(undefined);
 
   function showWarning() {
-    setInfo(undefined)
     setShowConfirmModal(true)
   }
   
@@ -104,6 +103,13 @@ const GarmentTable = props => {
                 color="default"
                 startIcon={<DeleteIcon />}
                 style={{margin: "0"}}
+                onClick={ () =>
+                  setGarment(prevGarments => {
+                    return prevGarments.filter((item, index) => {
+                      return index !== tableMeta.rowIndex
+                    })
+                  })
+                }
               >
                 delete
               </Button>
