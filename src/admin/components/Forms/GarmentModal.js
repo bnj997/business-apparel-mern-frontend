@@ -70,8 +70,6 @@ const GarmentModal = props => {
   // var empty = {garmentImg: null,  name: "", styleNum: "",  price: "", category: "", supplier: "Biz Collection", description: "", colours: ["Black", "Navy"], sizes: ["N/A"]  }
   // var filled = {garmentImg: props.data[1],  name: props.data[2], styleNum: props.data[0],  price: props.data[3], category: props.data[4], supplier: props.data[5], description: props.data[6], colours: props.data[7], sizes: props.data[8]  }
 
-
-
   return (
      <Modal 
       show={props.show}
@@ -232,7 +230,7 @@ const GarmentModal = props => {
                 )}
               </FieldArray>
             
-              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+              <pre>{JSON.stringify(values, null, 5)}</pre>
             </div>
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>Submit</Button>
           </div>
