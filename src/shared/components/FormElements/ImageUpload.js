@@ -1,12 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
-import {useField } from 'formik';
 import { Button } from "@material-ui/core";
 import './ImageUpload.css';
 
 const ImageUpload = ({placeholder, ...props}) => {
   const [file, setFile] = useState();
-  const [meta] = useField(props);
-  const errorText = meta.error && meta.touched ? meta.error : '';
   const [previewUrl, setPreviewUrl] = useState();
 
   const filePickerRef = useRef();
@@ -38,7 +35,6 @@ const ImageUpload = ({placeholder, ...props}) => {
   return (
     <div className="form-control">
       <input
-        error={!!errorText} 
         label={props.label}
         ref={filePickerRef}
         style={{ display: 'none' }}

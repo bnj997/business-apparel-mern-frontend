@@ -143,8 +143,6 @@ const GarmentTable = props => {
     print: false,
     download: false,
     elevation: 1,
-
-
     customToolbar: () => {
       return (
         <Button  
@@ -159,31 +157,20 @@ const GarmentTable = props => {
       );
     },
   };
+
+
+  
   return (
     <React.Fragment>
-      {/* <Modal 
+      <GarmentModal
+        isEditing={isEditing}
+        rowData={info}
         show={showConfirmModal}
+        onEdit={editGarment}
+        onAdd={addGarment}
         onCancel={cancelLogout}
-        header="Add new Entry?" 
-        footerClass="place-item__modal-actions" 
-        footer={
-          <React.Fragment>
-            <Button inverse onClick={cancelLogout}> ADD GARMENT </Button>
-            <Button danger onClick={confirmLogout}> CANCEL </Button>
-          </React.Fragment>
-        }
-      > */}
+      />
 
-        <GarmentModal
-          isEditing={isEditing}
-          rowData={info}
-          show={showConfirmModal}
-          onEdit={editGarment}
-          onAdd={addGarment}
-          onCancel={cancelLogout}
-        />
-
-      {/* </Modal> */}
       <MUIDataTable
         title={"Garments"}
         className="table-center"
@@ -191,6 +178,7 @@ const GarmentTable = props => {
         columns={columns}
         options={options}
       />
+
     </React.Fragment>
   );
 }

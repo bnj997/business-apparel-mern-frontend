@@ -71,6 +71,7 @@ const GarmentModal = props => {
   // var filled = {garmentImg: props.data[1],  name: props.data[2], styleNum: props.data[0],  price: props.data[3], category: props.data[4], supplier: props.data[5], description: props.data[6], colours: props.data[7], sizes: props.data[8]  }
 
 
+
   return (
      <Modal 
       show={props.show}
