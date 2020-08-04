@@ -17,46 +17,20 @@ import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 
 const validationSchema = yup.object({
   garmentImg: yup
-    .mixed()
-    .required("An image is required")
+    .mixed().required("An image is required")
     .test(
       value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
     ),
-  name: yup
-    .string()
-    .required()
-    .max(15),
-  styleNum: yup
-    .string()
-    .required(),
-  price: yup
-    .number()
-    .required(),
-  category: yup
-    .string()
-    .required(),
-  supplier: yup
-    .string()
-    .required(),
-  description: yup
-    .string()
-    .required(),
-  colours: yup.array().of (
-    yup.string().required()
-  ).required(),
-  sizes: yup.array().of (
-    yup.string().required()
-  ).required()
+  name: yup.string().required(),
+  styleNum: yup.string().required(),
+  price: yup.number().required().min(0),
+  category: yup.string().required(),
+  supplier: yup.string().required(),
+  description: yup.string().required(),
+  colours: yup.array().of(yup.string().required()).required(),
+  sizes: yup.array().of(yup.string().required()).required()
 });
 
-
-const Input = ({ field}) => {
-  return (
-    <>
-      <TextField style={{marginTop: "2%"}} variant="outlined" {...field} />
-    </>
-  );
-};
 
 const GarmentModal = props => {
 
@@ -66,17 +40,16 @@ const GarmentModal = props => {
 
   const [sizeType, setType] = useState(sizes1)
 
-
   // var empty = {garmentImg: null,  name: "", styleNum: "",  price: "", category: "", supplier: "Biz Collection", description: "", colours: ["Black", "Navy"], sizes: ["N/A"]  }
   // var filled = {garmentImg: props.data[1],  name: props.data[2], styleNum: props.data[0],  price: props.data[3], category: props.data[4], supplier: props.data[5], description: props.data[6], colours: props.data[7], sizes: props.data[8]  }
 
   return (
-     <Modal 
+    <Modal 
       show={props.show}
       onCancel={props.onCancel}
       header="Add new Entry?" 
       footerClass="place-item__modal-actions" 
-      >
+    >
 
       <Formik 
         initialValues={
@@ -202,17 +175,14 @@ const GarmentModal = props => {
                   })}
                 </FormGroup>
 
-              <FormLabel component="legend" style={{paddingTop: "2rem"}}>Colours</FormLabel>
+              <FormLabel component="legend" style={{paddingTop: "1.9rem"}}>Colours</FormLabel>
               <FieldArray name="colours">
                 {({ push, remove }) => (
                   <div>
                     {values.colours.map((c, index) => {
                       return (
                         <div style={{justifyContent: "left", display: "flex",  alignItems: "center"}} key={c.id}>
-                          <Field
-                            name={`colours[${index}]`}
-                            component={Input}
-                          />
+                          <FormTextField style={{marginTop: "2%"}} variant="outlined"  name={`colours[${index}]`}/>
                           <Button  style={{marginLeft: "2%"}} variant="contained" onClick={() => remove(index)}>Delete</Button>
                         </div>
                       );
