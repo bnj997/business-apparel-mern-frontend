@@ -9,80 +9,110 @@ import GarmentModal from '../Forms/GarmentModal';
 import MUIDataTable from "mui-datatables";
 
 
-const columns = [
-  {
-    name: "id",
-    label: "ID",
-  },
-  {
-    name: "garmentImg",
-    label: "Image",
-  },
-  {
-    name: "name",
-    label: "Name",
-  },
-  {
-    name: "styleNum",
-    label: "StyleNum",
-  },
-  {
-    name: "price",
-    label: "Price",
-  },
-  {
-    name: "category",
-    label: "Category",
-  },
-  {
-    name: "supplier",
-    label: "Supplier",
-  },
-  {
-    name: "description",
-    label: "Description",
-  },
-  {
-    name: "colours",
-    label: "Colours",
-  },
-  {
-    name: "sizes",
-    label: "Sizes",
-  },
-  {
-    name: "actions",
-    label: "Actions",
-    options: {
-      customBodyRender: (value, tableMeta, updateValue) => {
-        return (
-          <React.Fragment>
-            <Button
-              variant="contained"
-              color="default"
-              startIcon={<EditIcon />}
-              style={{marginRight: "5%"}}
-            >
-              Edit
-            </Button>
-            <Button
-              variant="contained"
-              color="default"
-              startIcon={<DeleteIcon />}
-              style={{margin: "0"}}
-            >
-              delete
-            </Button>
-          </React.Fragment>
+const GarmentTable = props => {
+  
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [info, setInfo] = useState(undefined);
+
+  function showWarning() {
+    setInfo(undefined)
+    setShowConfirmModal(true)
+  }
+  
+  function setEditModeHandler(data, rowIndex) {
+    data.push(rowIndex)
+    setInfo(data)
+    setIsEditing(true)
+    setShowConfirmModal(true)
+  }
+
+  function cancelLogout() {
+    setInfo(undefined)
+    setIsEditing(false)
+    setShowConfirmModal(false)
+  }
+
+
+  const columns = [
+    {
+      name: "styleNum",
+      label: "StyleNum",
+    },
+    {
+      name: "garmentImg",
+      label: "Image",
+      options: {
+        sort: false,
+        customBodyRender: (value) => (
+          <img
+            alt="organisation logo"
+            src={value}
+           > 
+          </img>
         )
       }
+    },
+    {
+      name: "name",
+      label: "Name",
+    },
+    {
+      name: "price",
+      label: "Price",
+    },
+    {
+      name: "category",
+      label: "Category",
+    },
+    {
+      name: "supplier",
+      label: "Supplier",
+    },
+    {
+      name: "description",
+      label: "Description",
+    },
+    {
+      name: "colours",
+      label: "Colours",
+    },
+    {
+      name: "sizes",
+      label: "Sizes",
+    },
+    {
+      name: "actions",
+      label: "Actions",
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return (
+            <React.Fragment>
+              <Button
+                variant="contained"
+                color="default"
+                startIcon={<EditIcon />}
+                style={{marginRight: "5%"}}
+                onClick={ () =>
+                  setEditModeHandler(tableMeta.rowData, tableMeta.rowIndex )
+                 }
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="default"
+                startIcon={<DeleteIcon />}
+                style={{margin: "0"}}
+              >
+                delete
+              </Button>
+            </React.Fragment>
+          )
+        }
+      }
     }
-  }
-]
-
-
-
-const GarmentTable = props => {
+  ]
 
   const [garments, setGarment] = useState([]);
 
@@ -90,16 +120,14 @@ const GarmentTable = props => {
     setGarment(prevGarments => {
       return [...prevGarments, newGarment];
     });
+    setShowConfirmModal(false)
   }
 
-
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-
-  function showWarning() {
-    setShowConfirmModal(true)
-  }
-
-  function cancelLogout() {
+  function editGarment(currentGarment, rowIndex) {
+    setGarment(prevGarments => {
+      prevGarments[rowIndex] = currentGarment
+      return (prevGarments)
+    });
     setShowConfirmModal(false)
   }
 
@@ -110,10 +138,7 @@ const GarmentTable = props => {
     download: false,
     elevation: 1,
 
-    // onRowClick: (rowData, rowMeta) => {
-    //   console.log("----RowClick");
-    //   console.log("rowData: ", rowData);
-    // }
+
     customToolbar: () => {
       return (
         <Button  
@@ -143,8 +168,11 @@ const GarmentTable = props => {
         }
       > */}
 
-        <GarmentModal 
+        <GarmentModal
+          isEditing={isEditing}
+          rowData={info}
           show={showConfirmModal}
+          onEdit={editGarment}
           onAdd={addGarment}
           onCancel={cancelLogout}
         />

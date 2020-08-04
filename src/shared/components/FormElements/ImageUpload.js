@@ -4,8 +4,9 @@ import { Button } from "@material-ui/core";
 import './ImageUpload.css';
 
 const ImageUpload = ({placeholder, ...props}) => {
-  const [field] = useField(props);
   const [file, setFile] = useState();
+  const [meta] = useField(props);
+  const errorText = meta.error && meta.touched ? meta.error : '';
   const [previewUrl, setPreviewUrl] = useState();
 
   const filePickerRef = useRef();
@@ -25,6 +26,7 @@ const ImageUpload = ({placeholder, ...props}) => {
     let pickedFile;
     if (event.target.files && event.target.files.length === 1) {
       pickedFile = event.target.files[0];
+      props.setFieldValue(props.name, pickedFile)
       setFile(pickedFile);
     } 
   };
@@ -36,8 +38,7 @@ const ImageUpload = ({placeholder, ...props}) => {
   return (
     <div className="form-control">
       <input
-        {...field}
-        id={props.id}
+        error={!!errorText} 
         label={props.label}
         ref={filePickerRef}
         style={{ display: 'none' }}

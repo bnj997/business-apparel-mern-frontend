@@ -6,7 +6,6 @@ import { Button } from "@material-ui/core";
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormLabel from '@material-ui/core/FormLabel';
-import { useForm } from '../../../shared/components/hooks/form-hook';
 
 import * as yup from 'yup';
 import FormTextField from '../../../shared/components/FormElements/FormTextField';
@@ -19,7 +18,10 @@ import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 const validationSchema = yup.object({
   garmentImg: yup
     .mixed()
-    .required(),
+    .required("An image is required")
+    .test(
+      value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
+    ),
   name: yup
     .string()
     .required()
@@ -47,6 +49,7 @@ const validationSchema = yup.object({
   ).required()
 });
 
+
 const Input = ({ field}) => {
   return (
     <>
@@ -63,6 +66,11 @@ const GarmentModal = props => {
 
   const [sizeType, setType] = useState(sizes1)
 
+
+  // var empty = {garmentImg: null,  name: "", styleNum: "",  price: "", category: "", supplier: "Biz Collection", description: "", colours: ["Black", "Navy"], sizes: ["N/A"]  }
+  // var filled = {garmentImg: props.data[1],  name: props.data[2], styleNum: props.data[0],  price: props.data[3], category: props.data[4], supplier: props.data[5], description: props.data[6], colours: props.data[7], sizes: props.data[8]  }
+
+
   return (
      <Modal 
       show={props.show}
@@ -72,38 +80,53 @@ const GarmentModal = props => {
       >
 
       <Formik 
-        initialValues={{
-          garmentImg: null,
-          name: "",
-          styleNum: "",
-          price: "",
-          category: "",
-          supplier: "Biz Collection",
-          description: "",
-          colours: ["Black", "Navy"],
-          sizes: ["N/A"]
-
-        }} 
+        initialValues={
+          props.rowData === undefined ? 
+            {
+              garmentImg: null,
+              name: "",
+              styleNum: "",
+              price: "",
+              category: "",
+              supplier: "Biz Collection",
+              description: "",
+              colours: ["Black", "Navy"],
+              sizes: ["N/A"]
+            }
+            :
+            {
+              garmentImg: props.rowData[1],
+              name: props.rowData[2],
+              styleNum: props.rowData[0],
+              price: props.rowData[3],
+              category: props.rowData[4],
+              supplier: props.rowData[5],
+              description: props.rowData[6],
+              colours: props.rowData[7],
+              sizes: props.rowData[8]
+            }
+        }
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
           setSubmitting(true)
-          console.log("submit: ", data); 
-
-
-
           //make async call
-          props.onAdd(data)
+          if (!props.isEditing) {
+            props.onAdd(data)
+          } else {
+            props.onEdit(data, props.rowData[props.rowData.length - 1])
+          }
           setSubmitting(false)
           resetForm();
         }}
       >
-        {({values, errors, setFieldValue, isSubmitting}) => (
+        {({values, setFieldValue, isSubmitting}) => (
         <Form >
           <div style={{display: "flex", flexWrap: "wrap"}}>
             <div style={{flex: "1 1 300px", margin: "1%" }}>
               <FormLabel component="legend" style={{marginBottom: "1rem"}}>Garment Image</FormLabel>
               <ImageUpload
                 name="garmentImg"
+                setFieldValue={setFieldValue}
               />
               <FormTextField 
                 placeholder="Name:" 
@@ -208,7 +231,7 @@ const GarmentModal = props => {
                 )}
               </FieldArray>
             
-              <pre>{JSON.stringify(values, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
             </div>
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>Submit</Button>
           </div>
