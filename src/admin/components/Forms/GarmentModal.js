@@ -42,6 +42,7 @@ const GarmentModal = props => {
 
   return (
     <Modal 
+      className="form_modal"
       show={props.show}
       onCancel={props.onCancel}
       header="Add new Entry?" 

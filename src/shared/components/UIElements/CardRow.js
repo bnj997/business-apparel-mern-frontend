@@ -46,6 +46,7 @@ const CardRow = props => {
       {props.content.map((item, index) => 
         (
           <CSSTransition 
+            key={index}
             in={true}
             appear={true}
             timeout={1000 + ((index+1)*500)}

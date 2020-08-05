@@ -3,7 +3,6 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import SideDrawerDash from '../components/SideDrawerDash';
-import OrderTable from '../components/Tables/OrderTable';
 import GarmentTable from '../components/Tables/GarmentTable';
 import './Dashboard.css';
 
