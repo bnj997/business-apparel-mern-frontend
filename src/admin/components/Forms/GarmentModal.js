@@ -39,13 +39,12 @@ const GarmentModal = props => {
   const sizes3 = ["72R", "77R", "82R", "87R", "92R", "97R", "102R", "107R", "112R", "117R", "122R", "127R", "132R", "137R"]
 
   const [sizeType, setType] = useState(sizes1)
-
   return (
     <Modal 
       className="form_modal"
       show={props.show}
       onCancel={props.onCancel}
-      header="Add new Entry?" 
+      header={props.isEditing ? "Edit Garment" : "Add New Garment"}
     >
       <Formik 
         initialValues={{
@@ -162,13 +161,13 @@ const GarmentModal = props => {
                         push("")
                       }
                     >
-                      Add to list
+                      Add Colour
                     </Button>
                   </div>
                 )}
               </FieldArray>
             </div>
-            <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>Submit</Button>
+            <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>{props.isEditing ? `Submit changes` : `Add Garment`}</Button>
           </Form>
         )}
       </Formik>

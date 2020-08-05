@@ -10,13 +10,13 @@ import GarmentModal from '../../../admin/components/Forms/GarmentModal';
 
 
 const DataTable = props => {
+
   const [column, setColumn] = useState([])
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [rowData, setRowData] = useState(props.defaultValueArray);
 
-  
   useEffect(() => {
     const columns = props.columns
     columns.push (
@@ -45,7 +45,8 @@ const DataTable = props => {
                   style={{margin: "0"}}
                   onClick={ () =>
                     setData(prevDatas => {
-                      return prevDatas.filter((index) => {
+                      console.log("wat")
+                      return prevDatas.filter((item, index) => {
                         return index !== tableMeta.rowIndex
                       })
                     })
@@ -60,7 +61,7 @@ const DataTable = props => {
       }
     )
     setColumn(columns)
-  }, [props.columns, props.height])
+  }, [props.columns])
 
 
   function showModal() {
@@ -97,7 +98,7 @@ const DataTable = props => {
   }
 
   const options = {
-    tableBodyHeight: props.height,
+    tableBodyHeight: "55rem",
     rowsPerPage: 10,
     print: false,
     download: false,
@@ -119,14 +120,28 @@ const DataTable = props => {
 
   return (
     <React.Fragment>
-      <GarmentModal
-        isEditing={isEditing}
-        rowData={rowData}
-        show={showAddEditModal}
-        onEdit={editData}
-        onAdd={addData}
-        onCancel={exitModal}
-      />
+
+      {props.title === "Garments" && (
+       <GarmentModal
+          isEditing={isEditing}
+          rowData={rowData}
+          show={showAddEditModal}
+          onEdit={editData}
+          onAdd={addData}
+          onCancel={exitModal}
+      /> 
+      )}
+
+      {props.title === "Headquarters" && (
+       <GarmentModal
+          isEditing={isEditing}
+          rowData={rowData}
+          show={showAddEditModal}
+          onEdit={editData}
+          onAdd={addData}
+          onCancel={exitModal}
+      /> 
+      )}
 
       <MUIDataTable
         title={props.title}

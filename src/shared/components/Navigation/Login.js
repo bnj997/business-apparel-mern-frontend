@@ -14,7 +14,6 @@ const Login = props => {
   const auth = useContext(AuthContext);
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-
   function showWarning() {
     setShowConfirmModal(true)
   }

@@ -33,7 +33,6 @@ const Dashboard = props => {
         <div className={classes.toolbar} />
         <DataTable
           title="Garments"
-          height={"55rem"}
           defaultValueArray={["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]}
           columns={[
             {
