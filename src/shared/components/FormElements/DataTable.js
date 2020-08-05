@@ -69,8 +69,6 @@ const DataTable = props => {
   }
 
   function exitModal() {
-    setRowData(props.defaultValueArray)
-    setIsEditing(false)
     setShowAddEditModal(false)
   }
 
@@ -86,6 +84,7 @@ const DataTable = props => {
     setData(prevDatas => {
       return [...prevDatas, newData];
     });
+    setRowData(props.defaultValueArray)
     setShowAddEditModal(false)
   }
 
@@ -94,6 +93,8 @@ const DataTable = props => {
       prevDatas[rowIndex] = currentData
       return (prevDatas)
     });
+    setRowData(props.defaultValueArray)
+    setIsEditing(false)
     setShowAddEditModal(false)
   }
 
