@@ -1,6 +1,6 @@
 .form_modal {
-  height: 75vh;
-  top: 10vh;
+  height: 80vh;
+  top: 13vh;
   left: 10%;
   width: 80%;
   overflow: scroll;
@@ -73,6 +73,7 @@
   }
 
   .form_modal {
+    top: 13vh;
     height: 80vh;
     left: calc(50% - 37.5rem);
     width: 75rem;

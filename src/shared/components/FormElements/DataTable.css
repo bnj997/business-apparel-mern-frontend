@@ -1,0 +1,81 @@
+.table-center {
+  margin-top: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* MAKES TOOL BAR APPEAR ON RIGHT */
+/* .MuiToolbar-root .MUIDataTableToolbar-left-40 {
+  display: none;
+}
+.MuiToolbar-root .MUIDataTableToolbar-actions-42 {
+  text-align: left;
+} */
+
+
+
+.makeStyles-content-5 .MuiGrid-item {
+  margin-top: 5rem;
+}
+
+.MuiToolbar-root h6 {
+  padding-left: 1rem;
+  margin-top: 3%;
+  color: black;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.MuiPaper-root table {
+  margin-top: 1%;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.MuiPaper-root .MuiTableCell-head {
+  background-color: #D9D9D9;
+}
+
+.MuiTableRow-root td:nth-child(2) {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.MuiTableCell-head span{
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
+.MuiTableBody-root tr:nth-child(2n) {
+  background-color: #F5F5F5;
+}
+
+
+
+/* .MuiTableCell-head .MuiButtonBase-root svg{
+  color: white !important;
+} */
+
+/* .MuiTableCell-head .MUIDataTableHeadCell-sortActive-85 {
+  color: white;
+} */
+
+.MuiTableBody-root td{
+  font-size: 1.1rem;
+}
+
+.MuiTableCell-footer .MuiTablePagination-root {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 960px) {
+  .table-center {
+    margin-left: 3rem;
+    margin-right: 3rem;
+    margin-top: 5rem;
+  }
+}
+
