@@ -12,6 +12,7 @@ import FormRadio from '../../../shared/components/FormElements/FormRadio';
 import FormCheckbox from '../../../shared/components/FormElements/FormCheckbox';
 import Modal from '../../../shared/components/UIElements/Modal';
 import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
+import './GarmentModal.css'
 
 
 const validationSchema = yup.object({
@@ -44,9 +45,7 @@ const GarmentModal = props => {
       show={props.show}
       onCancel={props.onCancel}
       header="Add new Entry?" 
-      footerClass="place-item__modal-actions" 
     >
-
       <Formik 
         initialValues={{
           styleNum: props.rowData[0],
@@ -72,35 +71,25 @@ const GarmentModal = props => {
           resetForm();
         }}
       >
+
         {({values, setFieldValue, isSubmitting}) => (
-        <Form >
-          <div style={{display: "flex", flexWrap: "wrap"}}>
-            <div style={{flex: "1 1 300px", margin: "1%" }}>
-              <FormLabel component="legend" style={{marginBottom: "1rem"}}>Garment Image</FormLabel>
+          <Form style={{display: "flex", flexWrap: "wrap"}} >
+          
+            <div className="form_section">
+              <FormLabel component="legend" className="form_label">Garment Image</FormLabel>
               <ImageUpload
                 name="garmentImg"
                 setFieldValue={setFieldValue}
               />
-              <FormTextField 
-                placeholder="Name:" 
-                name="name" 
-                type="input"
-              />
-              <FormTextField
-                placeholder="Style Number" 
-                name="styleNum" 
-                type="input" 
-              />
-              <FormTextField
-                placeholder="Price" 
-                name="price" 
-                type="input" 
-              />
-              <FormTextField
-                placeholder="Category" 
-                name="category" 
-                type="input" 
-              />
+              {["name", "styleNum", "price", "category"].map(function(item, i){
+                return (
+                  <FormTextField 
+                    placeholder={item.charAt(0).toUpperCase() + item.slice(1)} 
+                    name={item}  
+                    type="input"
+                  />
+                )
+              })}
               <FormTextField
                 placeholder="Description"
                 name="description" 
@@ -108,68 +97,60 @@ const GarmentModal = props => {
                 variant={props.type}
                 isMultiline={true}
               />
-          
             </div>
-            <div style={{flex: "1 1 300px", margin: "1rem 1% 1% 1%" }}>
-              <FormLabel component="legend">Supplier</FormLabel>
-                <RadioGroup row aria-label="gender" name="gender1" style={{paddingBottom: "3%", display: "flex", justifyContent: "space-between"}}>
-                  <FormRadio
-                    name="supplier" 
-                    value="Biz Collection"
-                    type="radio" 
-                    label="Biz Collection"
-                    variant={props.type}
-                  />
-                  <FormRadio
-                    name="supplier" 
-                    value="JB Wears"
-                    type="radio"
-                    label="JB Wears" 
-                    variant={props.type}
-                  />
-                  <FormRadio
-                    name="supplier" 
-                    value="Winning Spirit"
-                    type="radio" 
-                    label="Winning Spirit" 
-                    variant={props.type}
-                  />
-                </RadioGroup >
 
-              <FormLabel component="legend" style={{paddingTop: "2rem", paddingBottom: "1rem"}}>Sizes</FormLabel>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                  <Button variant="contained" onClick={() => setType(sizes1)}> N/A - 7XL</Button>
-                  <Button variant="contained" onClick={() => setType(sizes2)}> 8 - 30</Button>
-                  <Button variant="contained" onClick={() => setType(sizes3)}> 72R - 137R</Button>
-                </div>
-                <FormGroup row  style={{paddingTop: "1rem"}}>
-                  {sizeType.map(function(item, i) {
-                    return (
-                    <FormCheckbox
-                      name="sizes" 
-                      type="checkbox"
+
+            <div className="form_section">
+
+              <FormLabel className="form_label" component="legend">Supplier</FormLabel>
+              <RadioGroup row aria-label="suppliers" className="form_group">
+                {["Biz Collection", "Winning Spirit", "JB Wears"].map(function(item, i){
+                  return (
+                    <FormRadio 
+                      name="supplier" 
                       value={item}
-                      label={item} 
-                      variant={props.type} 
+                      type="radio" 
+                      label={item}
+                      variant={props.type}
                     />
                     )
-                  })}
-                </FormGroup>
+                })}
+              </RadioGroup >
 
-              <FormLabel component="legend" style={{paddingTop: "1.9rem"}}>Colours</FormLabel>
-              <FieldArray name="colours">
+              <FormLabel component="legend" className="form_label" >Sizes</FormLabel>
+              <div className="form_group">
+                <Button variant="contained" onClick={() => setType(sizes1)}> N/A - 7XL</Button>
+                <Button variant="contained" onClick={() => setType(sizes2)}> 8 - 30</Button>
+                <Button variant="contained" onClick={() => setType(sizes3)}> 72R - 137R</Button>
+              </div>
+              <FormGroup row>
+                {sizeType.map(function(item, i) {
+                  return (
+                  <FormCheckbox
+                    name="sizes" 
+                    type="checkbox"
+                    value={item}
+                    label={item} 
+                    variant={props.type} 
+                  />
+                  )
+                })}
+              </FormGroup>
+
+              <FormLabel component="legend" className="form_label" >Colours</FormLabel>
+              <FieldArray name="colours" className="form_group">
                 {({ push, remove }) => (
                   <div>
                     {values.colours.map((c, index) => {
                       return (
-                        <div style={{justifyContent: "left", display: "flex",  alignItems: "center"}} key={c.id}>
-                          <FormTextField style={{marginTop: "2%"}} variant="outlined"  name={`colours[${index}]`}/>
+                        <div style={{display: "flex",  alignItems: "center"}} key={c.id}>
+                          <FormTextField  variant="outlined"  name={`colours[${index}]`}/>
                           <Button  style={{marginLeft: "2%"}} variant="contained" onClick={() => remove(index)}>Delete</Button>
                         </div>
                       );
                     })}
                     <Button
-                      style={{marginTop: "2%"}}
+                      style={{marginTop: "2rem", marginBottom: "2rem"}}
                       variant="contained"
                       onClick={() =>
                         push("")
@@ -180,13 +161,12 @@ const GarmentModal = props => {
                   </div>
                 )}
               </FieldArray>
-            
-              <pre>{JSON.stringify(values, null, 5)}</pre>
+
             </div>
+
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>Submit</Button>
-          </div>
-          
-        </Form>
+
+          </Form>
       )}
     </Formik>
     </Modal>
@@ -194,4 +174,3 @@ const GarmentModal = props => {
 }
 
 export default GarmentModal;
-

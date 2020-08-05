@@ -13,7 +13,7 @@ const GarmentTable = props => {
   
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState([null, "", "", "", "", "Biz Collection", "", [], ["N/A"]]);
+  const [rowData, setRowData] = useState([null, "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
 
 
   function showModal() {
@@ -21,7 +21,7 @@ const GarmentTable = props => {
   }
 
   function exitModal() {
-    setRowData("")
+    setRowData([null, "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
     setIsEditing(false)
     setShowAddEditModal(false)
   }
@@ -160,8 +160,6 @@ const GarmentTable = props => {
     },
   };
 
-
-  
   return (
     <React.Fragment>
       <GarmentModal
