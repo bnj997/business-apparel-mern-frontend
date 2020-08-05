@@ -11,8 +11,8 @@ const FormTextField = ({placeholder, ...props}) => {
     <TextField className="field"
       error={!!errorText} 
       variant="outlined"
-      label={placeholder}
-      type="{props.type}"
+      label={placeholder}   
+      type={props.type}
       multiline = {props.isMultiline}
       rows = {props.isMultiline && 5}
       style= {{width: `100%`, marginTop: `1rem`, backgroundColor: `white`  }}

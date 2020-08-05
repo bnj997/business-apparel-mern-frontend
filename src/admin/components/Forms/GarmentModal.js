@@ -71,7 +71,6 @@ const GarmentModal = props => {
           resetForm();
         }}
       >
-
         {({values, setFieldValue, isSubmitting}) => (
           <Form style={{display: "flex", flexWrap: "wrap"}} >
           
@@ -81,15 +80,19 @@ const GarmentModal = props => {
                 name="garmentImg"
                 setFieldValue={setFieldValue}
               />
+
               {["name", "styleNum", "price", "category"].map(function(item, i){
                 return (
                   <FormTextField 
+                    variant={props.type}
+                    key={i}
                     placeholder={item.charAt(0).toUpperCase() + item.slice(1)} 
                     name={item}  
                     type="input"
                   />
                 )
               })}
+
               <FormTextField
                 placeholder="Description"
                 name="description" 
@@ -104,9 +107,10 @@ const GarmentModal = props => {
 
               <FormLabel className="form_label" component="legend">Supplier</FormLabel>
               <RadioGroup row aria-label="suppliers" className="form_group">
-                {["Biz Collection", "Winning Spirit", "JB Wears"].map(function(item, i){
+                {["Biz Collection", "Winning Spirit", "JB Wears"].map(function(item){
                   return (
                     <FormRadio 
+                      key={item}
                       name="supplier" 
                       value={item}
                       type="radio" 
@@ -124,9 +128,10 @@ const GarmentModal = props => {
                 <Button variant="contained" onClick={() => setType(sizes3)}> 72R - 137R</Button>
               </div>
               <FormGroup row>
-                {sizeType.map(function(item, i) {
+                {sizeType.map(function(item) {
                   return (
                   <FormCheckbox
+                    key={item}
                     name="sizes" 
                     type="checkbox"
                     value={item}
@@ -143,7 +148,7 @@ const GarmentModal = props => {
                   <div>
                     {values.colours.map((c, index) => {
                       return (
-                        <div style={{display: "flex",  alignItems: "center"}} key={c.id}>
+                        <div style={{display: "flex",  alignItems: "center"}} key={index}>
                           <FormTextField  variant="outlined"  name={`colours[${index}]`}/>
                           <Button  style={{marginLeft: "2%"}} variant="contained" onClick={() => remove(index)}>Delete</Button>
                         </div>
@@ -161,14 +166,11 @@ const GarmentModal = props => {
                   </div>
                 )}
               </FieldArray>
-
             </div>
-
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>Submit</Button>
-
           </Form>
-      )}
-    </Formik>
+        )}
+      </Formik>
     </Modal>
   )
 }

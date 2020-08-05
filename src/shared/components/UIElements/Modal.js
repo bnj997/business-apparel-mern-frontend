@@ -12,7 +12,7 @@ const ModalOverlay = props => {
       <header className={`modal__header ${props.headerClass}`}>
         <h2>{props.header}</h2>
       </header>
-      <form
+      <div
         //want to make sure if we render buttons inside form that do not submit, dont reload page by triggering form submission
         onSubmit={
           props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
@@ -25,7 +25,7 @@ const ModalOverlay = props => {
         <footer className={`modal__footer ${props.footerClass}`}>
           {props.footer}
         </footer>
-      </form>
+      </div>
     </div>
   )
   return ReactDOM.createPortal(content, document.getElementById('modal-hook'))

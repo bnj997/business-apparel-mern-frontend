@@ -33,14 +33,10 @@ const Dashboard = props => {
       <main className={classes.content} >
         <div className={classes.toolbar} />
         <GarmentTable height={"55rem"} />
-        {/*<OrderTableNew/>*/}
-        {/* <div className="two-side">
-          <OrderTable height={"45rem"} />
-          <OrderTable height={"45rem"} />
-        </div> */}
       </main> 
     </div>
   );
 }
+
 
 export default Dashboard;
