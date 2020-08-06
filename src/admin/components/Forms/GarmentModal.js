@@ -22,7 +22,7 @@ const validationSchema = yup.object({
       value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
     ),
   name: yup.string().required(),
-  styleNum: yup.string().required(),
+  id: yup.string().required(),
   price: yup.number().required().min(0),
   category: yup.string().required(),
   supplier: yup.string().required(),
@@ -49,7 +49,7 @@ const GarmentModal = props => {
     >
       <Formik 
         initialValues={{
-          styleNum: props.rowData[0],
+          id: props.rowData[0],
           garmentImg: props.rowData[1],
           name: props.rowData[2],
           price: props.rowData[3],
@@ -62,12 +62,16 @@ const GarmentModal = props => {
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
           setSubmitting(true)
+
           //make async call
           if (!props.isEditing) {
             props.onAdd(data)
           } else {
             props.onEdit(data, props.rowData[props.rowData.length - 1])
           }
+
+
+
           setSubmitting(false)
           resetForm();
         }}
@@ -82,7 +86,7 @@ const GarmentModal = props => {
                 setFieldValue={setFieldValue}
               />
 
-              {["name", "styleNum", "price", "category"].map(function(item, i){
+              {["name", "id", "price", "category"].map(function(item, i){
                 return (
                   <FormTextField 
                     variant={props.type}

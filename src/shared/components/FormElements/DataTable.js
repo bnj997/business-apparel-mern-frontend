@@ -22,6 +22,7 @@ const DataTable = props => {
 
   useEffect(() => {
     const columns = props.columns
+    setData(props.data)
     columns.push (
       {
         name: "actions",
@@ -36,7 +37,7 @@ const DataTable = props => {
                     color="default"
                     startIcon={<InfoIcon />}
                     style={{marginRight: "5%"}}
-                    component={NavLink} to={`/admin/${tableMeta.rowData[1]}`}
+                    component={NavLink} to={`/admin/${tableMeta.rowData[0]}`}
                   >
                     View
                   </Button>
@@ -75,7 +76,7 @@ const DataTable = props => {
       }
     )
     setColumn(columns)
-  }, [props.columns])
+  }, [props.columns, props.ownPage, props.data])
 
 
   function showModal() {
@@ -83,6 +84,7 @@ const DataTable = props => {
   }
 
   function exitModal() {
+    setRowData(props.defaultValueArray)
     setShowAddEditModal(false)
   }
 
@@ -90,7 +92,7 @@ const DataTable = props => {
     data.push(rowIndex)
     setRowData(data)
     setIsEditing(true)
-    setShowAddEditModal(true)
+    showModal()
   }
 
 
@@ -98,8 +100,7 @@ const DataTable = props => {
     setData(prevDatas => {
       return [...prevDatas, newData];
     });
-    setRowData(props.defaultValueArray)
-    setShowAddEditModal(false)
+    exitModal()
   }
 
   function editData(currentData, rowIndex) {
@@ -107,9 +108,8 @@ const DataTable = props => {
       prevDatas[rowIndex] = currentData
       return (prevDatas)
     });
-    setRowData(props.defaultValueArray)
     setIsEditing(false)
-    setShowAddEditModal(false)
+    exitModal()
   }
 
   const options = {

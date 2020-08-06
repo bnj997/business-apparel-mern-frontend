@@ -33,21 +33,23 @@ const HQModal = props => {
     >
       <Formik 
         initialValues={{
-          HQImg: props.rowData[0],
-          name: props.rowData[1],
-          telephone: props.rowData[2],
-          email: props.rowData[3]
+          id: props.rowData[0],
+          HQImg: props.rowData[1],
+          name: props.rowData[2],
+          telephone: props.rowData[3],
+          email: props.rowData[4]
         }}
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
           setSubmitting(true)
-          console.log("hello")
+         
           //make async call
           if (!props.isEditing) {
             props.onAdd(data)
           } else {
             props.onEdit(data, props.rowData[props.rowData.length - 1])
           }
+
           setSubmitting(false)
           resetForm();
         }}
