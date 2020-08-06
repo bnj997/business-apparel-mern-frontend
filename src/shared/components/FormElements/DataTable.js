@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from 'react'
 
 import './DataTable.css';
+import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
 import GarmentModal from '../../../admin/components/Forms/GarmentModal';
+import HQModal from '../../../admin/components/Forms/HQModal';
 
 
 const DataTable = props => {
@@ -27,6 +30,17 @@ const DataTable = props => {
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <React.Fragment>
+                {props.ownPage  &&
+                  <Button
+                    variant="contained"
+                    color="default"
+                    startIcon={<InfoIcon />}
+                    style={{marginRight: "5%"}}
+                    component={NavLink} to={`/admin/${tableMeta.rowData[1]}`}
+                  >
+                    View
+                  </Button>
+                }
                 <Button
                   variant="contained"
                   color="default"
@@ -99,7 +113,7 @@ const DataTable = props => {
   }
 
   const options = {
-    tableBodyHeight: "55rem",
+    tableBodyHeight: props.height,
     rowsPerPage: 10,
     print: false,
     download: false,
@@ -134,7 +148,7 @@ const DataTable = props => {
       )}
 
       {props.title === "Headquarters" && (
-       <GarmentModal
+       <HQModal
           isEditing={isEditing}
           rowData={rowData}
           show={showAddEditModal}

@@ -1,9 +1,24 @@
 .form_modal {
   height: 80vh;
   top: 13vh;
-  left: 10%;
+  left: 10%;  
   width: 80%;
   overflow: scroll;
+}
+
+.form_section {
+  flex: 1 1 300px;
+  margin: 1%; 
+}
+
+.form_label {
+  margin-top: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.form_group {
+  margin-top: 1.1rem;
+  margin-bottom: 1.1rem;
 }
 
 .info_modal {
@@ -32,7 +47,6 @@
 }
 
 .modal__content {
-  /*padding: 1rem 5.5rem; */
   padding: 1rem 2.5rem;
 }
 
@@ -74,10 +88,10 @@
 
   .form_modal {
     top: 13vh;
-    height: 80vh;
     left: calc(50% - 37.5rem);
-    width: 75rem;
+    width: 75rem; 
   }
+  
 
 }
 

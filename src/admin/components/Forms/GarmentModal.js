@@ -12,7 +12,7 @@ import FormRadio from '../../../shared/components/FormElements/FormRadio';
 import FormCheckbox from '../../../shared/components/FormElements/FormCheckbox';
 import Modal from '../../../shared/components/UIElements/Modal';
 import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
-import './GarmentModal.css'
+
 
 
 const validationSchema = yup.object({
@@ -43,6 +43,7 @@ const GarmentModal = props => {
     <Modal 
       className="form_modal"
       show={props.show}
+      height="80vh"
       onCancel={props.onCancel}
       header={props.isEditing ? "Edit Garment" : "Add New Garment"}
     >

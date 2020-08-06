@@ -26,7 +26,11 @@ const App = () => {
   const About = lazy(() => import('./shared/pages/About'));
   const Team = lazy(() => import('./shared/pages/Team'));
   const Contact = lazy(() => import('./shared/pages/Contact'));
-  const Dashboard = lazy(() => import('./admin/pages/Dashboard'));
+  const Garments = lazy(() => import('./admin/pages/Garments'));
+
+  const Headquarters = lazy(() => import('./admin/pages/Headquarters'));
+  const ThisHQ = lazy(() => import('./admin/pages/ThisHQ'));
+
   const Authentication = lazy(() => import('./shared/pages/Authentication'));
 
   if (isLoggedIn) {
@@ -44,9 +48,18 @@ const App = () => {
         <Route path="/contact" component={Contact} exact> 
           <Contact />
         </Route>
-        <Route path="/:userId/dashboard" component={Dashboard} exact> 
-          <Dashboard />
+
+        <Route path="/admin/garments" component={Garments} exact> 
+          <Garments />
         </Route>
+        <Route path="/admin/headquarters" component={Headquarters} exact> 
+          <Headquarters />
+        </Route>
+        <Route path="/admin/:hqId" component={Headquarters} exact> 
+          <ThisHQ />
+        </Route>
+
+
         <Redirect to="/" component={Home} />
       </Switch>
     );  

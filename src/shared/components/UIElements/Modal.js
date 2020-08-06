@@ -8,7 +8,7 @@ import './Modal.css';
 const ModalOverlay = props => {
   const content = (
     //Can add another class name in addition to the modal class name in form of props.className
-    <div className={`modal ${props.className === 'form_modal'? 'form_modal' : 'info_modal'}`}>
+    <div className={`modal ${props.className === 'form_modal'? 'form_modal' : 'info_modal'}`} style={{height:`${props.height}`}}>
 
 
       <header className={`modal__header ${props.headerClass}`}>

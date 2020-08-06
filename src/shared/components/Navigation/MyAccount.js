@@ -18,7 +18,7 @@ const MyAccount = props => {
         <NavLink to="/login" style={{textDecoration: "none", color: "white"}}>My Account</NavLink>
       )}
       {auth.isLoggedIn && (
-        <NavLink to="/:userId/dashboard" style={{textDecoration: "none",  color: "white"}}>User Name</NavLink>
+        <NavLink to="/admin/garments" style={{textDecoration: "none",  color: "white"}}>User Name</NavLink>
       )}
 
       <p style={{marginLeft: "0.5rem", marginRight: "0.5rem"}}> | </p>

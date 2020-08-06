@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState} from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { NavLink } from 'react-router-dom';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
@@ -60,7 +61,7 @@ const SideDrawerDash = props => {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -69,22 +70,24 @@ const SideDrawerDash = props => {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+
       <Divider />
       <List style={{color:  "#B3B3B3"}}>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon  style={{color: "#B3B3B3"}}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+        {['Orders', 'Headquarters', 'Garments'].map((text, index) => (
+          <NavLink to={`/admin/${text.toLowerCase()}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+            <ListItemIcon style={{color: "#B3B3B3"}}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
-          </ListItem>
+          </NavLink>
         ))}
       </List>
-      <Divider />
+      <Divider style={{backgroundColor: "grey"}}/>
+      <h1 style={{color: "grey", paddingLeft: "1rem"}}>Edit Pages</h1>
       <List  style={{color:  "#B3B3B3"}}>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+        {['Home', 'About', 'Team', 'Contact'].map((text, index) => (
+          <NavLink to="/login" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
             <ListItemIcon  style={{color:  "#B3B3B3"}}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
-          </ListItem>
+          </NavLink>
         ))}
       </List>
     </div>
