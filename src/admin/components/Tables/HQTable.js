@@ -10,70 +10,129 @@ import InfoIcon from '@material-ui/icons/Info';
 import MUIDataTable from "mui-datatables";
 import HQModal from '../../../admin/components/Forms/HQModal';
 
+import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
+
 
 const HQTable = props => {
 
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(["","", "", "", ""]);
+  const [rowData, setRowData] = useState(['', '', '', '']);
 
   useEffect(() => {
-    setData(props.data)
-  }, [props.data])
+    const fetchHQs = async () => {
+      try {
+        const responseData = await sendRequest(
+          `http://localhost:5000/api/hqs`
+        );
+        setData(responseData.hqs);
+      } catch (err) {}
+    };
+    fetchHQs();
+  }, [sendRequest])
+
+
 
   function showModal() {
     setShowAddEditModal(true)
   }
 
   function exitModal() {
-    setRowData(["","", "", "", ""])
     setShowAddEditModal(false)
+    setIsEditing(false)
+    setRowData(['', '', '', ''])
   }
 
-  function setEditModeHandler(data, rowIndex) {
-    data.push(rowIndex)
+  function setEditModeHandler(data) {
     setRowData(data)
     setIsEditing(true)
     showModal()
   }
 
 
-  function addData(newData) {
-    setData(prevDatas => {
-      return [...prevDatas, newData];
-    });
+  async function addData(newData) {
+    try {
+      await sendRequest(
+        'http://localhost:5000/api/hqs',
+        'POST',
+        JSON.stringify({
+          _id: newData._id,
+          name: newData.name,
+          telephone: newData.telephone,
+          email: newData.email,
+        }),
+        { 'Content-Type': 'application/json' }
+      );
+      setData(prevDatas => {
+        return [...prevDatas, newData];
+      });
+    } catch (err) {}
     exitModal()
   }
 
-  function editData(currentData, rowIndex) {
-    setData(prevDatas => {
-      prevDatas[rowIndex] = currentData
-      return (prevDatas)
-    });
-    setIsEditing(false)
+  async function editData(currentData, hqId) {
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/hqs/${hqId}`,
+        'PATCH',
+        JSON.stringify({
+          _id: currentData._id,
+          name: currentData.name,
+          telephone: currentData.telephone,
+          email: currentData.email,
+        }),
+        { 'Content-Type': 'application/json' }
+      );
+      setData(prevDatas => {
+        prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
+        return prevDatas
+      });
+    } catch (err) {}
     exitModal()
+  }
+
+  async function deleteHandler(hqId) {
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/hqs/${hqId}`,
+        'DELETE',
+        { 'Content-Type': 'application/json' }
+      );
+      setData(prevDatas => {
+        return prevDatas.filter((hq) => {
+          return hq._id !== hqId
+        })
+      })
+    } catch (err) {}
   }
 
   const columns = [
     {
-      name: "id",
+      name: "_id",
+      options: {
+        display: false,
+      },
       label: "ID",
     },
-    {
-      name: "HQImg",
-      label: "Image",
-      options: {
-        sort: false,
-        customBodyRender: (value) => (
-          <img
-            alt="organisation logo"
-            src={value}
-            > 
-          </img>
-        )
-      }
-    },
+    // {
+    //   name: "HQImg",
+    //   label: "Image",
+    //   options: {
+    //     sort: false,
+    //     customBodyRender: (value) => (
+    //       <img
+    //         alt="organisation logo"
+    //         src={value}
+    //         > 
+    //       </img>
+    //     )
+    //   }
+    // },
+
     {
       name: "name",
       label: "Name",
@@ -108,7 +167,7 @@ const HQTable = props => {
                 startIcon={<EditIcon />}
                 style={{marginRight: "5%"}}
                 onClick={ () =>
-                  setEditModeHandler(tableMeta.rowData, tableMeta.rowIndex )
+                  setEditModeHandler(tableMeta.rowData)
                 }
               >
                 Edit
@@ -119,12 +178,8 @@ const HQTable = props => {
                 startIcon={<DeleteIcon />}
                 style={{margin: "0"}}
                 onClick={ () =>
-                  setData(prevDatas => {
-                    console.log("wat")
-                    return prevDatas.filter((item, index) => {
-                      return index !== tableMeta.rowIndex
-                    })
-                  })
+                  deleteHandler(tableMeta.rowData[0])
+                  
                 }
               >
                 delete
@@ -167,13 +222,22 @@ const HQTable = props => {
         onAdd={addData}
         onCancel={exitModal}
       /> 
-      <MUIDataTable
-        title="Garments"
-        className="table-center"
-        data={Datas}
-        columns={columns}
-        options={options}
-      />
+
+      <ErrorModal error={error} onClear={clearError} />
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+       {!isLoading && (
+        <MUIDataTable
+          title="HQ List"
+          className="table-center"
+          data={Datas}
+          columns={columns}
+          options={options}
+        />
+      )}
     </React.Fragment>
   );
 }

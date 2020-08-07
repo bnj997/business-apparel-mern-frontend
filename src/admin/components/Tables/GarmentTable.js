@@ -14,7 +14,7 @@ const GarmentTable = props => {
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
+  const [rowData, setRowData] = useState(["", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
 
   useEffect(() => {
     setData(props.data)
@@ -25,7 +25,7 @@ const GarmentTable = props => {
   }
 
   function exitModal() {
-    setRowData(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
+    setRowData(["", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
     setShowAddEditModal(false)
   }
 
@@ -37,7 +37,8 @@ const GarmentTable = props => {
   }
 
 
-  function addData(newData) {
+  async function addData(newData) {
+    
     setData(prevDatas => {
       return [...prevDatas, newData];
     });
@@ -55,23 +56,23 @@ const GarmentTable = props => {
 
   const columns = [
     {
-      name: "id",
+      name: "styleNum",
       label: "StyleNum",
     },
-    {
-      name: "garmentImg",
-      label: "Image",
-      options: {
-        sort: false,
-        customBodyRender: (value) => (
-          <img
-            alt="garment display"
-            src={value}
-            > 
-          </img>
-        )
-      }
-    },
+    // {
+    //   name: "garmentImg",
+    //   label: "Image",
+    //   options: {
+    //     sort: false,
+    //     customBodyRender: (value) => (
+    //       <img
+    //         alt="garment display"
+    //         src={value}
+    //         > 
+    //       </img>
+    //     )
+    //   }
+    // },
     {
       name: "name",
       label: "Name",

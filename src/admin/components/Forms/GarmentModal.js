@@ -16,13 +16,13 @@ import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 
 
 const validationSchema = yup.object({
-  garmentImg: yup
-    .mixed().required("An image is required")
-    .test(
-      value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
-    ),
+  // garmentImg: yup
+  //   .mixed().required("An image is required")
+  //   .test(
+  //     value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
+  //   ),
+  styleNum: yup.string().required(),
   name: yup.string().required(),
-  id: yup.string().required(),
   price: yup.number().required().min(0),
   category: yup.string().required(),
   supplier: yup.string().required(),
@@ -49,15 +49,15 @@ const GarmentModal = props => {
     >
       <Formik 
         initialValues={{
-          id: props.rowData[0],
-          garmentImg: props.rowData[1],
-          name: props.rowData[2],
-          price: props.rowData[3],
-          category: props.rowData[4],
-          supplier: props.rowData[5],
-          description: props.rowData[6],
-          colours: props.rowData[7],
-          sizes: props.rowData[8]
+          styleNum: props.rowData[0],
+          // garmentImg: props.rowData[1],
+          name: props.rowData[1],
+          price: props.rowData[2],
+          category: props.rowData[3],
+          supplier: props.rowData[4],
+          description: props.rowData[5],
+          colours: props.rowData[6],
+          sizes: props.rowData[7]
         }}
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
@@ -71,7 +71,6 @@ const GarmentModal = props => {
           }
 
 
-
           setSubmitting(false)
           resetForm();
         }}
@@ -81,12 +80,12 @@ const GarmentModal = props => {
           
             <div className="form_section">
               <FormLabel component="legend" className="form_label">Garment Image</FormLabel>
-              <ImageUpload
+              {/* <ImageUpload
                 name="garmentImg"
                 setFieldValue={setFieldValue}
-              />
+              /> */}
 
-              {["name", "id", "price", "category"].map(function(item, i){
+              {["name", "styleNum", "price", "category"].map(function(item, i){
                 return (
                   <FormTextField 
                     variant={props.type}

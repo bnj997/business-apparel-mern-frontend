@@ -55,7 +55,7 @@ const App = () => {
         <Route path="/admin/headquarters" component={Headquarters} exact> 
           <Headquarters />
         </Route>
-        <Route path="/admin/:hqId" component={Headquarters} exact> 
+        <Route path="/admin/:hqId" component={ThisHQ} exact> 
           <ThisHQ />
         </Route>
 
