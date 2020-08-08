@@ -8,6 +8,8 @@ import {
 
 
 import { AuthContext } from './shared/context/auth-context';
+import ThisHQ from './admin/pages/ThisHQ'
+import Headquarters from './admin/pages/Headquarters'
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true)
@@ -27,9 +29,6 @@ const App = () => {
   const Team = lazy(() => import('./shared/pages/Team'));
   const Contact = lazy(() => import('./shared/pages/Contact'));
   const Garments = lazy(() => import('./admin/pages/Garments'));
-
-  const Headquarters = lazy(() => import('./admin/pages/Headquarters'));
-  const ThisHQ = lazy(() => import('./admin/pages/ThisHQ'));
 
   const Authentication = lazy(() => import('./shared/pages/Authentication'));
 
@@ -52,10 +51,10 @@ const App = () => {
         <Route path="/admin/garments" component={Garments} exact> 
           <Garments />
         </Route>
-        <Route path="/admin/headquarters" component={Headquarters} exact> 
+        <Route path="/admin/headquarters" exact> 
           <Headquarters />
         </Route>
-        <Route path="/admin/:hqId" component={ThisHQ} exact> 
+        <Route path="/admin/:hqId" exact> 
           <ThisHQ />
         </Route>
 

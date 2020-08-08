@@ -10,14 +10,20 @@ import InfoIcon from '@material-ui/icons/Info';
 import MUIDataTable from "mui-datatables";
 import HQModal from '../../../admin/components/Forms/HQModal';
 
-import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+
 
 
 const HQTable = props => {
 
+  // const axios = require('axios');
+
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  //const [isLoading, setLoading] = useState(false)
+  // const [isError, setError] = useState("")
+
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -33,28 +39,37 @@ const HQTable = props => {
       } catch (err) {}
     };
     fetchHQs();
+    // const fetchHQs = async () => {
+    //   setLoading(true)
+    //   await axios
+    //     .get('http://localhost:5000/api/hqs')
+    //     .then(res => setData(res.data.hqs))
+    //     .catch(err => console.log(err.message))
+    //   setLoading(false)
+    // };
+    //fetchHQs();
   }, [sendRequest])
 
 
 
-  function showModal() {
+  const showModal = () => {
     setShowAddEditModal(true)
   }
 
-  function exitModal() {
+  const exitModal = () => {
     setShowAddEditModal(false)
     setIsEditing(false)
     setRowData(['', '', '', ''])
   }
 
-  function setEditModeHandler(data) {
+  const setEditModeHandler = data => {
     setRowData(data)
     setIsEditing(true)
     showModal()
   }
 
 
-  async function addData(newData) {
+  const addData = async newData => {
     try {
       await sendRequest(
         'http://localhost:5000/api/hqs',
@@ -73,8 +88,25 @@ const HQTable = props => {
     } catch (err) {}
     exitModal()
   }
+  // const addData = async newData => {
+  //   //setLoading(true)
+  //   await axios.post('http://localhost:5000/api/hqs', {
+  //     _id: newData._id,
+  //     name: newData.name,
+  //     telephone: newData.telephone,
+  //     email: newData.email,
+  //   })
+  //   .then(
+  //     setData(prevDatas => {
+  //       return [...prevDatas, newData];
+  //     }),
+  //   )
+  //   .catch(err => console.error(err))
+  //   //setLoading(false)
+  //   exitModal()
+  // }
 
-  async function editData(currentData, hqId) {
+  const editData = async (currentData, hqId) => {
     try {
       await sendRequest(
         `http://localhost:5000/api/hqs/${hqId}`,
@@ -95,7 +127,26 @@ const HQTable = props => {
     exitModal()
   }
 
-  async function deleteHandler(hqId) {
+  // const editData = async (currentData, hqId) => {
+  //   //setLoading(true)
+  //   await axios.patch(`http://localhost:5000/api/hqs/${hqId}`, {
+  //     _id: currentData._id,
+  //     name: currentData.name,
+  //     telephone: currentData.telephone,
+  //     email: currentData.email,
+  //   })
+  //   .then(
+  //     setData(prevDatas => {
+  //       prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
+  //       return prevDatas
+  //     })
+  //   )
+  //   .catch(err => console.error(err))
+  //   //setLoading(false)
+  //   exitModal()
+  // }
+
+  const deleteHandler = async hqId => {
     try {
       await sendRequest(
         `http://localhost:5000/api/hqs/${hqId}`,
@@ -110,6 +161,21 @@ const HQTable = props => {
     } catch (err) {}
   }
 
+  // const deleteHandler = async hqId => {
+  //   //setLoading(true)
+  //   await axios.delete(`http://localhost:5000/api/hqs/${hqId}`)
+  //     .then(
+  //       setData(prevDatas => {
+  //         return prevDatas.filter((hq) => {
+  //           return hq._id !== hqId
+  //         })
+  //       })
+  //     )
+  //     .catch(err => console.error(err))
+  //   //setLoading(false)
+  // }
+
+  
   const columns = [
     {
       name: "_id",
