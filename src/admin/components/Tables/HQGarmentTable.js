@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
-import HQModal from '../../../admin/components/Forms/HQModal';
+import GarmentModal from '../../../admin/components/Forms/GarmentModal';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
@@ -24,7 +24,7 @@ const HQGarmentTable = props => {
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(["", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
+  const [rowData, setRowData] = useState(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
 
   const hqID = useParams().hqId;
 
@@ -34,7 +34,7 @@ const HQGarmentTable = props => {
         const responseData = await sendRequest(
           `http://localhost:5000/api/garments/hq/${hqID}`
         );
-        setData(responseData.hqs);
+        setData(responseData.garments);
       } catch (err) {}
     };
     fetchGarmentsForHQ();
@@ -49,7 +49,7 @@ const HQGarmentTable = props => {
   const exitModal = () => {
     setShowAddEditModal(false)
     setIsEditing(false)
-    setRowData(['', '', '', ''])
+    setRowData(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
   }
 
   const setEditModeHandler = data => {
@@ -120,6 +120,9 @@ const HQGarmentTable = props => {
   const columns = [
     {
       name: "_id",
+      options: {
+        display: false,
+      },
       label: "ID",
     },
     {
@@ -233,7 +236,7 @@ const HQGarmentTable = props => {
 
   return (
     <React.Fragment>
-      <HQModal
+      <GarmentModal
         isEditing={isEditing}
         rowData={rowData}
         show={showAddEditModal}
@@ -250,7 +253,7 @@ const HQGarmentTable = props => {
       )}
        {!isLoading && (
         <MUIDataTable
-          title="HQ List"
+          title="Garment List"
           className="table-center"
           data={Datas}
           columns={columns}
