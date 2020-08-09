@@ -1,37 +1,45 @@
 import React, {useState, useEffect} from 'react'
+import { useParams } from 'react-router-dom';
 
 import './DataTable.css';
+import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
-import GarmentModal from '../../../admin/components/Forms/GarmentModal';
+import HQModal from '../../../admin/components/Forms/HQModal';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 
 
-const GarmentTable = props => {
+
+const HQGarmentTable = props => {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
+  const [rowData, setRowData] = useState(["", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
+
+  const hqID = useParams().hqId;
 
   useEffect(() => {
-    const fetchGarments = async () => {
+    const fetchGarmentsForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments`
+          `http://localhost:5000/api/garments/hq/${hqID}`
         );
-        setData(responseData.garments);
+        setData(responseData.hqs);
       } catch (err) {}
     };
-    fetchGarments();
-  }, [sendRequest])
+    fetchGarmentsForHQ();
+  }, [sendRequest, hqID])
+
 
 
   const showModal = () => {
@@ -41,7 +49,7 @@ const GarmentTable = props => {
   const exitModal = () => {
     setShowAddEditModal(false)
     setIsEditing(false)
-    setRowData(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
+    setRowData(['', '', '', ''])
   }
 
   const setEditModeHandler = data => {
@@ -54,18 +62,13 @@ const GarmentTable = props => {
   const addData = async newData => {
     try {
       await sendRequest(
-        'http://localhost:5000/api/garments',
+        'http://localhost:5000/api/hqs',
         'POST',
         JSON.stringify({
           _id: newData._id,
-          styleNum: newData.styleNum,
           name: newData.name,
-          price: newData.price,
-          category: newData.category,
-          supplier: newData.supplier,
-          description: newData.description,
-          colours: newData.colours,
-          sizes: newData.sizes,
+          telephone: newData.telephone,
+          email: newData.email,
         }),
         { 'Content-Type': 'application/json' }
       );
@@ -76,55 +79,47 @@ const GarmentTable = props => {
     exitModal()
   }
 
-
-  const editData = async (currentData, gid) => {
+  const editData = async (currentData, hqId) => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/garments/${gid}`,
+        `http://localhost:5000/api/hqs/${hqId}`,
         'PATCH',
         JSON.stringify({
           _id: currentData._id,
-          styleNum: currentData.styleNum,
-          name:  currentData.name,
-          price: currentData.price,
-          category: currentData.category,
-          supplier: currentData.supplier,
-          description: currentData.description,
-          colours:  currentData.colours,
-          sizes:  currentData.sizes,
+          name: currentData.name,
+          telephone: currentData.telephone,
+          email: currentData.email,
         }),
         { 'Content-Type': 'application/json' }
       );
       setData(prevDatas => {
-        prevDatas[prevDatas.findIndex(garment => garment._id === gid )] = currentData
+        prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
         return prevDatas
       });
     } catch (err) {}
     exitModal()
   }
 
-  const deleteHandler = async gId => {
+  const deleteHandler = async hqId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/garments/${gId}`,
+        `http://localhost:5000/api/hqs/${hqId}`,
         'DELETE',
         { 'Content-Type': 'application/json' }
       );
       setData(prevDatas => {
-        return prevDatas.filter((garment) => {
-          return garment._id !== gId
+        return prevDatas.filter((hq) => {
+          return hq._id !== hqId
         })
       })
     } catch (err) {}
   }
 
 
+  
   const columns = [
     {
       name: "_id",
-      options: {
-        display: false,
-      },
       label: "ID",
     },
     {
@@ -186,7 +181,7 @@ const GarmentTable = props => {
                 startIcon={<EditIcon />}
                 style={{marginRight: "5%"}}
                 onClick={ () =>
-                  setEditModeHandler(tableMeta.rowData)
+                  setEditModeHandler(tableMeta.rowData, tableMeta.rowIndex )
                 }
               >
                 Edit
@@ -197,7 +192,12 @@ const GarmentTable = props => {
                 startIcon={<DeleteIcon />}
                 style={{margin: "0"}}
                 onClick={ () =>
-                  deleteHandler(tableMeta.rowData[0])
+                  setData(prevDatas => {
+                    console.log("wat")
+                    return prevDatas.filter((item, index) => {
+                      return index !== tableMeta.rowIndex
+                    })
+                  })
                 }
               >
                 delete
@@ -208,6 +208,7 @@ const GarmentTable = props => {
       }
     }
   ]
+
 
   const options = {
     tableBodyHeight: "55rem",
@@ -232,7 +233,7 @@ const GarmentTable = props => {
 
   return (
     <React.Fragment>
-      <GarmentModal
+      <HQModal
         isEditing={isEditing}
         rowData={rowData}
         show={showAddEditModal}
@@ -247,17 +248,18 @@ const GarmentTable = props => {
           <LoadingSpinner />
         </div>
       )}
-
-      <MUIDataTable
-        title="Garments"
-        className="table-center"
-        data={Datas}
-        columns={columns}
-        options={options}
-      />
+       {!isLoading && (
+        <MUIDataTable
+          title="HQ List"
+          className="table-center"
+          data={Datas}
+          columns={columns}
+          options={options}
+        />
+      )}
     </React.Fragment>
   );
 }
 
-export default GarmentTable;
+export default HQGarmentTable;
 

@@ -33,6 +33,14 @@ const validationSchema = yup.object({
 
 
 const GarmentModal = props => {
+  console.log(props.rowData)
+  const { v4: uuidv4 } = require('uuid');
+  var id;
+  if (!props.isEditing) {
+    id = uuidv4();
+  } else {
+    id = props.rowData[0];
+  }
 
   const sizes1 = ["N/A", "2XS" , "XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL"]
   const sizes2 = ["8", "10", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30"]
@@ -49,15 +57,16 @@ const GarmentModal = props => {
     >
       <Formik 
         initialValues={{
-          styleNum: props.rowData[0],
+          _id: id,
+          styleNum: props.rowData[1],
           // garmentImg: props.rowData[1],
-          name: props.rowData[1],
-          price: props.rowData[2],
-          category: props.rowData[3],
-          supplier: props.rowData[4],
-          description: props.rowData[5],
-          colours: props.rowData[6],
-          sizes: props.rowData[7]
+          name: props.rowData[2],
+          price: props.rowData[3],
+          category: props.rowData[4],
+          supplier: props.rowData[5],
+          description: props.rowData[6],
+          colours: props.rowData[7],
+          sizes: props.rowData[8]
         }}
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
@@ -67,7 +76,7 @@ const GarmentModal = props => {
           if (!props.isEditing) {
             props.onAdd(data)
           } else {
-            props.onEdit(data, props.rowData[props.rowData.length - 1])
+            props.onEdit(data, props.rowData[0])
           }
 
 
@@ -85,7 +94,7 @@ const GarmentModal = props => {
                 setFieldValue={setFieldValue}
               /> */}
 
-              {["name", "styleNum", "price", "category"].map(function(item, i){
+              {[ "styleNum", "name", "price", "category"].map(function(item, i){
                 return (
                   <FormTextField 
                     variant={props.type}
@@ -97,6 +106,8 @@ const GarmentModal = props => {
                 )
               })}
 
+        
+
               <FormTextField
                 placeholder="Description"
                 name="description" 
@@ -104,26 +115,27 @@ const GarmentModal = props => {
                 variant={props.type}
                 isMultiline={true}
               />
+
+             
             </div>
-
-
             <div className="form_section">
 
               <FormLabel className="form_label" component="legend">Supplier</FormLabel>
-              <RadioGroup row aria-label="suppliers" className="form_group">
-                {["Biz Collection", "Winning Spirit", "JB Wears"].map(function(item){
-                  return (
-                    <FormRadio 
-                      key={item}
-                      name="supplier" 
-                      value={item}
-                      type="radio" 
-                      label={item}
-                      variant={props.type}
-                    />
-                    )
-                })}
-              </RadioGroup >
+                <RadioGroup row aria-label="suppliers" className="form_group">
+                  {["Biz Collection", "Winning Spirit", "JB Wears"].map(function(item){
+                    return (
+                      <FormRadio 
+                        key={item}
+                        name="supplier" 
+                        value={item}
+                        type="radio" 
+                        label={item}
+                        variant={props.type}
+                      />
+                      )
+                  })}
+                </RadioGroup >
+              
 
               <FormLabel component="legend" className="form_label" >Sizes</FormLabel>
               <div className="form_group">
@@ -145,6 +157,7 @@ const GarmentModal = props => {
                   )
                 })}
               </FormGroup>
+             
 
               <FormLabel component="legend" className="form_label" >Colours</FormLabel>
               <FieldArray name="colours" className="form_group">
@@ -170,7 +183,10 @@ const GarmentModal = props => {
                   </div>
                 )}
               </FieldArray>
+
+             
             </div>
+            <pre>{JSON.stringify(values, null, 2)}</pre>
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>{props.isEditing ? `Submit changes` : `Add Garment`}</Button>
           </Form>
         )}
