@@ -33,7 +33,6 @@ const validationSchema = yup.object({
 
 
 const GarmentModal = props => {
-  console.log(props.rowData)
   const { v4: uuidv4 } = require('uuid');
   var id;
   if (!props.isEditing) {

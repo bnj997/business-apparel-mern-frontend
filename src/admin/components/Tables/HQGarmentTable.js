@@ -9,7 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
-import GarmentModal from '../../../admin/components/Forms/GarmentModal';
+import HQGarmentModal from '../../../admin/components/Forms/HQGarmentModal';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
@@ -20,11 +20,8 @@ import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 const HQGarmentTable = props => {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
 
   const hqID = useParams().hqId;
 
@@ -41,82 +38,52 @@ const HQGarmentTable = props => {
   }, [sendRequest, hqID])
 
 
-
-  const showModal = () => {
-    setShowAddEditModal(true)
-  }
-
-  const exitModal = () => {
-    setShowAddEditModal(false)
-    setIsEditing(false)
-    setRowData(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
-  }
-
-  const setEditModeHandler = data => {
-    setRowData(data)
-    setIsEditing(true)
-    showModal()
-  }
-
-
-  const addData = async newData => {
+  const addGarments= async garments => {
     try {
       await sendRequest(
-        'http://localhost:5000/api/hqs',
-        'POST',
-        JSON.stringify({
-          _id: newData._id,
-          name: newData.name,
-          telephone: newData.telephone,
-          email: newData.email,
-        }),
-        { 'Content-Type': 'application/json' }
-      );
-      setData(prevDatas => {
-        return [...prevDatas, newData];
-      });
-    } catch (err) {}
-    exitModal()
-  }
-
-  const editData = async (currentData, hqId) => {
-    try {
-      await sendRequest(
-        `http://localhost:5000/api/hqs/${hqId}`,
+        `http://localhost:5000/api/garments/hq/${hqID}`,
         'PATCH',
         JSON.stringify({
-          _id: currentData._id,
-          name: currentData.name,
-          telephone: currentData.telephone,
-          email: currentData.email,
+          garments
         }),
         { 'Content-Type': 'application/json' }
       );
       setData(prevDatas => {
-        prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
-        return prevDatas
+        for (var i = 0; i < garments.length; i++) {
+          prevDatas.push(garments[i])
+        }
+        return prevDatas;
       });
     } catch (err) {}
+
     exitModal()
   }
 
-  const deleteHandler = async hqId => {
+  const deleteHandler = async gId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/hqs/${hqId}`,
-        'DELETE',
+        `http://localhost:5000/api/garments/hq/${hqID}/${gId}`,
+        'PATCH',
         { 'Content-Type': 'application/json' }
       );
       setData(prevDatas => {
-        return prevDatas.filter((hq) => {
-          return hq._id !== hqId
+        return prevDatas.filter((garment) => {
+          return garment._id !== gId
         })
       })
     } catch (err) {}
   }
 
 
+  const showModal = () => {
+    setShowAddEditModal(true)
+  }
+  const exitModal = () => {
+
+    setShowAddEditModal(false)
+  }
   
+
   const columns = [
     {
       name: "_id",
@@ -181,29 +148,13 @@ const HQGarmentTable = props => {
               <Button
                 variant="contained"
                 color="default"
-                startIcon={<EditIcon />}
-                style={{marginRight: "5%"}}
-                onClick={ () =>
-                  setEditModeHandler(tableMeta.rowData, tableMeta.rowIndex )
-                }
-              >
-                Edit
-              </Button>
-              <Button
-                variant="contained"
-                color="default"
                 startIcon={<DeleteIcon />}
                 style={{margin: "0"}}
                 onClick={ () =>
-                  setData(prevDatas => {
-                    console.log("wat")
-                    return prevDatas.filter((item, index) => {
-                      return index !== tableMeta.rowIndex
-                    })
-                  })
+                  deleteHandler(tableMeta.rowData[0])
                 }
               >
-                delete
+                Delete
               </Button>
             </React.Fragment>
           )
@@ -236,12 +187,9 @@ const HQGarmentTable = props => {
 
   return (
     <React.Fragment>
-      <GarmentModal
-        isEditing={isEditing}
-        rowData={rowData}
+      <HQGarmentModal
         show={showAddEditModal}
-        onEdit={editData}
-        onAdd={addData}
+        onAdd={addGarments}
         onCancel={exitModal}
       /> 
 

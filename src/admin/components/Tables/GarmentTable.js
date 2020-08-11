@@ -66,6 +66,7 @@ const GarmentTable = props => {
           description: newData.description,
           colours: newData.colours,
           sizes: newData.sizes,
+          hqs: []
         }),
         { 'Content-Type': 'application/json' }
       );
