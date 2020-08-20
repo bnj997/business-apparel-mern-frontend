@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import './DataTable.css';
@@ -14,8 +14,10 @@ import HQUserModal from '../../../admin/components/Forms/HQUserModal';
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 const HQUserTable = props => {
+  const auth = useContext(AuthContext);
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [Datas, setData] = useState([]);
@@ -29,14 +31,19 @@ const HQUserTable = props => {
     const fetchUsersForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/${hqID}`
+          `http://localhost:5000/api/users/${hqID}`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         console.log(responseData.users)
         setData(responseData.users);
       } catch (err) {}
     };
     fetchUsersForHQ();
-  }, [sendRequest, hqID])
+  }, [sendRequest, hqID, auth.token])
 
 
   const addUser = async newData => {
@@ -52,7 +59,10 @@ const HQUserTable = props => {
           email: newData.email,
           password: newData.password
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         return [...prevDatas, newData];
@@ -74,7 +84,10 @@ const HQUserTable = props => {
           email: currentData.email,
           password: currentData.password
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         prevDatas[prevDatas.findIndex(user => user._id === uId )] = currentData
@@ -89,7 +102,10 @@ const HQUserTable = props => {
       await sendRequest(
         `http://localhost:5000/api/users/${hqID}/${uId}`,
         'DELETE',
-        { 'Content-Type': 'application/json' }
+        null,
+        { 
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         return prevDatas.filter((user) => {

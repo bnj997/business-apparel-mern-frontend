@@ -31,13 +31,18 @@ const HQBranchTable = props => {
     const fetchBranchesForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/branches/${hqID}`
+          `http://localhost:5000/api/branches/${hqID}`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         setData(responseData.branches);
       } catch (err) {}
     };
     fetchBranchesForHQ();
-  }, [sendRequest, hqID])
+  }, [sendRequest, hqID, auth.token])
 
 
   const addBranches = async newData => {

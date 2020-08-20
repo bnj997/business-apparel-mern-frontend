@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import './DataTable.css';
@@ -14,10 +14,12 @@ import HQGarmentModal from '../../../admin/components/Forms/HQGarmentModal';
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 
 
 const HQGarmentTable = props => {
+  const auth = useContext(AuthContext);
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [Datas, setData] = useState([]);
@@ -29,13 +31,18 @@ const HQGarmentTable = props => {
     const fetchGarmentsForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments/hq/${hqID}`
+          `http://localhost:5000/api/garments/hq/${hqID}`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         setData(responseData.garments);
       } catch (err) {}
     };
     fetchGarmentsForHQ();
-  }, [sendRequest, hqID])
+  }, [sendRequest, hqID, auth.token])
 
 
   const addGarments= async garments => {
@@ -46,7 +53,10 @@ const HQGarmentTable = props => {
         JSON.stringify({
           garments
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         for (var i = 0; i < garments.length; i++) {
@@ -64,7 +74,10 @@ const HQGarmentTable = props => {
       await sendRequest(
         `http://localhost:5000/api/garments/hq/${hqID}/${gId}`,
         'PATCH',
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token 
+        }
       );
       setData(prevDatas => {
         return prevDatas.filter((garment) => {

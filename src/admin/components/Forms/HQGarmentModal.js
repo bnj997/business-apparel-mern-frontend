@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
 
@@ -8,9 +8,11 @@ import MUIDataTable from "mui-datatables";
 import EditIcon from '@material-ui/icons/Edit';
 
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 
 const HQGarmentModal = props => {
+  const auth = useContext(AuthContext);
 
   const hqID = useParams().hqId;
 
@@ -22,13 +24,18 @@ const HQGarmentModal = props => {
     const fetchAvailableGarmentsForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments/hq/${hqID}/available`
+          `http://localhost:5000/api/garments/hq/${hqID}/available`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         setGarmentsAvailable(responseData.garments);
       } catch (err) {}
     };
     fetchAvailableGarmentsForHQ();
-  }, [sendRequest, hqID])
+  }, [sendRequest, hqID, auth.token])
 
 
   const addGarmentToAdd = row => {

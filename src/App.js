@@ -12,14 +12,12 @@ import ThisHQ from './admin/pages/ThisHQ'
 import Headquarters from './admin/pages/Headquarters'
 
 const App = () => {
-  const [token, setToken] = useState(true)
+  const [token, setToken] = useState(false)
   const [userId, setUserId] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [username, setUsername] = useState(false);
 
   const login = useCallback((uid, username, token) => {
-    if (username === "admin") {
-      setIsAdmin(true);
-    } 
+    setUsername(username)
     setToken(token);
     setUserId(uid);
   }, []);
@@ -27,7 +25,7 @@ const App = () => {
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
-    setIsAdmin(false);
+    setUsername(null);
   }, []);
 
   let routes;
@@ -40,7 +38,7 @@ const App = () => {
 
   const Authentication = lazy(() => import('./shared/pages/Authentication'));
 
-  if (token && isAdmin) {
+  if (token && username === "adminstaff") {
     routes = (
       <Switch>
         <Route path="/" component={Home} exact> 
@@ -70,7 +68,7 @@ const App = () => {
         <Redirect to="/" component={Home} />
       </Switch>
     );  
-  } else if (token && !isAdmin) {
+  } else if (token) {
     routes = (
       <Switch>
         <Route path="/" component={Home} exact> 
@@ -130,6 +128,7 @@ const App = () => {
         isLoggedIn: !!token,
         token: token,
         userId: userId,
+        username: username,
         login: login, 
         logout: logout
       }}

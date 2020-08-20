@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState } from 'react';
 
 import { Formik, Form} from 'formik';
 import { Button } from "@material-ui/core";
@@ -12,6 +12,7 @@ import Modal from '../../../shared/components/UIElements/Modal';
 import FormRadio from '../../../shared/components/FormElements/FormRadio';
 import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
@@ -31,7 +32,9 @@ const validationSchema = yup.object({
 });
 
 
-const HQBranchModal = props => {
+const HQUserModal = props => {
+  const auth = useContext(AuthContext);
+
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [branches, setBranches] = useState([])
   const hqID = useParams().hqId;
@@ -41,13 +44,18 @@ const HQBranchModal = props => {
     const fetchBranchesForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/branches/${hqID}`
+          `http://localhost:5000/api/branches/${hqID}`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         setBranches(responseData.branches);
       } catch (err) {}
     };
     fetchBranchesForHQ();
-  }, [sendRequest, hqID])
+  }, [sendRequest, hqID, auth.token])
 
   console.log(branches)
 
@@ -135,4 +143,4 @@ const HQBranchModal = props => {
   )
 }
 
-export default HQBranchModal;
+export default HQUserModal;

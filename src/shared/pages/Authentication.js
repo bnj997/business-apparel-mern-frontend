@@ -34,25 +34,6 @@ const Authentication = () => {
   const auth = useContext(AuthContext)
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const authSubmitHandler = async (event, data) => {
-    event.preventDefault();
-    try {
-      const responseData = await sendRequest(
-        'http://localhost:5000/api/users/login',
-        'POST',
-        JSON.stringify({
-          username: data.username,
-          password: data.password
-        }),
-        {
-          'Content-Type': 'application/json'
-        }
-      );
-      auth.login(responseData.userId, responseData.username, responseData.token);
-    } catch (err) {}
-  
-  }
-
   return (
     <React.Fragment>
       <MainNavigation />
@@ -69,11 +50,27 @@ const Authentication = () => {
             }} 
             validationSchema={validationSchema}
 
-            onSubmit={(data, {setSubmitting, resetForm}) =>  {
+            onSubmit={async (data, {setSubmitting, resetForm}) =>  {
               setSubmitting(true)
-              authSubmitHandler(data)
-              setSubmitting(false)
               resetForm();
+
+              try {
+                const responseData = await sendRequest(
+                  'http://localhost:5000/api/users/login',
+                  'POST',
+                  JSON.stringify({
+                    username: data.username,
+                    password: data.password
+                  }),
+                  {
+                    'Content-Type': 'application/json'
+                  }
+                );
+                auth.login(responseData.userId, responseData.username, responseData.token);
+                setSubmitting(false)
+              } catch (err) {setSubmitting(false)}
+
+              
             }}
           >
             {({values, errors, isSubmitting}) => (

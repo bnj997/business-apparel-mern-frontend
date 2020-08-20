@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 
 import './DataTable.css';
 import { NavLink } from 'react-router-dom';
@@ -13,10 +13,12 @@ import HQModal from '../../../admin/components/Forms/HQModal';
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 
 
 const HQTable = props => {
+  const auth = useContext(AuthContext);
 
   // const axios = require('axios');
 
@@ -33,7 +35,12 @@ const HQTable = props => {
     const fetchHQs = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/hqs`
+          `http://localhost:5000/api/hqs`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         setData(responseData.hqs);
       } catch (err) {}
@@ -48,7 +55,7 @@ const HQTable = props => {
     //   setLoading(false)
     // };
     //fetchHQs();
-  }, [sendRequest])
+  }, [sendRequest, auth.token])
 
 
 
@@ -80,7 +87,10 @@ const HQTable = props => {
           telephone: newData.telephone,
           email: newData.email,
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token 
+        }
       );
       setData(prevDatas => {
         return [...prevDatas, newData];
@@ -88,23 +98,6 @@ const HQTable = props => {
     } catch (err) {}
     exitModal()
   }
-  // const addData = async newData => {
-  //   //setLoading(true)
-  //   await axios.post('http://localhost:5000/api/hqs', {
-  //     _id: newData._id,
-  //     name: newData.name,
-  //     telephone: newData.telephone,
-  //     email: newData.email,
-  //   })
-  //   .then(
-  //     setData(prevDatas => {
-  //       return [...prevDatas, newData];
-  //     }),
-  //   )
-  //   .catch(err => console.error(err))
-  //   //setLoading(false)
-  //   exitModal()
-  // }
 
   const editData = async (currentData, hqId) => {
     try {
@@ -117,7 +110,10 @@ const HQTable = props => {
           telephone: currentData.telephone,
           email: currentData.email,
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
@@ -151,7 +147,10 @@ const HQTable = props => {
       await sendRequest(
         `http://localhost:5000/api/hqs/${hqId}`,
         'DELETE',
-        { 'Content-Type': 'application/json' }
+        null,
+        { 
+          Authorization: 'Bearer ' + auth.token 
+        }
       );
       setData(prevDatas => {
         return prevDatas.filter((hq) => {

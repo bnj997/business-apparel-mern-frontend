@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 
 import './DataTable.css';
 import { Button} from "@material-ui/core";
@@ -10,11 +10,12 @@ import GarmentModal from '../../../admin/components/Forms/GarmentModal';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
+import { AuthContext } from '../../../shared/context/auth-context';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 
 
 const GarmentTable = props => {
-
+  const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
@@ -25,13 +26,18 @@ const GarmentTable = props => {
     const fetchGarments = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments`
+          `http://localhost:5000/api/garments`,
+          'GET',
+          null,
+          {
+            Authorization: 'Bearer ' + auth.token
+          }
         );
         setData(responseData.garments);
       } catch (err) {}
     };
     fetchGarments();
-  }, [sendRequest])
+  }, [sendRequest, auth.token])
 
 
   const showModal = () => {
@@ -68,7 +74,10 @@ const GarmentTable = props => {
           sizes: newData.sizes,
           hqs: []
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         return [...prevDatas, newData];
@@ -94,7 +103,10 @@ const GarmentTable = props => {
           colours:  currentData.colours,
           sizes:  currentData.sizes,
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token 
+        }
       );
       setData(prevDatas => {
         prevDatas[prevDatas.findIndex(garment => garment._id === gid )] = currentData
@@ -109,7 +121,10 @@ const GarmentTable = props => {
       await sendRequest(
         `http://localhost:5000/api/garments/${gId}`,
         'DELETE',
-        { 'Content-Type': 'application/json' }
+        null,
+        { 
+          Authorization: 'Bearer ' + auth.token 
+        }
       );
       setData(prevDatas => {
         return prevDatas.filter((garment) => {
