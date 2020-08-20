@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom';
 
 import './DataTable.css';
@@ -14,8 +14,10 @@ import HQBranchModal from '../../../admin/components/Forms/HQBranchModal';
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 const HQBranchTable = props => {
+  const auth = useContext(AuthContext);
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [Datas, setData] = useState([]);
@@ -51,7 +53,10 @@ const HQBranchTable = props => {
           email: newData.email,
           hq: hqID
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         return [...prevDatas, newData];
@@ -73,7 +78,10 @@ const HQBranchTable = props => {
           email: currentData.email,
           hq: hqID
         }),
-        { 'Content-Type': 'application/json' }
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         prevDatas[prevDatas.findIndex(branch => branch._id === bid )] = currentData
@@ -88,7 +96,10 @@ const HQBranchTable = props => {
       await sendRequest(
         `http://localhost:5000/api/branches/${hqID}/${bId}`,
         'DELETE',
-        { 'Content-Type': 'application/json' }
+        null,
+        { 
+          Authorization: 'Bearer ' + auth.token
+        }
       );
       setData(prevDatas => {
         return prevDatas.filter((branch) => {

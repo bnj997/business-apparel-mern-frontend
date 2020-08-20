@@ -8,10 +8,13 @@ import TextSection from '../components/UIElements/TextSection';
 import LoginCard from '../../shared/components/UIElements/LoginCard';
 
 import { Formik, Form} from 'formik';
-import { AuthContext } from '../../shared/context/auth-context';
+import { AuthContext } from '../context/auth-context';
+import { useHttpClient } from '../components/hooks/http-hook';
 import * as yup from 'yup';
 import FormTextField from '../components/FormElements/FormTextField';
 import SmallButton from '../components/FormElements/SmallButton';
+import ErrorModal from '../components/UIElements/ErrorModal';
+import LoadingSpinner from '../components/UIElements/LoadingSpinner';
 
 const validationSchema = yup.object({
   username: yup
@@ -29,12 +32,34 @@ const validationSchema = yup.object({
 const Authentication = () => {
 
   const auth = useContext(AuthContext)
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+  const authSubmitHandler = async (event, data) => {
+    event.preventDefault();
+    try {
+      const responseData = await sendRequest(
+        'http://localhost:5000/api/users/login',
+        'POST',
+        JSON.stringify({
+          username: data.username,
+          password: data.password
+        }),
+        {
+          'Content-Type': 'application/json'
+        }
+      );
+      auth.login(responseData.userId, responseData.username, responseData.token);
+    } catch (err) {}
+  
+  }
 
   return (
     <React.Fragment>
       <MainNavigation />
       <TextSection type="center normal" color="#404040" >
+        <ErrorModal error={error} onClear={clearError} />
         <LoginCard>
+          {isLoading && <LoadingSpinner asOverlay />}
           <h1 style={{marginTop: "5%"}}> Log in </h1>
           <h3> Access your dashboard here</h3>
           <Formik 
@@ -46,10 +71,9 @@ const Authentication = () => {
 
             onSubmit={(data, {setSubmitting, resetForm}) =>  {
               setSubmitting(true)
-              //make async call
+              authSubmitHandler(data)
               setSubmitting(false)
               resetForm();
-              auth.login();
             }}
           >
             {({values, errors, isSubmitting}) => (

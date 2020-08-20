@@ -12,15 +12,23 @@ import ThisHQ from './admin/pages/ThisHQ'
 import Headquarters from './admin/pages/Headquarters'
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [token, setToken] = useState(true)
+  const [userId, setUserId] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const login = useCallback(()=>{
-    setIsLoggedIn(true);
-  }, [])
+  const login = useCallback((uid, username, token) => {
+    if (username === "admin") {
+      setIsAdmin(true);
+    } 
+    setToken(token);
+    setUserId(uid);
+  }, []);
 
-  const logout = useCallback(()=>{
-    setIsLoggedIn(false);
-  }, [])
+  const logout = useCallback(() => {
+    setToken(null);
+    setUserId(null);
+    setIsAdmin(false);
+  }, []);
 
   let routes;
 
@@ -32,7 +40,7 @@ const App = () => {
 
   const Authentication = lazy(() => import('./shared/pages/Authentication'));
 
-  if (isLoggedIn) {
+  if (token && isAdmin) {
     routes = (
       <Switch>
         <Route path="/" component={Home} exact> 
@@ -55,6 +63,36 @@ const App = () => {
           <Headquarters />
         </Route>
         <Route path="/admin/:hqId" exact> 
+          <ThisHQ />
+        </Route>
+
+
+        <Redirect to="/" component={Home} />
+      </Switch>
+    );  
+  } else if (token && !isAdmin) {
+    routes = (
+      <Switch>
+        <Route path="/" component={Home} exact> 
+          <Home />
+        </Route>
+        <Route path="/about" component={About} exact> 
+          <About />
+        </Route>
+        <Route path="/team" component={Team} exact> 
+          <Team />
+        </Route>
+        <Route path="/contact" component={Contact} exact> 
+          <Contact />
+        </Route>
+
+        <Route path="/:userId/catalogue" component={Garments} exact> 
+          <Garments />
+        </Route>
+        <Route path="/:userId/cart" exact> 
+          <Headquarters />
+        </Route>
+        <Route path="/:userId/orders" exact> 
           <ThisHQ />
         </Route>
 
@@ -89,7 +127,9 @@ const App = () => {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
+        isLoggedIn: !!token,
+        token: token,
+        userId: userId,
         login: login, 
         logout: logout
       }}
