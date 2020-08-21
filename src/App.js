@@ -1,4 +1,4 @@
-import React, {Suspense, lazy, useState, useCallback, useEffect} from 'react';
+import React, {Suspense, lazy} from 'react';
 import { 
   BrowserRouter as Router, 
   Route, 
@@ -13,7 +13,7 @@ import ThisHQ from './admin/pages/ThisHQ'
 import Headquarters from './admin/pages/Headquarters'
 
 const App = () => {
-  const { token, login, logout, userId, username } = useAuth();
+  const {token, login, logout, userId, username,} = useAuth();
 
   let routes;
 
