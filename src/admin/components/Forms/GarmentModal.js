@@ -16,11 +16,8 @@ import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 
 
 const validationSchema = yup.object({
-  // garmentImg: yup
-  //   .mixed().required("An image is required")
-  //   .test(
-  //     value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
-  //   ),
+  image: yup
+    .mixed().required("An image is required"),
   styleNum: yup.string().required(),
   name: yup.string().required(),
   price: yup.number().required().min(0),
@@ -57,15 +54,15 @@ const GarmentModal = props => {
       <Formik 
         initialValues={{
           _id: id,
-          styleNum: props.rowData[1],
-          // garmentImg: props.rowData[1],
-          name: props.rowData[2],
-          price: props.rowData[3],
-          category: props.rowData[4],
-          supplier: props.rowData[5],
-          description: props.rowData[6],
-          colours: props.rowData[7],
-          sizes: props.rowData[8]
+          image: props.rowData[1],
+          styleNum: props.rowData[2],
+          name: props.rowData[3],
+          price: props.rowData[4],
+          category: props.rowData[5],
+          supplier: props.rowData[6],
+          description: props.rowData[7],
+          colours: props.rowData[8],
+          sizes: props.rowData[9]
         }}
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
@@ -88,10 +85,11 @@ const GarmentModal = props => {
           
             <div className="form_section">
               <FormLabel component="legend" className="form_label">Garment Image</FormLabel>
-              {/* <ImageUpload
-                name="garmentImg"
+              <ImageUpload
+                picture={props.rowData[1]}
+                name="image"
                 setFieldValue={setFieldValue}
-              /> */}
+              />
 
               {[ "styleNum", "name", "price", "category"].map(function(item, i){
                 return (

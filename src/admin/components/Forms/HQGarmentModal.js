@@ -13,7 +13,6 @@ import { AuthContext } from '../../../shared/context/auth-context';
 
 const HQGarmentModal = props => {
   const auth = useContext(AuthContext);
-
   const hqID = useParams().hqId;
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();

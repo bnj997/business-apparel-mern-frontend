@@ -18,9 +18,10 @@ const GarmentTable = props => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [Datas, setData] = useState([]);
+  const [request, setRequest] = useState(false);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
+  const [rowData, setRowData] = useState(["", "", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]]);
 
   useEffect(() => {
     const fetchGarments = async () => {
@@ -33,11 +34,12 @@ const GarmentTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
+        console.log(responseData.garments)
         setData(responseData.garments);
       } catch (err) {}
     };
     fetchGarments();
-  }, [sendRequest, auth.token])
+  }, [sendRequest, auth.token, request])
 
 
   const showModal = () => {
@@ -47,7 +49,7 @@ const GarmentTable = props => {
   const exitModal = () => {
     setShowAddEditModal(false)
     setIsEditing(false)
-    setRowData(["", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
+    setRowData(["", "", "", "", "", "", "Biz Collection", "", ["Black", "Navy"], ["N/A"]])
   }
 
   const setEditModeHandler = data => {
@@ -59,61 +61,72 @@ const GarmentTable = props => {
 
   const addData = async newData => {
     try {
-      await sendRequest(
-        'http://localhost:5000/api/garments',
-        'POST',
-        JSON.stringify({
-          _id: newData._id,
-          styleNum: newData.styleNum,
-          name: newData.name,
-          price: newData.price,
-          category: newData.category,
-          supplier: newData.supplier,
-          description: newData.description,
-          colours: newData.colours,
-          sizes: newData.sizes,
-          hqs: []
-        }),
-        { 
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token
-        }
-      );
-      setData(prevDatas => {
-        return [...prevDatas, newData];
+      const formData = new FormData();
+      formData.append('_id', newData._id)
+      formData.append('image', newData.image)
+      formData.append('styleNum', newData.styleNum)
+      formData.append('name', newData.name)
+      formData.append('price', newData.price)
+      formData.append('category', newData.category)
+      formData.append('supplier', newData.supplier)
+      formData.append('description', newData.description)
+
+      var colourArr = newData.colours
+      var sizesArr = newData.sizes
+      for (var i = 0; i < colourArr.length; i++) {
+        formData.append('colours', colourArr[i]);
+      }
+      for (i = 0; i <  sizesArr.length; i++) {
+        formData.append('sizes',  sizesArr[i]);
+      }
+
+      formData.append('hqs', [])
+      await sendRequest( 'http://localhost:5000/api/garments','POST', formData, { 
+        Authorization: 'Bearer ' + auth.token
       });
+      // setData(prevDatas => {
+      //   return [...prevDatas, newData];
+      // });
+      setRequest(!request)
     } catch (err) {}
     exitModal()
   }
 
 
   const editData = async (currentData, gid) => {
-    try {
-      await sendRequest(
-        `http://localhost:5000/api/garments/${gid}`,
-        'PATCH',
-        JSON.stringify({
-          _id: currentData._id,
-          styleNum: currentData.styleNum,
-          name:  currentData.name,
-          price: currentData.price,
-          category: currentData.category,
-          supplier: currentData.supplier,
-          description: currentData.description,
-          colours:  currentData.colours,
-          sizes:  currentData.sizes,
-        }),
-        { 
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token 
-        }
-      );
-      setData(prevDatas => {
-        prevDatas[prevDatas.findIndex(garment => garment._id === gid )] = currentData
-        return prevDatas
-      });
-    } catch (err) {}
     exitModal()
+    try {
+      const formData = new FormData();
+      formData.append('_id', currentData._id)
+      if (typeof currentData.image === 'object') {
+        formData.append('image', currentData.image)
+      }
+      formData.append('styleNum',  currentData.styleNum)
+      formData.append('name',  currentData.name)
+      formData.append('price',  currentData.price)
+      formData.append('category',  currentData.category)
+      formData.append('supplier',  currentData.supplier)
+      formData.append('description',  currentData.description)
+
+      var colourArr = currentData.colours
+      var sizesArr = currentData.sizes
+      for (var i = 0; i < colourArr.length; i++) {
+        formData.append('colours', colourArr[i]);
+      }
+      for (i = 0; i <  sizesArr.length; i++) {
+        formData.append('sizes',  sizesArr[i]);
+      }
+
+
+      await sendRequest(`http://localhost:5000/api/garments/${gid}`, 'PATCH', formData, { 
+        Authorization: 'Bearer ' + auth.token 
+      });
+      // setData(prevDatas => {
+      //   prevDatas[prevDatas.findIndex(garment => garment._id === gid )] = currentData
+      //   return prevDatas
+      // });
+      setRequest(!request)
+    } catch (err) {}
   }
 
   const deleteHandler = async gId => {
@@ -144,23 +157,24 @@ const GarmentTable = props => {
       label: "ID",
     },
     {
+      name: "image",
+      label: "Image",
+      options: {
+        sort: false,
+        customBodyRender: (value) => (
+          <img
+            style={{width: "50px", height: "75px"}}
+            alt="Garment"
+            src={`http://localhost:5000/${value}`}
+            > 
+          </img>
+        )
+      }
+    },
+    {
       name: "styleNum",
       label: "StyleNum",
     },
-    // {
-    //   name: "garmentImg",
-    //   label: "Image",
-    //   options: {
-    //     sort: false,
-    //     customBodyRender: (value) => (
-    //       <img
-    //         alt="garment display"
-    //         src={value}
-    //         > 
-    //       </img>
-    //     )
-    //   }
-    // },
     {
       name: "name",
       label: "Name",
