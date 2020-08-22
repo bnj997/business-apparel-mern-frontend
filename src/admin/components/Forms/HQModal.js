@@ -8,19 +8,12 @@ import * as yup from 'yup';
 import FormTextField from '../../../shared/components/FormElements/FormTextField';
 import Modal from '../../../shared/components/UIElements/Modal';
 import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
-import { useHttpClient } from '../../../shared/components/hooks/http-hook';
-
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 
 
 
 const validationSchema = yup.object({
-  // HQImg: yup
-  //   .mixed().required("An image is required")
-  //   .test(
-  //     value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
-  //   ),
+  image: yup
+    .mixed().required("An image is required"),
   name: yup.string().required(),
   telephone: yup.number().required(),
   email: yup.string().email().required(),
@@ -47,12 +40,11 @@ const HQModal = props => {
 
       <Formik 
         initialValues={{
-          // id: props.rowData[0],
-          // HQImg: props.rowData[1],
           _id: id,
-          name: props.rowData[1],
-          telephone: props.rowData[2],
-          email: props.rowData[3]
+          image: props.rowData[1],
+          name: props.rowData[2],
+          telephone: props.rowData[3],
+          email: props.rowData[4]
         }}
         validationSchema={validationSchema}
         onSubmit={ async (data, {setSubmitting, resetForm}) =>  {
@@ -69,13 +61,14 @@ const HQModal = props => {
           resetForm();
         }}
       >
-        {({values, isSubmitting}) => (
+        {({values, setFieldValue, isSubmitting}) => (
           <Form >
-            {/* <FormLabel component="legend" className="form_label">Image</FormLabel>
+            <FormLabel component="legend" className="form_label">Image</FormLabel>
             <ImageUpload
-              name="HQImg"
+              picture={props.rowData[1]}
+              name="image"
               setFieldValue={setFieldValue}
-            /> */}
+            />
             {["name", "telephone", "email"].map(function(item, i){
               return (
                 <FormTextField 
@@ -87,7 +80,7 @@ const HQModal = props => {
                 />
               )
             })}
-             <pre>{JSON.stringify(values, null, 2)}</pre>
+             {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>{props.isEditing ? `Submit changes` : `Add Item`}</Button>
           </Form>
         )}

@@ -3,8 +3,12 @@ import { Button } from "@material-ui/core";
 import './ImageUpload.css';
 
 const ImageUpload = ({placeholder, ...props}) => {
+  let url = '';
+  if (props.picture !== '') {
+    url = `http://localhost:5000/${props.picture}`
+  }
   const [file, setFile] = useState();
-  const [previewUrl, setPreviewUrl] = useState();
+  const [previewUrl, setPreviewUrl] = useState(url);
 
   const filePickerRef = useRef();
 

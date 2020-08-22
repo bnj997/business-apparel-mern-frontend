@@ -1,6 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react'
 
 import './DataTable.css';
+
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
@@ -28,8 +29,9 @@ const HQTable = props => {
 
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
+  const [request, setRequest] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(['', '', '', '']);
+  const [rowData, setRowData] = useState(['','', '', '', '']);
 
   useEffect(() => {
     const fetchHQs = async () => {
@@ -55,7 +57,7 @@ const HQTable = props => {
     //   setLoading(false)
     // };
     //fetchHQs();
-  }, [sendRequest, auth.token])
+  }, [sendRequest, auth.token, request])
 
 
 
@@ -78,47 +80,46 @@ const HQTable = props => {
 
   const addData = async newData => {
     try {
-      await sendRequest(
-        'http://localhost:5000/api/hqs',
-        'POST',
-        JSON.stringify({
-          _id: newData._id,
-          name: newData.name,
-          telephone: newData.telephone,
-          email: newData.email,
-        }),
-        { 
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token 
-        }
-      );
-      setData(prevDatas => {
-        return [...prevDatas, newData];
+      const formData = new FormData();
+      formData.append('_id', newData._id)
+      formData.append('image', newData.image)
+      formData.append('name', newData.name)
+      formData.append('telephone', newData.telephone)
+      formData.append('email', newData.email)
+      await sendRequest('http://localhost:5000/api/hqs','POST', formData, { 
+        Authorization: 'Bearer ' + auth.token 
       });
+      // setData(prevDatas => {
+      //   return [...prevDatas, newData];
+      // });
+      setRequest(!request)
     } catch (err) {}
     exitModal()
   }
 
   const editData = async (currentData, hqId) => {
     try {
+      const formData = new FormData();
+      formData.append('_id', currentData._id)
+      if (typeof currentData.image === 'object') {
+        formData.append('image', currentData.image)
+      }
+      formData.append('name', currentData.name)
+      formData.append('telephone', currentData.telephone)
+      formData.append('email', currentData.email)
       await sendRequest(
         `http://localhost:5000/api/hqs/${hqId}`,
         'PATCH',
-        JSON.stringify({
-          _id: currentData._id,
-          name: currentData.name,
-          telephone: currentData.telephone,
-          email: currentData.email,
-        }),
+        formData,
         { 
-          'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token
         }
       );
-      setData(prevDatas => {
-        prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
-        return prevDatas
-      });
+      // setData(prevDatas => {
+      //   prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
+      //   return prevDatas
+      // });
+      setRequest(!request)
     } catch (err) {}
     exitModal()
   }
@@ -183,20 +184,21 @@ const HQTable = props => {
       },
       label: "ID",
     },
-    // {
-    //   name: "HQImg",
-    //   label: "Image",
-    //   options: {
-    //     sort: false,
-    //     customBodyRender: (value) => (
-    //       <img
-    //         alt="organisation logo"
-    //         src={value}
-    //         > 
-    //       </img>
-    //     )
-    //   }
-    // },
+    {
+      name: "image",
+      label: "Image",
+      options: {
+        sort: false,
+        customBodyRender: (value) => (
+          <img
+            style={{width: "50px", height: "75px"}}
+            alt="organisation logo"
+            src={`http://localhost:5000/${value}`}
+            > 
+          </img>
+        )
+      }
+    },
 
     {
       name: "name",
