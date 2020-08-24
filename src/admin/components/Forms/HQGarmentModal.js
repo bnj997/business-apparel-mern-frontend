@@ -14,7 +14,6 @@ import { AuthContext } from '../../../shared/context/auth-context';
 const HQGarmentModal = props => {
   const auth = useContext(AuthContext);
   const hqID = useParams().hqId;
-
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [GarmentsAvailable, setGarmentsAvailable] = useState([]);
   const [GarmentsToAdd, setGarmentsToAdd] = useState([]);
@@ -34,20 +33,21 @@ const HQGarmentModal = props => {
       } catch (err) {}
     };
     fetchAvailableGarmentsForHQ();
-  }, [sendRequest, hqID, auth.token])
+  }, [sendRequest, hqID, auth.token, props.request])
 
 
   const addGarmentToAdd = row => {
     var garmentObj = {
       _id: row[0],
-      styleNum: row[1], 
-      name: row[2], 
-      price: row[3], 
-      category: row[4], 
-      supplier: row[5],
-      description: row[6],
-      colours: row[7],
-      sizes: row[8],
+      image: row[1],
+      styleNum: row[2], 
+      name: row[3], 
+      price: row[4], 
+      category: row[5], 
+      supplier: row[6],
+      description: row[7],
+      colours: row[8],
+      sizes: row[9],
     }
     setGarmentsAvailable(prevGarments => {
       return prevGarments.filter((garment) => {
@@ -85,23 +85,24 @@ const HQGarmentModal = props => {
       label: "ID",
     },
     {
+      name: "image",
+      label: "Image",
+      options: {
+        sort: false,
+        customBodyRender: (value) => (
+          <img
+            style={{width: "50px", height: "75px"}}
+            alt="Garment"
+            src={`http://localhost:5000/${value}`}
+            > 
+          </img>
+        )
+      }
+    },
+    {
       name: "styleNum",
       label: "StyleNum",
     },
-    // {
-    //   name: "garmentImg",
-    //   label: "Image",
-    //   options: {
-    //     sort: false,
-    //     customBodyRender: (value) => (
-    //       <img
-    //         alt="garment display"
-    //         src={value}
-    //         > 
-    //       </img>
-    //     )
-    //   }
-    // },
     {
       name: "name",
       label: "Name",

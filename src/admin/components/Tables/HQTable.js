@@ -10,6 +10,8 @@ import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
 import HQModal from '../../../admin/components/Forms/HQModal';
+import Modal from '../../../shared/components/UIElements/Modal'
+
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
@@ -21,14 +23,13 @@ import { AuthContext } from '../../../shared/context/auth-context';
 const HQTable = props => {
   const auth = useContext(AuthContext);
 
-  // const axios = require('axios');
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  //const [isLoading, setLoading] = useState(false)
-  // const [isError, setError] = useState("")
 
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
+  const [thisHQ, setThisHQ] =  useState('');
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [request, setRequest] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [rowData, setRowData] = useState(['','', '', '', '']);
@@ -48,17 +49,23 @@ const HQTable = props => {
       } catch (err) {}
     };
     fetchHQs();
-    // const fetchHQs = async () => {
-    //   setLoading(true)
-    //   await axios
-    //     .get('http://localhost:5000/api/hqs')
-    //     .then(res => setData(res.data.hqs))
-    //     .catch(err => console.log(err.message))
-    //   setLoading(false)
-    // };
-    //fetchHQs();
   }, [sendRequest, auth.token, request])
 
+
+
+  const showWarning = row => {
+    setThisHQ(row)
+    setShowConfirmModal(true)
+  }
+
+  const cancelDelete = () => {
+    setShowConfirmModal(false)
+  }
+
+  const confirmDelete = () => {
+    setShowConfirmModal(false)
+    deleteHandler(thisHQ);
+  }
 
 
   const showModal = () => {
@@ -76,6 +83,8 @@ const HQTable = props => {
     setIsEditing(true)
     showModal()
   }
+
+
 
 
   const addData = async newData => {
@@ -124,25 +133,6 @@ const HQTable = props => {
     exitModal()
   }
 
-  // const editData = async (currentData, hqId) => {
-  //   //setLoading(true)
-  //   await axios.patch(`http://localhost:5000/api/hqs/${hqId}`, {
-  //     _id: currentData._id,
-  //     name: currentData.name,
-  //     telephone: currentData.telephone,
-  //     email: currentData.email,
-  //   })
-  //   .then(
-  //     setData(prevDatas => {
-  //       prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
-  //       return prevDatas
-  //     })
-  //   )
-  //   .catch(err => console.error(err))
-  //   //setLoading(false)
-  //   exitModal()
-  // }
-
   const deleteHandler = async hqId => {
     try {
       await sendRequest(
@@ -161,21 +151,7 @@ const HQTable = props => {
     } catch (err) {}
   }
 
-  // const deleteHandler = async hqId => {
-  //   //setLoading(true)
-  //   await axios.delete(`http://localhost:5000/api/hqs/${hqId}`)
-  //     .then(
-  //       setData(prevDatas => {
-  //         return prevDatas.filter((hq) => {
-  //           return hq._id !== hqId
-  //         })
-  //       })
-  //     )
-  //     .catch(err => console.error(err))
-  //   //setLoading(false)
-  // }
 
-  
   const columns = [
     {
       name: "_id",
@@ -245,11 +221,10 @@ const HQTable = props => {
                 startIcon={<DeleteIcon />}
                 style={{margin: "0"}}
                 onClick={ () =>
-                  deleteHandler(tableMeta.rowData[0])
-                  
+                  showWarning(tableMeta.rowData[0])
                 }
               >
-                delete
+                Delete
               </Button>
             </React.Fragment>
           )
@@ -281,6 +256,22 @@ const HQTable = props => {
 
   return (
     <React.Fragment>
+
+      <Modal
+        show={showConfirmModal}
+        onCancel={cancelDelete}
+        header="Are you sure?" 
+        footerClass="logout__modal-actions" 
+        footer={
+          <React.Fragment>
+            <Button variant="contained" onClick={cancelDelete} > Cancel </Button>
+            <Button variant="contained" onClick={confirmDelete} > Delete HQ </Button>
+          </React.Fragment>
+        }
+      >
+       <p>Are you sure you want to delete HQ? This will delete all associated users and branches.</p>
+      </Modal>
+
       <HQModal
         isEditing={isEditing}
         rowData={rowData}

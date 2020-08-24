@@ -2,14 +2,13 @@ import React, {useState, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom';
 
 import './DataTable.css';
-import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
 import HQBranchModal from '../../../admin/components/Forms/HQBranchModal';
+import Modal from '../../../shared/components/UIElements/Modal'
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
@@ -24,6 +23,9 @@ const HQBranchTable = props => {
   const [isEditing, setIsEditing] = useState(false);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
   const [rowData, setRowData] = useState(['', '', '', '', '']);
+
+  const [thisBranch, setThisBranch] =  useState('');
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const hqID = useParams().hqId;
 
@@ -114,6 +116,20 @@ const HQBranchTable = props => {
     } catch (err) {}
   }
 
+  const showWarning = row => {
+    setThisBranch(row)
+    setShowConfirmModal(true)
+  }
+
+  const cancelDelete = () => {
+    setShowConfirmModal(false)
+  }
+
+  const confirmDelete = () => {
+    setShowConfirmModal(false)
+    deleteBranch(thisBranch);
+  }
+
 
   const showModal = () => {
     setShowAddEditModal(true)
@@ -181,7 +197,7 @@ const HQBranchTable = props => {
                 startIcon={<DeleteIcon />}
                 style={{margin: "0"}}
                 onClick={ () =>
-                  deleteBranch(tableMeta.rowData[0])
+                  showWarning(tableMeta.rowData[0])
                 }
               >
                 Delete
@@ -217,6 +233,21 @@ const HQBranchTable = props => {
 
   return (
     <React.Fragment>
+       <Modal
+        show={showConfirmModal}
+        onCancel={cancelDelete}
+        header="Are you sure?" 
+        footerClass="logout__modal-actions" 
+        footer={
+          <React.Fragment>
+            <Button variant="contained" onClick={cancelDelete} > Cancel </Button>
+            <Button variant="contained" onClick={confirmDelete} > Delete Branch </Button>
+          </React.Fragment>
+        }
+      >
+       <p>Are you sure you want to delete this branch? This will delete all associated users.</p>
+      </Modal>
+
       <HQBranchModal
         isEditing={isEditing}
         rowData={rowData}

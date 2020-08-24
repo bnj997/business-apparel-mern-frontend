@@ -20,8 +20,8 @@ import { AuthContext } from '../../../shared/context/auth-context';
 
 const HQGarmentTable = props => {
   const auth = useContext(AuthContext);
-
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [request, setRequest] = useState(false);
   const [Datas, setData] = useState([]);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
 
@@ -42,7 +42,7 @@ const HQGarmentTable = props => {
       } catch (err) {}
     };
     fetchGarmentsForHQ();
-  }, [sendRequest, hqID, auth.token])
+  }, [sendRequest, hqID, auth.token, request])
 
 
   const addGarments= async garments => {
@@ -58,12 +58,13 @@ const HQGarmentTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      setData(prevDatas => {
-        for (var i = 0; i < garments.length; i++) {
-          prevDatas.push(garments[i])
-        }
-        return prevDatas;
-      });
+      setRequest(!request)
+      // setData(prevDatas => {
+      //   for (var i = 0; i < garments.length; i++) {
+      //     prevDatas.push(garments[i])
+      //   }
+      //   return prevDatas;
+      // });
     } catch (err) {}
 
     exitModal()
@@ -74,16 +75,17 @@ const HQGarmentTable = props => {
       await sendRequest(
         `http://localhost:5000/api/garments/hq/${hqID}/${gId}`,
         'PATCH',
+        null,
         { 
-          'Content-Type': 'application/json',
           Authorization: 'Bearer ' + auth.token 
         }
       );
-      setData(prevDatas => {
-        return prevDatas.filter((garment) => {
-          return garment._id !== gId
-        })
-      })
+      // setData(prevDatas => {
+      //   return prevDatas.filter((garment) => {
+      //     return garment._id !== gId
+      //   })
+      // })
+      setRequest(!request)
     } catch (err) {}
   }
 
@@ -92,7 +94,6 @@ const HQGarmentTable = props => {
     setShowAddEditModal(true)
   }
   const exitModal = () => {
-
     setShowAddEditModal(false)
   }
   
@@ -106,23 +107,24 @@ const HQGarmentTable = props => {
       label: "ID",
     },
     {
+      name: "image",
+      label: "Image",
+      options: {
+        sort: false,
+        customBodyRender: (value) => (
+          <img
+            style={{width: "50px", height: "75px"}}
+            alt="Garment"
+            src={`http://localhost:5000/${value}`}
+            > 
+          </img>
+        )
+      }
+    },
+    {
       name: "styleNum",
       label: "StyleNum",
     },
-    // {
-    //   name: "garmentImg",
-    //   label: "Image",
-    //   options: {
-    //     sort: false,
-    //     customBodyRender: (value) => (
-    //       <img
-    //         alt="garment display"
-    //         src={value}
-    //         > 
-    //       </img>
-    //     )
-    //   }
-    // },
     {
       name: "name",
       label: "Name",
@@ -202,6 +204,7 @@ const HQGarmentTable = props => {
     <React.Fragment>
       <HQGarmentModal
         show={showAddEditModal}
+        request={request}
         onAdd={addGarments}
         onCancel={exitModal}
       /> 

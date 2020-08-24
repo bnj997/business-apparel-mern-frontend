@@ -38,7 +38,6 @@ const HQUserTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log(responseData.users)
         setData(responseData.users);
       } catch (err) {}
     };
