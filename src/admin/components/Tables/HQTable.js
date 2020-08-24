@@ -52,6 +52,7 @@ const HQTable = props => {
   }, [sendRequest, auth.token, request])
 
 
+  
 
   const showWarning = row => {
     setThisHQ(row)
@@ -254,6 +255,8 @@ const HQTable = props => {
     },
   };
 
+
+
   return (
     <React.Fragment>
 
@@ -282,20 +285,21 @@ const HQTable = props => {
       /> 
 
       <ErrorModal error={error} onClear={clearError} />
-      {isLoading && (
-        <div className="center">
-          <LoadingSpinner />
-        </div>
-      )}
-       {!isLoading && (
-        <MUIDataTable
-          title="HQ List"
-          className="table-center"
-          data={Datas}
-          columns={columns}
-          options={options}
-        />
-      )}
+      <div style={{position:'relative'}}>
+        {isLoading && <LoadingSpinner />}
+        {!isLoading && (
+          <MUIDataTable
+            title="HQ List"
+            className="table-center"
+            data={Datas}
+            columns={columns}
+            options={options}
+          />
+        )}
+      </div>
+
+      
+     
     </React.Fragment>
   );
 }

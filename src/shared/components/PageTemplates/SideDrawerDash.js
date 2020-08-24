@@ -1,21 +1,31 @@
-import React, { useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../context/auth-context';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import Drawer from '@material-ui/core/Drawer';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Hidden from '@material-ui/core/Hidden';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import InfoIcon from '@material-ui/icons/Info';
+import BusinessIcon from '@material-ui/icons/Business';
+import PersonIcon from '@material-ui/icons/Person';
+import MenuIcon from '@material-ui/icons/Menu';
+import HomeIcon from '@material-ui/icons/Home';
+import GroupIcon from '@material-ui/icons/Group';
+import ContactsIcon from '@material-ui/icons/Contacts';
+
 import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+
+
+
 
 
 const drawerWidth = 300;
@@ -58,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const SideDrawerDash = props => {
+  const auth = useContext(AuthContext);
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -70,25 +81,43 @@ const SideDrawerDash = props => {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-
-      <Divider />
+      <h2 style={{color: "white", paddingLeft: "1rem"}}>Actions </h2>
       <List style={{color:  "#B3B3B3"}}>
-        {['Orders', 'Headquarters', 'Garments'].map((text, index) => (
-          <NavLink to={`/admin/${text.toLowerCase()}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-            <ListItemIcon style={{color: "#B3B3B3"}}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </NavLink>
-        ))}
+        <NavLink to={`/admin/orders`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon style={{color: "white"}}><AttachMoneyIcon /></ListItemIcon>
+          <ListItemText primary="Orders"  style={{color: "white"}}  />
+        </NavLink>
+        <NavLink to={`/admin/headquarters`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon style={{color: "white"}}><BusinessIcon /></ListItemIcon>
+          <ListItemText primary="Headquarters"  style={{color: "white"}} />
+        </NavLink>
+          <NavLink to={`/admin/garments`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon style={{color: "white"}}><PersonIcon /></ListItemIcon>
+          <ListItemText primary="Garments"  style={{color: "white"}} />
+        </NavLink>
       </List>
+
+
       <Divider style={{backgroundColor: "grey"}}/>
-      <h1 style={{color: "grey", paddingLeft: "1rem"}}>Edit Pages</h1>
-      <List  style={{color:  "#B3B3B3"}}>
-        {['Home', 'About', 'Team', 'Contact'].map((text, index) => (
-          <NavLink to="/login" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-            <ListItemIcon  style={{color:  "#B3B3B3"}}>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </NavLink>
-        ))}
+      <h2 style={{color: "white", paddingLeft: "1rem"}}>Pages</h2>
+      <List style={{color:  "#B3B3B3"}}>
+        <NavLink to="/home" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon  style={{color:  "white"}}><HomeIcon /></ListItemIcon>
+          <ListItemText primary="Home"  style={{color: "white"}} />
+        </NavLink>
+        <NavLink to="/about" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon  style={{color:  "white"}}><InfoIcon /></ListItemIcon>
+          <ListItemText primary="About" style={{color: "white"}}/>
+        </NavLink>
+        <NavLink to="/team" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon  style={{color:  "white"}}><GroupIcon /></ListItemIcon>
+          <ListItemText primary="Team"  style={{color: "white"}} />
+        </NavLink>
+        <NavLink to="/contact" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+          <ListItemIcon  style={{color:  "white"}}><ContactsIcon /></ListItemIcon>
+          <ListItemText primary="Contact"  style={{color: "white"}}/>
+        </NavLink>
+
       </List>
     </div>
   );
@@ -109,7 +138,7 @@ const SideDrawerDash = props => {
           >
             <MenuIcon />
           </IconButton>
-          <h1> Hello </h1>
+          <h1> Hello {auth.username} </h1>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
