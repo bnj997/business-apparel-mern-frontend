@@ -22,7 +22,7 @@ const MyAccount = props => {
       )}
 
       {auth.token && auth.username !== "adminstaff" && (
-        <NavLink to={`/user/${auth.username}`} style={{textDecoration: "none",  color: "white"}}>{auth.username}</NavLink>
+        <NavLink to={`/${auth.username}/orders`} style={{textDecoration: "none",  color: "white"}}>{auth.username}</NavLink>
       )}  
 
       <p style={{marginLeft: "0.5rem", marginRight: "0.5rem"}}> | </p>

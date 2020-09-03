@@ -4,7 +4,7 @@ import GarmentTable from '../components/Tables/GarmentTable';
 
 const Garments = props => {
   return (
-    <Dashboard>
+    <Dashboard user="adminstaff">
       <GarmentTable />
     </Dashboard>
   );

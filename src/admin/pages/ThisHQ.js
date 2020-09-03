@@ -95,8 +95,7 @@ const ThisHQ = props => {
         { (type === "Branches") && <HQBranchTable />}
         { (type === "Users") && <HQUserTable />}
       </div>
-    
-
+  
     </Dashboard>
 
   );

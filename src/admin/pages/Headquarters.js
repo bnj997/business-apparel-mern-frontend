@@ -4,7 +4,7 @@ import HQTable from '../components/Tables/HQTable';
 
 const Headquarters = props => {
   return (
-    <Dashboard>
+    <Dashboard user="adminstaff">
       <HQTable/>
     </Dashboard>
   );

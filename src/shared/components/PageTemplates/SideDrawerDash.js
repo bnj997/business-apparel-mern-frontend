@@ -83,42 +83,58 @@ const SideDrawerDash = props => {
       <div className={classes.toolbar} />
       <h2 style={{color: "white", paddingLeft: "1rem"}}>Actions </h2>
       <List style={{color:  "#B3B3B3"}}>
-        <NavLink to={`/admin/orders`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon style={{color: "white"}}><AttachMoneyIcon /></ListItemIcon>
-          <ListItemText primary="Orders"  style={{color: "white"}}  />
-        </NavLink>
-        <NavLink to={`/admin/headquarters`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon style={{color: "white"}}><BusinessIcon /></ListItemIcon>
-          <ListItemText primary="Headquarters"  style={{color: "white"}} />
-        </NavLink>
-          <NavLink to={`/admin/garments`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon style={{color: "white"}}><PersonIcon /></ListItemIcon>
-          <ListItemText primary="Garments"  style={{color: "white"}} />
-        </NavLink>
+
+        {props.user === "adminstaff" && (
+          ['Orders', 'Headquarters', 'Garments'].map(function(link, i){
+            return (
+              <NavLink to={`/admin/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+                <ListItemIcon style={{color: "white"}}>
+                  {link === 'Orders' && <AttachMoneyIcon />}
+                  {link === 'Headquarters' && <BusinessIcon />}
+                  {link === 'Garments' && <PersonIcon />}
+                </ListItemIcon>
+                <ListItemText primary={`${link}`}  style={{color: "white"}}  />
+              </NavLink>
+            )
+          })
+        )}
+
+        {props.user === "client" && (
+          ['Orders', 'Catalogue', 'Shopping cart'].map(function(link, i){
+            return (
+              <NavLink to={`/${auth.username}/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+                <ListItemIcon style={{color: "white"}}>
+                  {link === 'Orders' && <AttachMoneyIcon />}
+                  {link === 'Catalogue' && <BusinessIcon />}
+                  {link === 'Shopping cart' && <PersonIcon />}
+                </ListItemIcon>
+                <ListItemText primary={`${link}`}  style={{color: "white"}}  />
+              </NavLink>
+            )
+          })
+        )}
+      
       </List>
 
 
       <Divider style={{backgroundColor: "grey"}}/>
       <h2 style={{color: "white", paddingLeft: "1rem"}}>Pages</h2>
       <List style={{color:  "#B3B3B3"}}>
-        <NavLink to="/home" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon  style={{color:  "white"}}><HomeIcon /></ListItemIcon>
-          <ListItemText primary="Home"  style={{color: "white"}} />
-        </NavLink>
-        <NavLink to="/about" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon  style={{color:  "white"}}><InfoIcon /></ListItemIcon>
-          <ListItemText primary="About" style={{color: "white"}}/>
-        </NavLink>
-        <NavLink to="/team" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon  style={{color:  "white"}}><GroupIcon /></ListItemIcon>
-          <ListItemText primary="Team"  style={{color: "white"}} />
-        </NavLink>
-        <NavLink to="/contact" style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
-          <ListItemIcon  style={{color:  "white"}}><ContactsIcon /></ListItemIcon>
-          <ListItemText primary="Contact"  style={{color: "white"}}/>
-        </NavLink>
-
+        {['Home', 'About', 'Team', 'Contact'].map(function(link, i){
+          return (
+            <NavLink to={`${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+              <ListItemIcon  style={{color:  "white"}}>
+                {link === 'Home' && <HomeIcon />}
+                {link === 'About' && <InfoIcon />}
+                {link === 'Team' && <GroupIcon />}
+                {link === 'Contact' && <ContactsIcon />}
+              </ListItemIcon>
+              <ListItemText primary={`${link}`}  style={{color: "white"}} />
+            </NavLink>
+          )
+        })}
       </List>
+
     </div>
   );
 
