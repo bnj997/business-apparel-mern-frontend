@@ -92,7 +92,7 @@ const Authentication = () => {
                   spacing="2rem"
                   color="#F5F5F5"
                 />
-                <div style={{marginTop: "3rem", marginBottom: "2rem"}}>
+                <div style={{marginTop:"3rem", marginBottom: "2rem"}}>
                   <SmallButton disabled={isSubmitting} type="submit" color="black" width="80%">Log in</SmallButton>
                   <SmallButton disabled={isSubmitting} type="submit" color="black" width="80%">Forgot password</SmallButton>
                 </div>
