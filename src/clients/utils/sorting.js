@@ -25,5 +25,11 @@ export const useSort = () => {
     return garments.sort((a, b) => parseFloat(b.price) - parseFloat(a.price)) 
   }
 
-  return {sortNum, sortString }
+  const filterGarments = (garment, filter) => {
+    return garment.filter(function(item) {
+      return item.name.toLowerCase().includes(filter.toLowerCase()) === true
+    });
+  }
+
+  return {sortNum, sortString, filterGarments }
 }

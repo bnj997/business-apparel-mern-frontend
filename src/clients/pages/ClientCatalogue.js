@@ -7,12 +7,12 @@ import { AuthContext } from '../../shared/context/auth-context';
 import { useSort } from '../utils/sorting';
 
 const ClientCatalogue = props => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
-  const { sortNum, sortString } = useSort();
   const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sortNum, sortString, filterGarments } = useSort();
   const [ baseGarments, setBaseGarments ] = useState([]);
   const [ Garments, setGarments ] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [ filter, setFilter ] = useState("");
 
   
   useEffect(() => {
@@ -32,14 +32,7 @@ const ClientCatalogue = props => {
     };
     fetchGarmentsForUser();
   }, [auth.userId, auth.token])
-
-
-  const filterGarments = (garment, filter) => {
-    return garment.filter(function(item) {
-      return item.name.toLowerCase().includes(filter.toLowerCase()) === true
-    });
-  }
-
+  
 
   return (
     <Dashboard user="client">
@@ -69,7 +62,6 @@ const ClientCatalogue = props => {
             label="Search" 
           />
         </div>
-      
       </div>
      
       <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>

@@ -28,8 +28,8 @@ const ItemCard = props => {
     <MyCard>
       <CardMedia
         component="img"
-        style={{height: "350px"}}
-        srcSet={`http://localhost:5000/${props.image}`}
+        style={{height: "350px", width: "100%", objectFit: "contain"}}
+        src={`http://localhost:5000/${props.image}`}
       />
       <CardContent className="garmentInfo">
         <h2>{props.name}</h2>

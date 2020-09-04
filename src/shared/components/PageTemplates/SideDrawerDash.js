@@ -12,6 +12,7 @@ import Hidden from '@material-ui/core/Hidden';
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import InfoIcon from '@material-ui/icons/Info';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import BusinessIcon from '@material-ui/icons/Business';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -24,7 +25,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 
-const drawerWidth = 300;
+const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  shopButton: {
+    marginRight: theme.spacing(2),
+  },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -65,11 +69,15 @@ const SideDrawerDash = props => {
   const auth = useContext(AuthContext);
   const { window } = props;
   const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = useState(false);
 
+  const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const [shopMobileOpen, setShopMobileOpen] = useState(false);
+  const handleShopDrawerToggle = () => {
+    setShopMobileOpen(!shopMobileOpen);
   };
 
   const drawer = (
@@ -107,10 +115,7 @@ const SideDrawerDash = props => {
             )
           })
         )}
-      
       </List>
-
-
       <Divider style={{backgroundColor: "grey"}}/>
       <h2 style={{color: "white", paddingLeft: "1rem"}}>Pages</h2>
       <List style={{color:  "#B3B3B3"}}>
@@ -128,8 +133,13 @@ const SideDrawerDash = props => {
           )
         })}
       </List>
-
     </div>
+  );
+
+  const shopdrawer = (
+    <List>
+      <h1> Your shopping cart is emtpty</h1>
+    </List>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -138,7 +148,7 @@ const SideDrawerDash = props => {
   <React.Fragment>
     <CssBaseline />
     <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar>
+      <Toolbar style={{ display: 'flex', justifyContent: "space-between"}}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -149,6 +159,15 @@ const SideDrawerDash = props => {
           <MenuIcon />
         </IconButton>
         <h1> Hello {auth.username} </h1>
+        <IconButton
+          color="inherit"
+          aria-label="open shopCart"
+          edge="end"
+          onClick={handleShopDrawerToggle}
+          className={classes.shopButton}
+        >
+          <ShoppingCartIcon />
+        </IconButton>
       </Toolbar>
     </AppBar>
     <nav className={classes.drawer} aria-label="mailbox folders">
@@ -157,7 +176,7 @@ const SideDrawerDash = props => {
         <Drawer
           container={container}
           variant="temporary"
-          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          anchor='left'
           open={mobileOpen}
           onClose={handleDrawerToggle}
           classes={{
@@ -179,6 +198,24 @@ const SideDrawerDash = props => {
           open
         >
           {drawer}
+        </Drawer>
+      </Hidden>
+
+      <Hidden lgUp implementation="css">
+        <Drawer
+          container={container}
+          variant="temporary"
+          anchor='right'
+          open={shopMobileOpen}
+          onClose={handleShopDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {shopdrawer}
         </Drawer>
       </Hidden>
     </nav>
