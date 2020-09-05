@@ -19,6 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
 import ContactsIcon from '@material-ui/icons/Contacts';
+import CloseIcon from '@material-ui/icons/Close';
 
 import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
@@ -56,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: "#212121"
+  },
+  shopDrawer: {
+    width: 400,
+    backgroundColor: "white"
   },
   content: {
     flexGrow: 1,
@@ -137,9 +142,16 @@ const SideDrawerDash = props => {
   );
 
   const shopdrawer = (
-    <List>
-      <h1> Your shopping cart is emtpty</h1>
-    </List>
+    <div>
+      <IconButton
+        aria-label="open drawer"
+        style={{display: "block", marginLeft: "auto", marginRight: "0"}}
+        onClick={handleShopDrawerToggle}
+      >
+        <CloseIcon />
+      </IconButton>
+      <Divider style={{backgroundColor: "#E6E6E6"}}/>
+    </div>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
@@ -209,7 +221,7 @@ const SideDrawerDash = props => {
           open={shopMobileOpen}
           onClose={handleShopDrawerToggle}
           classes={{
-            paper: classes.drawerPaper,
+            paper: classes.shopDrawer,
           }}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
