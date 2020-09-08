@@ -26,6 +26,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CartItem from '../../../clients/UIElements/CartItem'
+import { Card } from '@material-ui/core';
 
 const drawerWidth = 350;
 
@@ -74,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
 const SideDrawerDash = props => {
   const auth = useContext(AuthContext);
   const [cart, setCart] = useState([])
+  const [total, setTotal] = useState(0);
   const { window } = props;
   const classes = useStyles();
 
@@ -81,9 +83,24 @@ const SideDrawerDash = props => {
     if (!localStorage.getItem(auth.userId)) {
       localStorage.setItem(auth.userId, JSON.stringify([]))
     } else {
-      setCart(JSON.parse(localStorage.getItem(auth.userId)))
+      let localCart = JSON.parse(localStorage.getItem(auth.userId))
+      setCart(localCart)
     }
   }, [props.cart]) 
+
+
+  useEffect(() => {
+    let total = 0;
+    if (cart.length === 0) {
+      setTotal(0);
+    } else {
+      cart.forEach(function(item) {
+        setTotal(() => {
+          return total += item.quantity * item.price;
+        });
+      })
+    }
+  }, [cart]) 
 
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -100,11 +117,7 @@ const SideDrawerDash = props => {
 
   const removeFromCart = (item) => {
     let cartCopy = [...cart]
-    console.log("yes")
-    
     cartCopy = cartCopy.filter(garment => (garment.id != item.id || garment.colour != item.colour || garment.size != item.size));
-    
-    //update state and local
     setCart(cartCopy);
     
     let cartString = JSON.stringify(cartCopy)
@@ -194,6 +207,12 @@ const SideDrawerDash = props => {
           )
           })
         )}
+      <Divider style={{backgroundColor: "#E6E6E6"}}/>
+        <div style={{display: "flex", justifyContent: "space-evenly"}}>
+          <h3>Total</h3>
+          <h3>${total}</h3>
+        </div>    
+      <Divider style={{backgroundColor: "#E6E6E6"}}/>  
     </React.Fragment>
   );
 

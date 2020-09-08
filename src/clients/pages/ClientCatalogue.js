@@ -32,15 +32,7 @@ const ClientCatalogue = props => {
     fetchGarmentsForUser();
   }, [auth.userId, auth.token])
 
-  const [ garmentToAdd, setGarmentToAdd ] = useState({});
   const [cartCopy, setCartCopy] = useState([]);
-
-  // useEffect(() => {
-  //   let localCart = localStorage.getItem(auth.userId);
-  //   localCart = JSON.parse(localCart);
-  //   if (localCart) 
-  //     setCartCopy(localCart)
-  // }, []) 
 
 
   const addToCart = (item) => {  
