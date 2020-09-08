@@ -35,17 +35,21 @@ const ClientCatalogue = props => {
   const [ garmentToAdd, setGarmentToAdd ] = useState({});
   const [cartCopy, setCartCopy] = useState([]);
 
-  useEffect(() => {
-    let localCart = localStorage.getItem(auth.userId);
-    localCart = JSON.parse(localCart);
-    if (localCart) 
-      setCartCopy(localCart)
-  }, []) 
+  // useEffect(() => {
+  //   let localCart = localStorage.getItem(auth.userId);
+  //   localCart = JSON.parse(localCart);
+  //   if (localCart) 
+  //     setCartCopy(localCart)
+  // }, []) 
 
 
   const addToCart = (item) => {  
     //assuming we have an ID field in our item
-    let cartTemp = [...cartCopy];
+    let localCart = localStorage.getItem(auth.userId);
+    localCart = JSON.parse(localCart)
+
+
+    let cartTemp = [...localCart];
 
     let {id, size, colour} = item;
     

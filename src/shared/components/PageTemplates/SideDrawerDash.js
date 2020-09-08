@@ -78,9 +78,10 @@ const SideDrawerDash = props => {
   const classes = useStyles();
 
   useEffect(() => {
-    let localCart = JSON.parse(localStorage.getItem(auth.userId))
-    if (localCart) {
-      setCart(localCart)
+    if (!localStorage.getItem(auth.userId)) {
+      localStorage.setItem(auth.userId, JSON.stringify([]))
+    } else {
+      setCart(JSON.parse(localStorage.getItem(auth.userId)))
     }
   }, [props.cart]) 
 
