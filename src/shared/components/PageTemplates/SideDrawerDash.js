@@ -97,6 +97,21 @@ const SideDrawerDash = props => {
   };
 
 
+
+  const removeFromCart = (item) => {
+    let cartCopy = [...cart]
+    console.log("yes")
+    
+    cartCopy = cartCopy.filter(garment => (garment.id != item.id || garment.colour != item.colour || garment.size != item.size));
+    
+    //update state and local
+    setCart(cartCopy);
+    
+    let cartString = JSON.stringify(cartCopy)
+    localStorage.setItem(auth.userId, cartString)
+  }
+
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -163,9 +178,10 @@ const SideDrawerDash = props => {
         <CloseIcon />
       </IconButton>
       <Divider style={{backgroundColor: "#E6E6E6"}}/>
-        {cart.map((function(garments) {
+        {cart.map((function(garments, index) {
           return (
             <CartItem
+              key={index}
               id={garments.id}
               image={garments.image}
               name={garments.name}
@@ -173,6 +189,7 @@ const SideDrawerDash = props => {
               size={garments.size}
               colour={garments.colour}
               quantity={garments.quantity}
+              onRemove={removeFromCart}
             />
           )
           })

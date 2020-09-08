@@ -20,7 +20,7 @@ const CartItem = props => {
           </div>
         </div>
       </div>
-      <CloseIcon fontSize="small" style={{display: "block", marginLeft: "auto",  marginBottom: "auto", color: "grey"}}/>
+      <CloseIcon onClick={() => props.onRemove(props)} fontSize="small" style={{ cursor: 'pointer', display: "block", marginLeft: "auto",  marginBottom: "auto", color: "grey"}}/>
     </div>
   );
 };
