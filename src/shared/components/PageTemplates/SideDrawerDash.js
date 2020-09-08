@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React, {useContext, useState, useEffect} from 'react'
+import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
 
@@ -25,6 +25,7 @@ import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
+import CartItem from '../../../clients/UIElements/CartItem'
 
 const drawerWidth = 350;
 
@@ -72,8 +73,17 @@ const useStyles = makeStyles((theme) => ({
 
 const SideDrawerDash = props => {
   const auth = useContext(AuthContext);
+  const [cart, setCart] = useState([])
   const { window } = props;
   const classes = useStyles();
+
+  useEffect(() => {
+    let localCart = JSON.parse(localStorage.getItem(auth.userId))
+    if (localCart) {
+      setCart(localCart)
+    }
+  }, [props.cart]) 
+
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
@@ -84,6 +94,7 @@ const SideDrawerDash = props => {
   const handleShopDrawerToggle = () => {
     setShopMobileOpen(!shopMobileOpen);
   };
+
 
   const drawer = (
     <div>
@@ -142,7 +153,7 @@ const SideDrawerDash = props => {
   );
 
   const shopdrawer = (
-    <div>
+    <React.Fragment>
       <IconButton
         aria-label="open drawer"
         style={{display: "block", marginLeft: "auto", marginRight: "0"}}
@@ -151,7 +162,21 @@ const SideDrawerDash = props => {
         <CloseIcon />
       </IconButton>
       <Divider style={{backgroundColor: "#E6E6E6"}}/>
-    </div>
+        {cart.map((function(garments) {
+          return (
+            <CartItem
+              id={garments.id}
+              image={garments.image}
+              name={garments.name}
+              price={garments.price}
+              size={garments.size}
+              colour={garments.colour}
+              quantity={garments.quantity}
+            />
+          )
+          })
+        )}
+    </React.Fragment>
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;

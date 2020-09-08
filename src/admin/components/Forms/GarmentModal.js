@@ -116,7 +116,6 @@ const GarmentModal = props => {
              
             </div>
             <div className="form_section">
-
               <FormLabel className="form_label" component="legend">Supplier</FormLabel>
                 <RadioGroup row aria-label="suppliers" className="form_group">
                   {["Biz Collection", "Winning Spirit", "JB Wears"].map(function(item){

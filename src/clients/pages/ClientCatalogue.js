@@ -13,7 +13,6 @@ const ClientCatalogue = props => {
   const [ baseGarments, setBaseGarments ] = useState([]);
   const [ Garments, setGarments ] = useState([]);
   const [ filter, setFilter ] = useState("");
-
   
   useEffect(() => {
     const fetchGarmentsForUser = async () => {
@@ -32,10 +31,45 @@ const ClientCatalogue = props => {
     };
     fetchGarmentsForUser();
   }, [auth.userId, auth.token])
-  
+
+  const [ garmentToAdd, setGarmentToAdd ] = useState({});
+  const [cartCopy, setCartCopy] = useState([]);
+
+  useEffect(() => {
+    let localCart = localStorage.getItem(auth.userId);
+    localCart = JSON.parse(localCart);
+    if (localCart) 
+      setCartCopy(localCart)
+  }, []) 
+
+
+  const addToCart = (item) => {  
+    //assuming we have an ID field in our item
+    let cartTemp = [...cartCopy];
+
+    let {id, size, colour} = item;
+    
+    
+    //look for item in cart array
+    let existingItem = cartTemp.find(cartItem => cartItem.id === id  && cartItem.size === size && cartItem.colour === colour);
+    
+    //if item already exists
+    if (existingItem) {
+      existingItem.quantity += item.quantity //update item
+    } else { //if item doesn't exist, simply add it
+      cartTemp.push(item)
+    }
+    
+    //update app state
+    setCartCopy(cartTemp)
+    
+    //make cart a string and store in local space
+    let stringCart = JSON.stringify(cartTemp);
+    localStorage.setItem(auth.userId, stringCart)
+  }
 
   return (
-    <Dashboard user="client">
+    <Dashboard user="client" cart={cartCopy}>
       <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
         <h1>Your Catalogue</h1> 
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
@@ -70,12 +104,14 @@ const ClientCatalogue = props => {
             return (
               <ItemCard
                 image={garments.image}
+                id={garments._id}
                 name={garments.name}
                 category={garments.category}
                 styleNum={garments.styleNum}
                 price={garments.price}
                 colours={garments.colours}
                 sizes={garments.sizes}
+                onAdd={addToCart}
               />
             )
             })
