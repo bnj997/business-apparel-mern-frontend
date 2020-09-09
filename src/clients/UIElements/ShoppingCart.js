@@ -35,7 +35,7 @@ const ShoppingCart = props => {
   }, [cart]) 
 
   return (
-    <StyledBadge badgeContent={numGarments} color="secondary" showZero >
+    <StyledBadge badgeContent={numGarments} color="secondary" >
       <ShoppingCartIcon style={{marginRight: "0.5rem"}}  />
     </StyledBadge>
   )
