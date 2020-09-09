@@ -1,3 +1,4 @@
+
 export const useSort = () => {
   const sortString = (garments, type) => {
     if (type === "name") {

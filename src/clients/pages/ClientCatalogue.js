@@ -25,8 +25,8 @@ const ClientCatalogue = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        setGarments(sortString(responseData.garments, "name"))
-        setBaseGarments(sortString(responseData.garments, "name"))
+        setGarments(responseData.garments)
+        setBaseGarments(responseData.garments)
       } catch (err) {}
     };
     fetchGarmentsForUser();
@@ -63,7 +63,7 @@ const ClientCatalogue = props => {
       <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
         <h1>Your Catalogue</h1> 
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-          <div>
+          {/* <div>
             <Button color="primary" onClick={() => setGarments([...sortString(Garments, "name")])}>
               Sort by Name
             </Button>
@@ -73,7 +73,7 @@ const ClientCatalogue = props => {
             <Button color="primary" onClick={() => setGarments([...sortNum(Garments)])}>
               Sort by Price
             </Button>
-          </div>
+          </div> */}
           <TextField 
             style={{verticalAlign: "baseline", backgroundColor: "white"}} 
             id="standard-basic"

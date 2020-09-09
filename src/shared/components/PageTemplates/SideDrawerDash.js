@@ -152,13 +152,13 @@ const SideDrawerDash = props => {
         )}
 
         {props.user === "client" && (
-          ['Orders', 'Catalogue', 'Shopping cart'].map(function(link, i){
+          ['Orders', 'Catalogue', 'Checkout'].map(function(link, i){
             return (
               <NavLink to={`/${auth.username}/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
                 <ListItemIcon style={{color: "white"}}>
                   {link === 'Orders' && <AttachMoneyIcon />}
                   {link === 'Catalogue' && <BusinessIcon />}
-                  {link === 'Shopping cart' && <PersonIcon />}
+                  {link === 'Checkout' && <PersonIcon />}
                 </ListItemIcon>
                 <ListItemText primary={`${link}`}  style={{color: "white"}}  />
               </NavLink>
@@ -230,17 +230,14 @@ const SideDrawerDash = props => {
         </div>    
         <Divider/>  
         <div className="nav-section">
-          <Button 
-            variant="outlined"
-          >
-            <p>VIEW CART</p>
-          </Button>
-          <Button 
-            variant="contained"
-            style={{backgroundColor: "black", color: "white" }}
-          >
-            <p>PROCEED TO CHECKOUT</p>
-          </Button>
+          <NavLink to={`/${auth.username}/checkout`} style={{textDecoration: "none",  color: "white"}}>
+            <Button 
+              variant="contained"
+              style={{backgroundColor: "black", color: "white" }}
+            >
+              <p>PROCEED TO CHECKOUT</p>
+            </Button>
+          </NavLink>
         </div>
       </div>
      

@@ -81,7 +81,7 @@ const App = () => {
         <Route path="/:userId/catalogue" component={ClientCatalogue} exact> 
           <ClientCatalogue />
         </Route>
-        <Route path="/:userId/shopping cart" component={ClientCart} exact> 
+        <Route path="/:userId/checkout" component={ClientCart} exact> 
           <ClientCart />
         </Route>
         <Route path="/:userId/orders" component={ClientOrders} exact> 

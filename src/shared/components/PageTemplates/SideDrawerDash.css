@@ -13,7 +13,7 @@
 
 .cart-section {
   overflow-y: auto;
-  height: calc(100% - 325px);
+  height: calc(100% - 250px);
   margin-top: 3rem;
 }
 
@@ -23,7 +23,7 @@
 
 .checkout-section {
   width: 350px;
-  height: 275px;
+  height: 200px;
   left: 0; 
   right: 0; 
   margin-left: auto; 
