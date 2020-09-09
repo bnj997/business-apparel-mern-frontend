@@ -11,8 +11,7 @@ const ClientCatalogue = props => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const { sortNum, sortString, filterGarments } = useSort();
   const [ baseGarments, setBaseGarments ] = useState([]);
-  const [ Garments, setGarments ] = useState([]);
-  const [ defaultGarments, setDefaultGarments ] = useState([]);
+  const [ garmentsToShow, setGarmentsToShow ] = useState([]);
   const [ filter, setFilter ] = useState("");
   
   useEffect(() => {
@@ -26,13 +25,18 @@ const ClientCatalogue = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        setDefaultGarments(responseData.garments)
-        setGarments(responseData.garments)
         setBaseGarments(responseData.garments)
       } catch (err) {}
     };
     fetchGarmentsForUser();
   }, [auth.userId, auth.token])
+
+  
+  useEffect(() => {
+    setGarmentsToShow([...baseGarments])
+  }, [baseGarments])
+
+    
 
   const [cartCopy, setCartCopy] = useState([]);
 
@@ -66,16 +70,16 @@ const ClientCatalogue = props => {
         <h1>Your Catalogue</h1> 
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
           <div>
-            <Button color="primary" onClick={() => setGarments([...defaultGarments])}>
+            <Button color="primary" onClick={() => setGarmentsToShow([...baseGarments])}>
               Reset to default
             </Button>
-            <Button color="primary" onClick={() => setGarments([...sortString(Garments, "name")])}>
+            <Button color="primary" onClick={() => setGarmentsToShow([...sortString(garmentsToShow, "name")])}>
               Sort by Name
             </Button>
-            <Button color="primary" onClick={() => setGarments([...sortString(Garments, "category")])}>
+            <Button color="primary" onClick={() => setGarmentsToShow([...sortString(garmentsToShow, "category")])}>
               Sort by Category
             </Button>
-            <Button color="primary" onClick={() => setGarments([...sortNum(Garments)])}>
+            <Button color="primary" onClick={() => setGarmentsToShow([...sortNum(garmentsToShow)])}>
               Sort by Price
             </Button>
           </div>
@@ -85,7 +89,7 @@ const ClientCatalogue = props => {
             value ={filter}
             onChange={(e) => {
               setFilter(e.target.value)
-              setGarments([...filterGarments(baseGarments, e.target.value )])
+              setGarmentsToShow([...filterGarments(baseGarments, e.target.value )])
             }}
             variant="outlined" 
             label="Search" 
@@ -94,8 +98,8 @@ const ClientCatalogue = props => {
       </div>
      
       <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-        {Garments.length > 0 || isLoading ? ( 
-          Garments.map(garments => {
+        {garmentsToShow.length > 0 || isLoading ? ( 
+          garmentsToShow.map(garments => {
             return (
               <ItemCard
                 image={garments.image}
