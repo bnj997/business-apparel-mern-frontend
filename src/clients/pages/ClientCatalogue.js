@@ -59,7 +59,7 @@ const ClientCatalogue = props => {
   }
 
   return (
-    <Dashboard user="client" cart={cartCopy}>
+    <Dashboard user="client" onAdd={cartCopy}>
       <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
         <h1>Your Catalogue</h1> 
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>

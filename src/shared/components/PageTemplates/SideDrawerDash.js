@@ -14,7 +14,6 @@ import Hidden from '@material-ui/core/Hidden';
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import InfoIcon from '@material-ui/icons/Info';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import BusinessIcon from '@material-ui/icons/Business';
 import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -30,6 +29,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CartItem from '../../../clients/UIElements/CartItem'
 import './SideDrawerDash.css';
+import ShoppingCart from '../../../clients/UIElements/ShoppingCart';
 
 const drawerWidth = 350;
 
@@ -80,7 +80,6 @@ const SideDrawerDash = props => {
   const [cart, setCart] = useState([])
 
   const [total, setTotal] = useState(0);
-  const [numGarments, setNumGarments] = useState(0);
 
   const { window } = props;
   const classes = useStyles();
@@ -92,23 +91,18 @@ const SideDrawerDash = props => {
       let localCart = JSON.parse(localStorage.getItem(auth.userId))
       setCart(localCart)
     }
-  }, [props.cart]) 
+  }, [props.onAdd]) 
 
 
   useEffect(() => {
     let total = 0;
-    let numGarments = 0;
     if (cart.length === 0) {
       setTotal(0);
-      setNumGarments(0);
     } else {
       cart.forEach(function(item) {
         setTotal(() => {
           return total += item.quantity * item.price;
         });
-        setNumGarments(() => {
-          return numGarments += item.quantity;
-        })
       })
     }
   }, [cart]) 
@@ -270,6 +264,7 @@ const SideDrawerDash = props => {
           <MenuIcon />
         </IconButton>
         <h1> Hello {auth.username} </h1>
+
         { auth.username !== "adminstaff" && 
           <IconButton
             color="inherit"
@@ -278,9 +273,7 @@ const SideDrawerDash = props => {
             onClick={handleShopDrawerToggle}
             className={classes.shopButton}
           >
-            <Badge badgeContent={numGarments} color="secondary" showZero>
-              <ShoppingCartIcon />
-            </Badge>
+            <ShoppingCart userId={auth.userId} change={cart}/>
           </IconButton>
         }
       </Toolbar>

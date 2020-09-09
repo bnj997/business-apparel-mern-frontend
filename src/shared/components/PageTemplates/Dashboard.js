@@ -28,7 +28,7 @@ const Dashboard = props => {
   return (
     <div className="dashboard">
       <CssBaseline />
-      <SideDrawerDash user={props.user}  cart={props.cart}/>
+      <SideDrawerDash user={props.user}  onAdd={props.onAdd}/>
       <main className={classes.content} >
         <div className={classes.toolbar} />
         {props.children}

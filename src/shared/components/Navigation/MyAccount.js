@@ -3,8 +3,20 @@ import { NavLink } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth-context';
 import './MyAccount.css';
+import { withStyles } from '@material-ui/core/styles';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ShoppingCart from '../../../clients/UIElements/ShoppingCart';
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    right: -8,
+    top: 13,
+    padding: '0 6px',
+  },
+}))(Badge);
+
 
 const MyAccount = props => {
 
@@ -22,12 +34,14 @@ const MyAccount = props => {
       )}
 
       {auth.token && auth.username !== "adminstaff" && (
-        <NavLink to={`/${auth.username}/orders`} style={{textDecoration: "none",  color: "white"}}>{auth.username}</NavLink>
+        <React.Fragment>
+          <NavLink to={`/${auth.username}/orders`} style={{textDecoration: "none",  color: "white"}}>{auth.username}</NavLink>
+          <p style={{marginLeft: "0.5rem", marginRight: "0.5rem"}}> | </p>
+          <NavLink to={`/${auth.username}/shopping%20cart`} style={{textDecoration: "none",  color: "white"}}>
+            <ShoppingCart userId={auth.userId} />
+          </NavLink>
+        </React.Fragment>
       )}  
-
-      <p style={{marginLeft: "0.5rem", marginRight: "0.5rem"}}> | </p>
-      <ShoppingCartIcon style={{marginRight: "0.5rem"}}  />
-      <p>: 0 </p>
     </div>
 
   );
