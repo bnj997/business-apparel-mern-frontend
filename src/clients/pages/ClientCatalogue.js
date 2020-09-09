@@ -12,6 +12,7 @@ const ClientCatalogue = props => {
   const { sortNum, sortString, filterGarments } = useSort();
   const [ baseGarments, setBaseGarments ] = useState([]);
   const [ Garments, setGarments ] = useState([]);
+  const [ defaultGarments, setDefaultGarments ] = useState([]);
   const [ filter, setFilter ] = useState("");
   
   useEffect(() => {
@@ -25,6 +26,7 @@ const ClientCatalogue = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
+        setDefaultGarments(responseData.garments)
         setGarments(responseData.garments)
         setBaseGarments(responseData.garments)
       } catch (err) {}
@@ -63,7 +65,10 @@ const ClientCatalogue = props => {
       <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
         <h1>Your Catalogue</h1> 
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-          {/* <div>
+          <div>
+            <Button color="primary" onClick={() => setGarments([...defaultGarments])}>
+              Reset to default
+            </Button>
             <Button color="primary" onClick={() => setGarments([...sortString(Garments, "name")])}>
               Sort by Name
             </Button>
@@ -73,7 +78,7 @@ const ClientCatalogue = props => {
             <Button color="primary" onClick={() => setGarments([...sortNum(Garments)])}>
               Sort by Price
             </Button>
-          </div> */}
+          </div>
           <TextField 
             style={{verticalAlign: "baseline", backgroundColor: "white"}} 
             id="standard-basic"
@@ -90,11 +95,11 @@ const ClientCatalogue = props => {
      
       <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
         {Garments.length > 0 || isLoading ? ( 
-          Garments.map((function(garments) {
+          Garments.map(garments => {
             return (
               <ItemCard
                 image={garments.image}
-                id={garments._id}
+                id={garments.id}
                 name={garments.name}
                 category={garments.category}
                 styleNum={garments.styleNum}
@@ -104,7 +109,7 @@ const ClientCatalogue = props => {
                 onAdd={addToCart}
               />
             )
-            })
+            }
           )
         ) : (
           <h2>Search returned no results. Please adjust filter.</h2>

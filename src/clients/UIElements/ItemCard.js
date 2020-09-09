@@ -39,6 +39,7 @@ const ItemCard = props => {
           colour: props.colours[0],
           quantity: 1
         }}
+        enableReinitialize = {true}
         onSubmit={(data, {setSubmitting}) =>  {
           setSubmitting(true)
           props.onAdd(data)
