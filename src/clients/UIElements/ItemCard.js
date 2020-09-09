@@ -23,8 +23,8 @@ const MyCard = withStyles({
 })(Card);
 
 
-
 const ItemCard = props => {
+
   return (
     <MyCard>
       <Formik 
@@ -53,7 +53,7 @@ const ItemCard = props => {
             src={`http://localhost:5000/${props.image}`}
           />
           <CardContent className="garmentInfo">
-            <h2>{props.name}</h2>
+            <h2 style={{marginTop: "0"}}>{props.name}</h2>
             <div>
               <div style={{display: "flex"}}>
                 <h4 style={{fontWeight: "bold", margin: "2px 1px 2px 1px"}}>Category:</h4>

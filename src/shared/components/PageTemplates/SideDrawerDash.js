@@ -1,7 +1,9 @@
 import React, {useContext, useState, useEffect} from 'react'
+
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/auth-context';
+import { Button} from '@material-ui/core';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
@@ -20,13 +22,14 @@ import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import CloseIcon from '@material-ui/icons/Close';
+import Badge from '@material-ui/core/Badge';
 
 import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import CartItem from '../../../clients/UIElements/CartItem'
-import { Card } from '@material-ui/core';
+import './SideDrawerDash.css';
 
 const drawerWidth = 350;
 
@@ -75,7 +78,10 @@ const useStyles = makeStyles((theme) => ({
 const SideDrawerDash = props => {
   const auth = useContext(AuthContext);
   const [cart, setCart] = useState([])
+
   const [total, setTotal] = useState(0);
+  const [numGarments, setNumGarments] = useState(0);
+
   const { window } = props;
   const classes = useStyles();
 
@@ -91,13 +97,18 @@ const SideDrawerDash = props => {
 
   useEffect(() => {
     let total = 0;
+    let numGarments = 0;
     if (cart.length === 0) {
       setTotal(0);
+      setNumGarments(0);
     } else {
       cart.forEach(function(item) {
         setTotal(() => {
           return total += item.quantity * item.price;
         });
+        setNumGarments(() => {
+          return numGarments += item.quantity;
+        })
       })
     }
   }, [cart]) 
@@ -183,36 +194,62 @@ const SideDrawerDash = props => {
 
   const shopdrawer = (
     <React.Fragment>
-      <IconButton
-        aria-label="open drawer"
-        style={{display: "block", marginLeft: "auto", marginRight: "0"}}
-        onClick={handleShopDrawerToggle}
-      >
-        <CloseIcon />
-      </IconButton>
-      <Divider style={{backgroundColor: "#E6E6E6"}}/>
-        {cart.map((function(garments, index) {
-          return (
-            <CartItem
-              key={index}
-              id={garments.id}
-              image={garments.image}
-              name={garments.name}
-              price={garments.price}
-              size={garments.size}
-              colour={garments.colour}
-              quantity={garments.quantity}
-              onRemove={removeFromCart}
-            />
+      <div className="close-section">
+        <IconButton
+          aria-label="open drawer"
+          onClick={handleShopDrawerToggle}
+        >
+          <CloseIcon />
+        </IconButton>
+        <Divider style={{backgroundColor: "#E6E6E6"}}/>
+      </div>
+      <div className="cart-section">
+        {cart.length !== 0 ? ( 
+          cart.map((function(garments, index) {
+            return (
+              <CartItem
+                key={index}
+                id={garments.id}
+                image={garments.image}
+                name={garments.name}
+                price={garments.price}
+                size={garments.size}
+                colour={garments.colour}
+                quantity={garments.quantity}
+                onRemove={removeFromCart}
+              />
+            )
+            })
           )
-          })
+        ) : (
+          <div style={{textAlign: "center", margin: "3rem"}}>
+            <h2>Your shopping cart is currently empty</h2>
+            <p> Add some garments and view them here.</p>
+          </div>
         )}
-      <Divider style={{backgroundColor: "#E6E6E6"}}/>
-        <div style={{display: "flex", justifyContent: "space-evenly"}}>
+      </div>
+      <div className="checkout-section" >
+        <Divider/>
+        <div className="total-price">
           <h3>Total</h3>
           <h3>${total}</h3>
         </div>    
-      <Divider style={{backgroundColor: "#E6E6E6"}}/>  
+        <Divider/>  
+        <div className="nav-section">
+          <Button 
+            variant="outlined"
+          >
+            <p>VIEW CART</p>
+          </Button>
+          <Button 
+            variant="contained"
+            style={{backgroundColor: "black", color: "white" }}
+          >
+            <p>PROCEED TO CHECKOUT</p>
+          </Button>
+        </div>
+      </div>
+     
     </React.Fragment>
   );
 
@@ -240,7 +277,9 @@ const SideDrawerDash = props => {
           onClick={handleShopDrawerToggle}
           className={classes.shopButton}
         >
-          <ShoppingCartIcon />
+          <Badge badgeContent={numGarments} color="secondary" showZero>
+            <ShoppingCartIcon />
+          </Badge>
         </IconButton>
       </Toolbar>
     </AppBar>

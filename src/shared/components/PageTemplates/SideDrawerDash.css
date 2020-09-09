@@ -1,0 +1,63 @@
+.close-section {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  z-index: 2;
+}
+
+.close-section Button {
+  margin-left: auto;
+  margin-right: 0;
+  display: block;
+}
+
+.cart-section {
+  overflow-y: auto;
+  height: calc(100% - 325px);
+  margin-top: 3rem;
+}
+
+
+
+
+
+.checkout-section {
+  width: 350px;
+  height: 275px;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  bottom: 0;
+  position: absolute;
+  background-color: white;
+}
+
+.checkout-section Divider {
+  background-color: "#E6E6E6";
+}
+
+.checkout-section .total-price {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.checkout-section .nav-section {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+
+
+.nav-section p {
+  font-weight: bold;
+  z-index: 4;
+
+}
+
+.nav-section Button {
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 0;
+  padding: 0;
+}

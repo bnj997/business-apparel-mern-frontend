@@ -36,20 +36,14 @@ const ClientCatalogue = props => {
 
 
   const addToCart = (item) => {  
-    //assuming we have an ID field in our item
     let localCart = localStorage.getItem(auth.userId);
     localCart = JSON.parse(localCart)
-
-
     let cartTemp = [...localCart];
 
     let {id, size, colour} = item;
     
-    
-    //look for item in cart array
     let existingItem = cartTemp.find(cartItem => cartItem.id === id  && cartItem.size === size && cartItem.colour === colour);
     
-    //if item already exists
     if (existingItem) {
       existingItem.quantity += item.quantity //update item
     } else { //if item doesn't exist, simply add it
