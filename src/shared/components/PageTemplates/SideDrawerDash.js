@@ -270,17 +270,19 @@ const SideDrawerDash = props => {
           <MenuIcon />
         </IconButton>
         <h1> Hello {auth.username} </h1>
-        <IconButton
-          color="inherit"
-          aria-label="open shopCart"
-          edge="end"
-          onClick={handleShopDrawerToggle}
-          className={classes.shopButton}
-        >
-          <Badge badgeContent={numGarments} color="secondary" showZero>
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
+        { auth.username !== "adminstaff" && 
+          <IconButton
+            color="inherit"
+            aria-label="open shopCart"
+            edge="end"
+            onClick={handleShopDrawerToggle}
+            className={classes.shopButton}
+          >
+            <Badge badgeContent={numGarments} color="secondary" showZero>
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+        }
       </Toolbar>
     </AppBar>
     <nav className={classes.drawer} aria-label="mailbox folders">
@@ -314,23 +316,26 @@ const SideDrawerDash = props => {
         </Drawer>
       </Hidden>
 
-      <Hidden lgUp implementation="css">
-        <Drawer
-          container={container}
-          variant="temporary"
-          anchor='right'
-          open={shopMobileOpen}
-          onClose={handleShopDrawerToggle}
-          classes={{
-            paper: classes.shopDrawer,
-          }}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-        >
-          {shopdrawer}
-        </Drawer>
-      </Hidden>
+      { auth.username !== "adminstaff" && 
+        <Hidden lgUp implementation="css">
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor='right'
+            open={shopMobileOpen}
+            onClose={handleShopDrawerToggle}
+            classes={{
+              paper: classes.shopDrawer,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {shopdrawer}
+          </Drawer> 
+        </Hidden> 
+      }
+
     </nav>
   </React.Fragment>
   );
