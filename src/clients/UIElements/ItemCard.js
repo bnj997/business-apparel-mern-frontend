@@ -37,11 +37,13 @@ const ItemCard = props => {
           price: props.price, 
           size: props.sizes[0], 
           colour: props.colours[0],
-          quantity: 1
+          quantity: 1,
+          subtotal: 1,
         }}
         enableReinitialize = {true}
         onSubmit={(data, {setSubmitting}) =>  {
           setSubmitting(true)
+          data.subtotal = data.price * data.quantity;
           props.onAdd(data)
           setSubmitting(false)
         }}

@@ -20,7 +20,6 @@ const ShoppingCart = props => {
     setCart(localCart)
   }, [props.change]) 
 
-
   useEffect(() => {
     let numGarments = 0;
     if (cart.length === 0) {
@@ -28,7 +27,7 @@ const ShoppingCart = props => {
     } else {
       cart.forEach(function(item) {
         setNumGarments(() => {
-          return numGarments += item.quantity;
+          return numGarments += parseInt(item.quantity);
         })
       })
     }
