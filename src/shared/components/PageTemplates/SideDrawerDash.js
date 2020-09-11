@@ -226,7 +226,7 @@ const SideDrawerDash = props => {
         <Divider/>
         <div className="total-price">
           <h3>Total</h3>
-          <h3>${total}</h3>
+          <h3>${total.toFixed(2)}</h3>
         </div>    
         <Divider/>  
         <div className="nav-section">
