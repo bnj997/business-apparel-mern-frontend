@@ -230,6 +230,13 @@ const SideDrawerDash = props => {
         </div>    
         <Divider/>  
         <div className="nav-section">
+          <NavLink to={`/${auth.username}/catalogue`} style={{textDecoration: "none",  color: "white"}}>
+            <Button 
+              variant="outlined"
+            >
+              <p>ADD MORE TO CART</p>
+            </Button>
+          </NavLink>
           <NavLink to={`/${auth.username}/checkout`} style={{textDecoration: "none",  color: "white"}}>
             <Button 
               variant="contained"

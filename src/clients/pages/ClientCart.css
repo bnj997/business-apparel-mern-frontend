@@ -1,3 +1,13 @@
+.checkout_page {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+
+.checkout_table .MuiPaper-root {
+  width: 100%;
+}
+
 .MuiToolbar-root h6 {
   padding-left: 1rem;
   margin-top: 3%;
@@ -11,12 +21,7 @@
   margin-left: auto;
   margin-right: auto;
 }
-
-
-.MuiPaper-root .MuiTableCell-head {
-  background-color: #D9D9D9;
-}
-
+  
 .MuiTableRow-root td:nth-child(2) {
   font-weight: bold;
   font-size: 1.1rem;
@@ -27,6 +32,27 @@
   font-size: 1.0rem;
 }
 
-.MuiTableBody-root tr:nth-child(2n) {
-  background-color: #F5F5F5;
+.additional_info {
+  margin-top: 3rem;
+  width: 100%;
 }
+
+@media (min-width: 1700px) {
+  .checkout_page {
+    margin-left: 4rem;
+    margin-right: 4rem;
+  }
+
+  .checkout_table .MuiPaper-root {
+    width: 65%;
+  }
+
+  .additional_info {
+    margin-top: 0;
+    width: 400px;
+  }
+  
+}
+
+
+

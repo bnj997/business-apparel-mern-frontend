@@ -13,17 +13,14 @@
 
 .cart-section {
   overflow-y: auto;
-  height: calc(100% - 250px);
+  height: calc(100% - 320px);
   margin-top: 3rem;
 }
 
 
-
-
-
 .checkout-section {
   width: 350px;
-  height: 200px;
+  height: 270px;
   left: 0; 
   right: 0; 
   margin-left: auto; 

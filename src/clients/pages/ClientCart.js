@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import Dashboard from '../../shared/components/PageTemplates/Dashboard'
 import { AuthContext } from '../../shared/context/auth-context'
+import { NavLink } from 'react-router-dom';
 import { Formik, Form} from 'formik';
 
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -55,6 +56,10 @@ const ClientCart= props => {
     setCart(cartTemp);    
     let cartString = JSON.stringify(cartTemp)
     localStorage.setItem(auth.userId, cartString)
+  }
+
+  const confirmOrder = () => {
+    console.log("yeet")
   }
 
 
@@ -162,55 +167,45 @@ const ClientCart= props => {
   ]
 
   const options = {
-    tableBodyHeight: "750px",
+    tableBodyHeight: "900px",
     rowsPerPage: 10,
     pagination: false,
     print: false,
     download: false,
     elevation: 0,
-    selectableRows: false,
+    selectableRows: "none",
   };
 
 
 
   return (
     <Dashboard user="client" onAdd={cart}>
-      <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
+      <div className="checkout_page" style={{marginTop: "3rem"}}>
         <h1> Your Checkout </h1>
-        <Paper>
-          <Formik 
-            initialValues={{
-              data: cart,
-              info: '',
-            }}
-            onSubmit={(data, {setSubmitting, resetForm}) =>  {
-              setSubmitting(true)
-              setSubmitting(false)
-              resetForm();
-            }}
-          >
-          {({values, isSubmitting}) => (
-            <Form >
-              <MUIDataTable
-                data={cart}
-                columns={columns}
-                options={options}
-              />
-              <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', marginLeft: "3rem", marginRight: "3rem", marginTop: "1rem"}}>
-                <div>
-                  <h3>Additional Information</h3>
-                  <TextField 
-                    style={{width: '500px', marginBottom: "2rem"}}
-                    placeholder="Aditional info"
-                    name="info" 
-                    variant="outlined"
-                    multiline
-                    rows={5}
-                    type="input" 
-                    isMultiline={true} 
-                  />
-                </div>
-                <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', width: '300px'}}>
+        <div className="checkout_table" style={{display: "flex",  justifyContent: "space-between",  flexWrap: "wrap"}}>
+          <MUIDataTable
+            data={cart}
+            columns={columns}
+            options={options}
+          />
+          <div className="additional_info" style={{backgroundColor: "white"}}>
+            <div style={{margin: "2rem"}}>
+              <div style={{marginTop: "2rem", marginBottom: "2rem"}}>
+                <h2>Additional Information</h2>
+                <TextField 
+                  style={{width: '100%'}}
+                  placeholder="Please make change to this uniform..."
+                  name="info" 
+                  variant="outlined"
+                  multiline
+                  rows={6}
+                  type="input" 
+                  multiline
+                />
+              </div>
+              <div className="calculations" style={{marginTop: "2rem", marginBottom: "2rem" }}>
+                <h2>Payment Due</h2>
+                <div style={{display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between"}}>
                   <div>
                     <h3>Subtotal:</h3>
                     <h3>GST:</h3>
@@ -223,10 +218,24 @@ const ClientCart= props => {
                   </div>
                 </div>
               </div>
-            </Form>
-          )}
-          </Formik>
-        </Paper>
+              <NavLink to={`/${auth.username}/catalogue`} style={{textDecoration: "none",  color: "white"}}>
+                <Button 
+                  variant="outlined"
+                  style={{ width: "100%", borderRadius: "0", padding: "0"}}
+                >
+                  <h3>ADD MORE TO CART</h3>
+                </Button>
+              </NavLink>          
+              <Button 
+                variant="contained"
+                style={{backgroundColor: "black", color: "white", width: "100%", borderRadius: "0", padding: "0", marginTop: "1rem"}}
+                onClick={() => confirmOrder()}
+              >
+                <h3>CONFIRM ORDER</h3>
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </Dashboard>
   );
