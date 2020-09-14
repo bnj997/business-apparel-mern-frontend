@@ -4,7 +4,7 @@
 }
 
 
-.checkout_table .MuiPaper-root {
+.checkout_table .order_table {
   width: 100%;
 }
 
@@ -37,13 +37,21 @@
   width: 100%;
 }
 
+.button_disabled {
+  background-color: black;
+}
+
+.button_enabled {
+  background-color: black;
+}
+
 @media (min-width: 1700px) {
   .checkout_page {
     margin-left: 4rem;
     margin-right: 4rem;
   }
 
-  .checkout_table .MuiPaper-root {
+  .checkout_table .order_table {
     width: 65%;
   }
 

@@ -20,8 +20,12 @@ export const useAuth = () => {
         userId: uid,
         username: username,
         token: token, 
-        expiration: tokenExpirationDate.toISOString()})
+        expiration: tokenExpirationDate.toISOString()
+      })
     )
+    if (!localStorage.getItem(uid)) {
+      localStorage.setItem(uid, JSON.stringify([]))
+    }
   }, []);
 
   const logout = useCallback(() => {

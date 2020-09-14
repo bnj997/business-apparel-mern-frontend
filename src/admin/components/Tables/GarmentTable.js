@@ -70,7 +70,6 @@ const GarmentTable = props => {
       formData.append('category', newData.category)
       formData.append('supplier', newData.supplier)
       formData.append('description', newData.description)
-
       var colourArr = newData.colours
       var sizesArr = newData.sizes
       for (var i = 0; i < colourArr.length; i++) {

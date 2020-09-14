@@ -12,13 +12,20 @@ import { Button, Paper, TextField} from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import './ClientCart.css';
 
+import { useHttpClient } from '../../shared/components/hooks/http-hook';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+
 
 
 
 const ClientCart= props => {
+  const { v4: uuidv4 } = require('uuid');
   const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0.00)
+  const [info, setInfo] = useState('')
 
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(auth.userId))
@@ -36,7 +43,50 @@ const ClientCart= props => {
         })
       })
     }
-  }, [cart]) 
+  }, [cart])
+  
+
+
+  const confirmOrder = async (cart, info) =>  {
+
+    const orderid  = uuidv4()
+    try {
+      //construct new order
+      var today = new Date();
+      var date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      var dateTime = date+' , '+time
+      await sendRequest(
+        'http://localhost:5000/api/orders',
+        'POST',
+        JSON.stringify({
+          _id: orderid,
+          user: auth.userId,
+          date: dateTime,
+          info: info,
+        }),
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
+      );
+    } catch (err) {}
+
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/order-lines/${orderid}`,
+        'POST',
+        JSON.stringify({
+          cart: cart,
+        }),
+        { 
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + auth.token
+        }
+      );
+    } catch (err) {}
+
+  }
 
 
   const setChange = (rowData, quantity) => {
@@ -58,8 +108,9 @@ const ClientCart= props => {
     localStorage.setItem(auth.userId, cartString)
   }
 
-  const confirmOrder = () => {
-    console.log("yeet")
+
+  const handleChange = (event) => {
+    setInfo(event.target.value)
   }
 
 
@@ -183,23 +234,34 @@ const ClientCart= props => {
       <div className="checkout_page" style={{marginTop: "3rem"}}>
         <h1> Your Checkout </h1>
         <div className="checkout_table" style={{display: "flex",  justifyContent: "space-between",  flexWrap: "wrap"}}>
-          <MUIDataTable
-            data={cart}
-            columns={columns}
-            options={options}
-          />
+
+          <div className="order_table "style={{backgroundColor: "white"}}>
+            {isLoading ? (
+              <div>
+                <LoadingSpinner />
+              </div>
+            ) : (
+              <MUIDataTable
+                data={cart}
+                columns={columns}
+                options={options}
+              />
+            )}
+          </div>
+         
           <div className="additional_info" style={{backgroundColor: "white"}}>
             <div style={{margin: "2rem"}}>
               <div style={{marginTop: "2rem", marginBottom: "2rem"}}>
                 <h2>Additional Information</h2>
                 <TextField 
                   style={{width: '100%'}}
+                  value={info}
+                  onChange={handleChange}
                   placeholder="Please make change to this uniform..."
                   name="info" 
                   variant="outlined"
                   multiline
                   rows={6}
-                  type="input" 
                   multiline
                 />
               </div>
@@ -229,7 +291,8 @@ const ClientCart= props => {
               <Button 
                 variant="contained"
                 style={{backgroundColor: "black", color: "white", width: "100%", borderRadius: "0", padding: "0", marginTop: "1rem"}}
-                onClick={() => confirmOrder()}
+                onClick={() => confirmOrder(cart, info)}
+                disabled={cart.length === 0}
               >
                 <h3>CONFIRM ORDER</h3>
               </Button>
