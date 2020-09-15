@@ -29,7 +29,7 @@ const MyAccount = props => {
         <NavLink to="/login" style={{textDecoration: "none", color: "white"}}>My Account</NavLink>
       )}
       {auth.token && auth.username === "adminstaff" && (
-        <NavLink to="/admin/garments" style={{textDecoration: "none",  color: "white"}}>{auth.username}</NavLink>
+        <NavLink to="/admin/orders" style={{textDecoration: "none",  color: "white"}}>{auth.username}</NavLink>
       )}
 
       {auth.token && auth.username !== "adminstaff" && (

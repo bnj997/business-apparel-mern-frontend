@@ -3,18 +3,15 @@ import React, {useContext, useState, useEffect} from 'react'
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
-
+import './DataTable.css';
 import MUIDataTable from "mui-datatables";
-import Modal from '../../shared/components/UIElements/Modal'
-
-import '../pages/ClientCart.css'
 
 
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import { useHttpClient } from '../../shared/components/hooks/http-hook';
-import { AuthContext } from '../../shared/context/auth-context';
 
+import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 const OrderTable = props => {
   const auth = useContext(AuthContext);
@@ -27,7 +24,7 @@ const OrderTable = props => {
     const fetchOrders = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/orders/user/${auth.userId}`,
+          `http://localhost:5000/api/orders`,
           'GET',
           null,
           {
@@ -86,7 +83,7 @@ const OrderTable = props => {
                 color="default"
                 startIcon={<InfoIcon />}
                 style={{marginRight: "5%"}}
-                component={NavLink} to={`/${auth.username}/orders/${tableMeta.rowData[0]}`}
+                component={NavLink} to={`/admin/orders/${tableMeta.rowData[0]}`}
               >
                 View
               </Button>

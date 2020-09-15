@@ -195,7 +195,7 @@ const HQUserTable = props => {
 
 
   const options = {
-    tableBodyHeight: "55rem",
+    tableBodyHeight: "50rem",
     rowsPerPage: 10,
     print: false,
     download: false,
@@ -234,7 +234,6 @@ const HQUserTable = props => {
       )}
        {!isLoading && (
         <MUIDataTable
-          title="User List"
           className="table-center"
           data={Datas}
           columns={columns}

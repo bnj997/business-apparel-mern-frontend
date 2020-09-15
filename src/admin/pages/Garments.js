@@ -5,7 +5,10 @@ import GarmentTable from '../components/Tables/GarmentTable';
 const Garments = props => {
   return (
     <Dashboard user="adminstaff">
-      <GarmentTable />
+      <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
+        <h1>Garment List</h1> 
+        <GarmentTable />
+      </div>
     </Dashboard>
   );
 }

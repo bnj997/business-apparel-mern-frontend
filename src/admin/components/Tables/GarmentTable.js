@@ -197,10 +197,20 @@ const GarmentTable = props => {
     {
       name: "colours",
       label: "Colours",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`${value}`}</p>
+        )
+      }
     },
     {
       name: "sizes",
       label: "Sizes",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`${value}`}</p>
+        )
+      }
     },
     {
       name: "actions",
@@ -261,6 +271,7 @@ const GarmentTable = props => {
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       <GarmentModal
         isEditing={isEditing}
         rowData={rowData}
@@ -270,20 +281,20 @@ const GarmentTable = props => {
         onCancel={exitModal}
       /> 
 
-      <ErrorModal error={error} onClear={clearError} />
-      {isLoading && (
-        <div className="center">
+      {isLoading ? (
+        <div style={{placeItems: "center"}}>
           <LoadingSpinner />
         </div>
-      )}
+      ) : (
+        <MUIDataTable
+          className="table-center"
+          data={Datas}
+          columns={columns}
+          options={options}
+        />
+      )}  
 
-      <MUIDataTable
-        title="Garments"
-        className="table-center"
-        data={Datas}
-        columns={columns}
-        options={options}
-      />
+      
     </React.Fragment>
   );
 }

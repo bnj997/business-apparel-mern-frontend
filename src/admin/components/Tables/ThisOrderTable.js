@@ -2,19 +2,16 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import MUIDataTable from "mui-datatables";
-import Modal from '../../shared/components/UIElements/Modal'
+import '../../../clients/pages/ClientCart.css'
+import './DataTable.css';
 
-import '../pages/ClientCart.css'
-
-import { TextField} from "@material-ui/core";
-
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import { useHttpClient } from '../../shared/components/hooks/http-hook';
-import { AuthContext } from '../../shared/context/auth-context';
+import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
+import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import { AuthContext } from '../../../shared/context/auth-context';
 
 
-const ThisClientOrderTable = props => {
+const ThisOrderTable = props => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [totalPrice, setTotalPrice] = useState(0.00)
@@ -59,7 +56,7 @@ const ThisClientOrderTable = props => {
           }
         );
         console.log(responseData)
-        setInfo(responseData.order.info);
+        setInfo(responseData.order);
       } catch (err) {}
 
     };
@@ -165,11 +162,24 @@ const ThisClientOrderTable = props => {
         <div className="additional_info" style={{backgroundColor: "white"}}>
           <div style={{margin: "2rem"}}>
             <div style={{marginTop: "2rem", marginBottom: "2rem"}}>
-              <h2>Additional Information</h2>
-              <p>{info}</p>
+              <h2>User Information:</h2>
+              <div className="calculations" style={{display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between"}}>
+                <div>
+                  <h3>HQ:</h3>
+                  <h3>Branch: </h3>
+                </div>
+                <div>
+                  <h3 style={{fontWeight: "normal"}}>{info.hq}</h3>
+                  <h3 style={{fontWeight: "normal"}}>{info.branch}</h3>
+                </div>
+              </div>
+            </div>
+            <div style={{marginTop: "2rem", marginBottom: "2rem"}}>
+              <h2>Additional Information:</h2>
+              <p>{info.info}</p>
             </div>
             <div className="calculations" style={{marginTop: "2rem", marginBottom: "2rem" }}>
-              <h2>Payment Due</h2>
+              <h2>Payment Due:</h2>
               <div style={{display: "flex", flexWrap: "wrap", flexDirection: "row", justifyContent: "space-between"}}>
                 <div>
                   <h3>Subtotal:</h3>
@@ -190,5 +200,4 @@ const ThisClientOrderTable = props => {
   );
 }
 
-export default ThisClientOrderTable;
-
+export default ThisOrderTable;

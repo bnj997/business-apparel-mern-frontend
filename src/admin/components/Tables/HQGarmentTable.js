@@ -148,10 +148,20 @@ const HQGarmentTable = props => {
     {
       name: "colours",
       label: "Colours",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`${value}`}</p>
+        )
+      }
     },
     {
       name: "sizes",
       label: "Sizes",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`${value}`}</p>
+        )
+      }
     },
     {
       name: "actions",
@@ -180,7 +190,7 @@ const HQGarmentTable = props => {
 
 
   const options = {
-    tableBodyHeight: "55rem",
+    tableBodyHeight: "50rem",
     rowsPerPage: 10,
     print: false,
     download: false,
@@ -217,7 +227,6 @@ const HQGarmentTable = props => {
       )}
        {!isLoading && (
         <MUIDataTable
-          title="Garment List"
           className="table-center"
           data={Datas}
           columns={columns}

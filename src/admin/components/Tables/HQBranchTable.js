@@ -211,7 +211,7 @@ const HQBranchTable = props => {
 
 
   const options = {
-    tableBodyHeight: "55rem",
+    tableBodyHeight: "50rem",
     rowsPerPage: 10,
     print: false,
     download: false,
@@ -265,7 +265,6 @@ const HQBranchTable = props => {
       )}
        {!isLoading && (
         <MUIDataTable
-          title="Branch List"
           className="table-center"
           data={Datas}
           columns={columns}

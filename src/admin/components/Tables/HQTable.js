@@ -259,7 +259,15 @@ const HQTable = props => {
 
   return (
     <React.Fragment>
-
+      <ErrorModal error={error} onClear={clearError} />
+      <HQModal
+        isEditing={isEditing}
+        rowData={rowData}
+        show={showAddEditModal}
+        onEdit={editData}
+        onAdd={addData}
+        onCancel={exitModal}
+      /> 
       <Modal
         show={showConfirmModal}
         onCancel={cancelDelete}
@@ -275,30 +283,20 @@ const HQTable = props => {
        <p>Are you sure you want to delete HQ? This will delete all associated users and branches.</p>
       </Modal>
 
-      <HQModal
-        isEditing={isEditing}
-        rowData={rowData}
-        show={showAddEditModal}
-        onEdit={editData}
-        onAdd={addData}
-        onCancel={exitModal}
-      /> 
+      {isLoading ? (
+        <div style={{placeItems: "center"}}>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <MUIDataTable
+          className="table-center"
+          data={Datas}
+          columns={columns}
+          options={options}
+        />
+      )}  
 
-      <ErrorModal error={error} onClear={clearError} />
-      <div style={{position:'relative'}}>
-        {isLoading && <LoadingSpinner />}
-        {!isLoading && (
-          <MUIDataTable
-            title="HQ List"
-            className="table-center"
-            data={Datas}
-            columns={columns}
-            options={options}
-          />
-        )}
-      </div>
-
-      
+        
      
     </React.Fragment>
   );

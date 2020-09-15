@@ -132,10 +132,20 @@ const HQGarmentModal = props => {
     {
       name: "colours",
       label: "Colours",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`${value}`}</p>
+        )
+      }
     },
     {
       name: "sizes",
       label: "Sizes",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`${value}`}</p>
+        )
+      }
     },
     {
       name: "actions",

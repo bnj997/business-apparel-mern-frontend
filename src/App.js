@@ -22,7 +22,9 @@ const App = () => {
 
   const Garments = lazy(() => import('./admin/pages/Garments'));
   const Headquarters = lazy(() => import('./admin/pages/Headquarters'));
+  const Orders = lazy(() => import('./admin/pages/Orders'));
   const ThisHQ = lazy(() => import('./admin/pages/ThisHQ'));
+  const ThisOrder = lazy(() => import('./admin/pages/ThisOrder'));
 
   const ClientOrders = lazy(() => import('./clients/pages/ClientOrders'));
   const ClientCatalogue = lazy(() => import('./clients/pages/ClientCatalogue'));
@@ -47,14 +49,20 @@ const App = () => {
           <Contact />
         </Route>
 
+        <Route path="/admin/orders" component={Orders} exact> 
+          <Orders />
+        </Route>
         <Route path="/admin/garments" component={Garments} exact> 
           <Garments />
         </Route>
         <Route path="/admin/headquarters" exact> 
           <Headquarters />
         </Route>
-        <Route path="/admin/headquarters/:hqId" exact> 
+        <Route path="/admin/headquarters/:hqId" component={ThisHQ} exact> 
           <ThisHQ />
+        </Route>
+        <Route path="/admin/orders/:oid" component={ThisOrder}  exact> 
+          <ThisOrder />
         </Route>
 
 
