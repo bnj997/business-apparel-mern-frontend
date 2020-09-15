@@ -201,7 +201,7 @@ const HQTable = props => {
                 color="default"
                 startIcon={<InfoIcon />}
                 style={{marginRight: "5%"}}
-                component={NavLink} to={`/admin/${tableMeta.rowData[0]}`}
+                component={NavLink} to={`/admin/headquarters/${tableMeta.rowData[0]}`}
               >
                 View
               </Button>

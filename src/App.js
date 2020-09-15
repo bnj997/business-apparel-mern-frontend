@@ -9,8 +9,6 @@ import {
 
 import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/components/hooks/auth-hook';
-import ClientCatalogue from './clients/pages/ClientCatalogue';
-import ClientCart from './clients/pages/ClientCart';
 
 const App = () => {
   const {token, login, logout, userId, username,} = useAuth();
@@ -29,6 +27,7 @@ const App = () => {
   const ClientOrders = lazy(() => import('./clients/pages/ClientOrders'));
   const ClientCatalogue = lazy(() => import('./clients/pages/ClientCatalogue'));
   const ClientCart = lazy(() => import('./clients/pages/ClientCart'));
+  const ThisClientOrder = lazy(() => import('./clients/pages/ThisClientOrder'));
 
   const Authentication = lazy(() => import('./shared/pages/Authentication'));
 
@@ -54,7 +53,7 @@ const App = () => {
         <Route path="/admin/headquarters" exact> 
           <Headquarters />
         </Route>
-        <Route path="/admin/:hqId" exact> 
+        <Route path="/admin/headquarters/:hqId" exact> 
           <ThisHQ />
         </Route>
 
@@ -86,6 +85,9 @@ const App = () => {
         </Route>
         <Route path="/:userId/orders" component={ClientOrders} exact> 
           <ClientOrders />
+        </Route>
+        <Route path="/:userId/orders/:oid" exact> 
+          <ThisClientOrder />
         </Route>
 
 

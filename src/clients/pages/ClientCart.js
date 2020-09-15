@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import Dashboard from '../../shared/components/PageTemplates/Dashboard'
+import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../shared/context/auth-context'
 import { NavLink } from 'react-router-dom';
 import { Formik, Form} from 'formik';
@@ -23,6 +24,7 @@ const ClientCart= props => {
   const { v4: uuidv4 } = require('uuid');
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const history = useHistory();
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0.00)
   const [info, setInfo] = useState('')
@@ -52,17 +54,12 @@ const ClientCart= props => {
     const orderid  = uuidv4()
     try {
       //construct new order
-      var today = new Date();
-      var date = today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      var dateTime = date+' , '+time
       await sendRequest(
         'http://localhost:5000/api/orders',
         'POST',
         JSON.stringify({
           _id: orderid,
           user: auth.userId,
-          date: dateTime,
           info: info,
         }),
         { 
@@ -84,8 +81,10 @@ const ClientCart= props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
+      setCart([]);
+      localStorage.setItem(auth.userId, JSON.stringify([]))
+      history.push('/' + auth.username + '/orders');
     } catch (err) {}
-
   }
 
 
@@ -220,7 +219,6 @@ const ClientCart= props => {
   const options = {
     tableBodyHeight: "900px",
     rowsPerPage: 10,
-    pagination: false,
     print: false,
     download: false,
     elevation: 0,
@@ -237,7 +235,7 @@ const ClientCart= props => {
 
           <div className="order_table "style={{backgroundColor: "white"}}>
             {isLoading ? (
-              <div>
+              <div style={{placeItems: "center"}}>
                 <LoadingSpinner />
               </div>
             ) : (
@@ -261,7 +259,7 @@ const ClientCart= props => {
                   name="info" 
                   variant="outlined"
                   multiline
-                  rows={6}
+                  rows={10}
                   multiline
                 />
               </div>
