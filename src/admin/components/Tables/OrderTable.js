@@ -3,7 +3,7 @@ import React, {useContext, useState, useEffect} from 'react'
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
-import './DataTable.css';
+import '../../../shared/components/TableElements/DataTable.css';
 import MUIDataTable from "mui-datatables";
 
 

@@ -2,8 +2,7 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import MUIDataTable from "mui-datatables";
-import '../../../clients/pages/ClientCart.css'
-import './DataTable.css';
+import '../../../shared/components/TableElements/DataTable.css';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';

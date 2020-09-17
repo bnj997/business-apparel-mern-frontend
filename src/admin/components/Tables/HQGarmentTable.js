@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
-import './DataTable.css';
+import '../../../shared/components/TableElements/DataTable.css';
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';

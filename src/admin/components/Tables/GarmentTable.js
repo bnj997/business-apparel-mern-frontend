@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 
-import './DataTable.css';
+import '../../../shared/components/TableElements/DataTable.css';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';

@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 
-import './DataTable.css';
+import '../../../shared/components/TableElements/DataTable.css';
 
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";

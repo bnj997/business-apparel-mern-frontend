@@ -4,9 +4,7 @@ import { useParams } from 'react-router-dom';
 import MUIDataTable from "mui-datatables";
 import Modal from '../../shared/components/UIElements/Modal'
 
-import '../pages/ClientCart.css'
-
-import { TextField} from "@material-ui/core";
+import '../../shared/components/TableElements/DataTable.css';
 
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';

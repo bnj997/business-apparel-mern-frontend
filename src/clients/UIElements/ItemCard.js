@@ -11,7 +11,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import './ItemCard.css';
 
 
 const MyCard = withStyles({
@@ -55,7 +54,7 @@ const ItemCard = props => {
             style={{height: "350px", width: "100%", objectFit: "contain"}}
             src={`http://localhost:5000/${props.image}`}
           />
-          <CardContent className="garmentInfo">
+          <CardContent style={{marginLeft: "2rem", marginRight: "2rem"}}>
             <h2 style={{marginTop: "0"}}>{props.name}</h2>
             <div>
               <div style={{display: "flex"}}>
