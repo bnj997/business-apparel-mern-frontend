@@ -9,13 +9,14 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import { Button, Paper, TextField} from "@material-ui/core";
+import { Button, TextField} from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
-import './ClientCart.css';
+import '../../shared/components/TableElements/ClientCart.css';
 
 import { useHttpClient } from '../../shared/components/hooks/http-hook';
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import Modal from '../../shared/components/UIElements/Modal';
 
 
 
@@ -28,6 +29,17 @@ const ClientCart= props => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0.00)
   const [info, setInfo] = useState('')
+
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  function showModal() {
+    setShowConfirmModal(true)
+  }
+  function exitModal() {
+    setShowConfirmModal(false)
+    history.push('/' + auth.username + '/orders');
+  }
+
 
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(auth.userId))
@@ -70,7 +82,7 @@ const ClientCart= props => {
     } catch (err) {}
 
     try {
-      await sendRequest(
+      const response = await sendRequest(
         `http://localhost:5000/api/order-lines/${orderid}`,
         'POST',
         JSON.stringify({
@@ -82,8 +94,8 @@ const ClientCart= props => {
         }
       );
       setCart([]);
+      setShowConfirmModal(response)
       localStorage.setItem(auth.userId, JSON.stringify([]))
-      history.push('/' + auth.username + '/orders');
     } catch (err) {}
   }
 
@@ -101,7 +113,7 @@ const ClientCart= props => {
 
   const removeFromCart  = (rowData) => {
     let cartTemp = [...cart]
-    cartTemp = cartTemp.filter(cartItem => (cartItem.name !== rowData[1] || cartItem.colour != rowData[2] || cartItem.size != rowData[3]));
+    cartTemp = cartTemp.filter(cartItem => (cartItem.name !== rowData[1] || cartItem.colour !== rowData[2] || cartItem.size !== rowData[3]));
     setCart(cartTemp);    
     let cartString = JSON.stringify(cartTemp)
     localStorage.setItem(auth.userId, cartString)
@@ -232,6 +244,20 @@ const ClientCart= props => {
       <div className="checkout_page" style={{marginTop: "3rem"}}>
         <h1> Your Checkout </h1>
         <div className="checkout_table" style={{display: "flex",  justifyContent: "space-between",  flexWrap: "wrap"}}>
+          <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
+          <Modal
+            show={showConfirmModal}
+            onCancel={exitModal}
+            header="Order Sent" 
+            footerClass="logout__modal-actions" 
+            footer={
+              <React.Fragment>
+                <Button variant="contained" onClick={exitModal} > Okay </Button>
+              </React.Fragment>
+            }
+          >
+            <p>Your order has successfully been sent to Business Apparel!</p>
+          </Modal>
 
           <div className="order_table "style={{backgroundColor: "white"}}>
             {isLoading ? (
@@ -260,7 +286,6 @@ const ClientCart= props => {
                   variant="outlined"
                   multiline
                   rows={10}
-                  multiline
                 />
               </div>
               <div className="calculations" style={{marginTop: "2rem", marginBottom: "2rem" }}>

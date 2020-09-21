@@ -1,11 +1,11 @@
 import React, {useContext, useState, useEffect} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import { useParams } from 'react-router-dom';
 
 import Modal from '../../../shared/components/UIElements/Modal';
-import { Button} from "@material-ui/core";
+import { Button, Chip} from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import EditIcon from '@material-ui/icons/Edit';
+import DoneIcon from '@material-ui/icons/Done';
 
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
@@ -33,6 +33,7 @@ const HQGarmentModal = props => {
       } catch (err) {}
     };
     fetchAvailableGarmentsForHQ();
+    setGarmentsToAdd([])
   }, [sendRequest, hqID, auth.token, props.request])
 
 
@@ -88,15 +89,7 @@ const HQGarmentModal = props => {
       name: "image",
       label: "Image",
       options: {
-        sort: false,
-        customBodyRender: (value) => (
-          <img
-            style={{width: "50px", height: "75px"}}
-            alt="Garment"
-            src={`http://localhost:5000/${value}`}
-            > 
-          </img>
-        )
+        display: false,
       }
     },
     {
@@ -206,18 +199,14 @@ const HQGarmentModal = props => {
       <div style={{display: "flex"}}>
         {GarmentsToAdd.map(function(item, i){
           return (
-            <div style={{display: "flex",  alignItems: "center"}}>
-              <p key={i}>{item.styleNum}</p>
-              <button 
-                variant="contained"
-                onClick={ () =>
-                  removeGarmentFromAdd(item)
-                }
-              >
-                  Remove
-              </button>
-
-            </div>        
+            <Chip
+              style={{margin: "0.2rem"}}
+              size="small"
+              label={item.styleNum}
+              onDelete={ () =>
+                removeGarmentFromAdd(item)
+              }
+            />
           )
         })}
       </div>

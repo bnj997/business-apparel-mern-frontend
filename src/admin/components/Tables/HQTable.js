@@ -125,10 +125,6 @@ const HQTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      // setData(prevDatas => {
-      //   prevDatas[prevDatas.findIndex(hq => hq._id === hqId )] = currentData
-      //   return prevDatas
-      // });
       setRequest(!request)
     } catch (err) {}
     exitModal()
@@ -259,7 +255,7 @@ const HQTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <HQModal
         isEditing={isEditing}
         rowData={rowData}

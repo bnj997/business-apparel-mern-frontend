@@ -2,12 +2,13 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import MUIDataTable from "mui-datatables";
-import '../../../shared/components/TableElements/DataTable.css';
+import '../../../shared/components/TableElements/ClientCart.css';
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
+
 
 
 const ThisOrderTable = props => {
@@ -18,6 +19,8 @@ const ThisOrderTable = props => {
 
   const [Datas, setData] = useState([]);
   const [info, setInfo] = useState('');
+  const [hq, setHQ] = useState('');
+  const [branch, setBranch] = useState('');
   const [showOrderAddModal, setShowOrderAddModal] = useState(true);
 
   useEffect(() => {
@@ -54,8 +57,9 @@ const ThisOrderTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log(responseData)
         setInfo(responseData.order);
+        setHQ(responseData.order.hq.name);
+        setBranch(responseData.order.branch.name);
       } catch (err) {}
 
     };
@@ -114,7 +118,7 @@ const ThisOrderTable = props => {
       label: "Price per unit",
       options: {
         customBodyRender: (value) => (
-          <p>${value}</p>
+          <p>{`$${value.toFixed(2)}`}</p>
         )
       }
     },
@@ -123,7 +127,7 @@ const ThisOrderTable = props => {
       label: "Subtotal",
       options: {
         customBodyRender: (value) => (
-          <p>${value}</p>
+          <p>{`$${value.toFixed(2)}`}</p>
         )
       }
     }
@@ -142,7 +146,7 @@ const ThisOrderTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <div className="checkout_table" style={{display: "flex",  justifyContent: "space-between",  flexWrap: "wrap"}}>
         <div className="order_table "style={{backgroundColor: "white"}}>
           {isLoading ? (
@@ -168,8 +172,8 @@ const ThisOrderTable = props => {
                   <h3>Branch: </h3>
                 </div>
                 <div>
-                  <h3 style={{fontWeight: "normal"}}>{info.hq}</h3>
-                  <h3 style={{fontWeight: "normal"}}>{info.branch}</h3>
+                  <h3 style={{fontWeight: "normal"}}>{hq}</h3>
+                  <h3 style={{fontWeight: "normal"}}>{branch}</h3>
                 </div>
               </div>
             </div>

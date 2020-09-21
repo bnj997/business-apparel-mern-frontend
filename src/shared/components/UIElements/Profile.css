@@ -1,0 +1,11 @@
+.profile_section {
+  margin: 5rem;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.profile_section .info {
+  padding: 1%;
+  background-color: white;
+}

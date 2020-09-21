@@ -38,7 +38,7 @@ const Authentication = () => {
     <React.Fragment>
       <MainNavigation />
       <TextSection type="center normal" color="#404040" >
-        <ErrorModal error={error} onClear={clearError} />
+        <ErrorModal header= "An Error occured "error={error} onClear={clearError} />
         <LoginCard>
           {isLoading && <LoadingSpinner asOverlay />}
           <h1 style={{marginTop: "5%"}}> Log in </h1>

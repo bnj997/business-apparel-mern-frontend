@@ -257,7 +257,7 @@ const HQBranchTable = props => {
         onCancel={exitModal}
       /> 
 
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       {isLoading && (
         <div className="center">
           <LoadingSpinner />

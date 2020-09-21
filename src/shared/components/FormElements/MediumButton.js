@@ -5,10 +5,13 @@ import {
 
 import './MediumButton.css';
 import { Button} from "@material-ui/core";
+import { NavLink } from 'react-router-dom';
+
 
 const OutLineButton = withStyles({
   root: {
     border: "1px solid black",
+    textDecoration: "none",
     color: "black",
     fontSize: "1.3rem",
     marginLeft: "auto",
@@ -25,7 +28,7 @@ const OutLineButton = withStyles({
 const  MediumButton = props => {
   return (
     <OutLineButton disabled={props.isSubmitting} type="submit"> 
-      {props.children}
+      <NavLink to={props.to} exact style={{textDecoration: "none", color: "inherit"}}> {props.children}</NavLink>
     </OutLineButton>
   );
 };

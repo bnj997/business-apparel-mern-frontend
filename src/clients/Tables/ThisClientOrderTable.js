@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import MUIDataTable from "mui-datatables";
 import Modal from '../../shared/components/UIElements/Modal'
 
-import '../../shared/components/TableElements/DataTable.css';
+import '../../shared/components/TableElements/ClientCart.css';
 
 import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
@@ -56,7 +56,6 @@ const ThisClientOrderTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log(responseData)
         setInfo(responseData.order.info);
       } catch (err) {}
 
@@ -144,7 +143,7 @@ const ThisClientOrderTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <div className="checkout_table" style={{display: "flex",  justifyContent: "space-between",  flexWrap: "wrap"}}>
         <div className="order_table "style={{backgroundColor: "white"}}>
           {isLoading ? (

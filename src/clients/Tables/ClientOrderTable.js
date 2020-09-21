@@ -4,9 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
 
-import MUIDataTable from "mui-datatables";
-import Modal from '../../shared/components/UIElements/Modal'
 
+import MUIDataTable from "mui-datatables";
 import '../../shared/components/TableElements/DataTable.css';
 
 
@@ -65,14 +64,24 @@ const ClientOrderTable = props => {
     {
       name: "hq",
       label: "HQ",
+      options: {
+        customBodyRender: (value) => {
+          return (
+           value.name
+          )
+        }
+      }
     },
     {
       name: "branch",
       label: "Branch",
-    },
-    {
-      name: "status",
-      label: "Status",
+      options: {
+        customBodyRender: (value) => {
+          return (
+           value.name
+          )
+        }
+      }
     },
     {
       name: "actions",
@@ -98,7 +107,7 @@ const ClientOrderTable = props => {
   ]
 
   const options = {
-    tableBodyHeight: "55rem",
+    tableBodyHeight: "27rem",
     rowsPerPage: 10,
     print: false,
     download: false,
@@ -109,22 +118,9 @@ const ClientOrderTable = props => {
 
   return (
     <React.Fragment>
-      {/* <Modal
-        show={showOrderAddModal}
-        onCancel={exitModal}
-        header="Your order has been successfully processed." 
-        footerClass="logout__modal-actions" 
-        footer={
-          <React.Fragment>
-            <Button variant="contained" onClick={exitModal} > Okay </Button>
-          </React.Fragment>
-        }
-      >
-       <p>Your order has been confirmed and is on its way!</p>
-      </Modal> */}
 
 
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <div style={{position:'relative'}}>
         {isLoading && <LoadingSpinner />}
         {!isLoading && (

@@ -2,11 +2,9 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import '../../../shared/components/TableElements/DataTable.css';
-import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import InfoIcon from '@material-ui/icons/Info';
 
 import MUIDataTable from "mui-datatables";
 import HQUserModal from '../../../admin/components/Forms/HQUserModal';
@@ -20,6 +18,7 @@ const HQUserTable = props => {
   const auth = useContext(AuthContext);
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [request, setRequest] = useState(false);
   const [Datas, setData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
@@ -42,7 +41,7 @@ const HQUserTable = props => {
       } catch (err) {}
     };
     fetchUsersForHQ();
-  }, [sendRequest, hqID, auth.token])
+  }, [sendRequest, hqID, auth.token, request])
 
 
   const addUser = async newData => {
@@ -63,9 +62,10 @@ const HQUserTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      setData(prevDatas => {
-        return [...prevDatas, newData];
-      });
+      // setData(prevDatas => {
+      //   return [...prevDatas, newData];
+      // });
+      setRequest(!request)
     } catch (err) {}
     exitModal()
   }
@@ -88,10 +88,7 @@ const HQUserTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      setData(prevDatas => {
-        prevDatas[prevDatas.findIndex(user => user._id === uId )] = currentData
-        return prevDatas
-      });
+      setRequest(!request)
     } catch (err) {}
     exitModal()
   }
@@ -106,11 +103,7 @@ const HQUserTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      setData(prevDatas => {
-        return prevDatas.filter((user) => {
-          return user._id !== uId
-        })
-      })
+      setRequest(!request)
     } catch (err) {}
   }
 
@@ -144,6 +137,13 @@ const HQUserTable = props => {
     {
       name: "branch",
       label: "Branch",
+      options: {
+        customBodyRender: (value) => {
+          return (
+           value.name
+          )
+        }
+      }
     },
     {
       name: "username",
@@ -226,7 +226,7 @@ const HQUserTable = props => {
         onCancel={exitModal}
       /> 
 
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       {isLoading && (
         <div className="center">
           <LoadingSpinner />

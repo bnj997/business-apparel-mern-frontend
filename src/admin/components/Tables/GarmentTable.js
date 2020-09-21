@@ -181,6 +181,11 @@ const GarmentTable = props => {
     {
       name: "price",
       label: "Price",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`$${value.toFixed(2)}`}</p>
+        )
+      }
     },
     {
       name: "category",
@@ -271,7 +276,7 @@ const GarmentTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <GarmentModal
         isEditing={isEditing}
         rowData={rowData}

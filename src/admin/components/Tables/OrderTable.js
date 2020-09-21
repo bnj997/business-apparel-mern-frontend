@@ -3,8 +3,10 @@ import React, {useContext, useState, useEffect} from 'react'
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
-import '../../../shared/components/TableElements/DataTable.css';
+
+
 import MUIDataTable from "mui-datatables";
+import '../../../shared/components/TableElements/DataTable.css';
 
 
 
@@ -31,6 +33,7 @@ const OrderTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
+        console.log(responseData.orders)
         setData(responseData.orders);
       } catch (err) {}
     };
@@ -62,14 +65,24 @@ const OrderTable = props => {
     {
       name: "hq",
       label: "HQ",
+      options: {
+        customBodyRender: (value) => {
+          return (
+           value.name
+          )
+        }
+      }
     },
     {
       name: "branch",
       label: "Branch",
-    },
-    {
-      name: "status",
-      label: "Status",
+      options: {
+        customBodyRender: (value) => {
+          return (
+           value.name
+          )
+        }
+      }
     },
     {
       name: "actions",
@@ -121,7 +134,7 @@ const OrderTable = props => {
       </Modal> */}
 
 
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <div style={{position:'relative'}}>
         {isLoading && <LoadingSpinner />}
         {!isLoading && (

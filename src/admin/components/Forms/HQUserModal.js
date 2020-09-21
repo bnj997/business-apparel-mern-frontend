@@ -10,21 +10,13 @@ import * as yup from 'yup';
 import FormTextField from '../../../shared/components/FormElements/FormTextField';
 import Modal from '../../../shared/components/UIElements/Modal';
 import FormRadio from '../../../shared/components/FormElements/FormRadio';
-import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
 
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 
 
 
 const validationSchema = yup.object({
-  // HQImg: yup
-  //   .mixed().required("An image is required")
-  //   .test(
-  //     value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
-  //   ),
   branch: yup.string().required(),
   username: yup.string().required(),
   email: yup.string().email().required(),
@@ -57,7 +49,6 @@ const HQUserModal = props => {
     fetchBranchesForHQ();
   }, [sendRequest, hqID, auth.token])
 
-  console.log(branches)
 
   const { v4: uuidv4 } = require('uuid');
   var id;
@@ -73,13 +64,13 @@ const HQUserModal = props => {
       height="64vh"
       show={props.show}
       onCancel={props.onCancel}
-      header={props.isEditing ? "Edit Branch" : "Add New Branch"}
+      header={props.isEditing ? "Edit User" : "Add New User"}
     >
 
       <Formik 
         initialValues={{
           _id: id,
-          branch: props.rowData[1],
+          branch: props.rowData[1]._id,
           username: props.rowData[2],
           email: props.rowData[3],
           password: props.rowData[4],
@@ -101,26 +92,21 @@ const HQUserModal = props => {
       >
         {({values, isSubmitting}) => (
           <Form >
-            {/* <FormLabel component="legend" className="form_label">Image</FormLabel>
-            <ImageUpload
-              name="HQImg"
-              setFieldValue={setFieldValue}
-            /> */}
-
-                <RadioGroup row aria-label="Branches" className="form_group">
-                  {branches.map(function(item){
-                    return (
-                      <FormRadio 
-                        key={item.name}
-                        name="branch" 
-                        value={item.name}
-                        type="radio" 
-                        label={item.name}
-                        variant={props.type}
-                      />
-                      )
-                  })}
-                </RadioGroup >
+            <FormLabel component="legend" className="form_label">Supplier</FormLabel>
+            <RadioGroup row aria-label="Branches" className="form_group">
+              {branches.map(function(item){
+                return (
+                  <FormRadio 
+                    key={item.name}
+                    name="branch" 
+                    value={item._id}
+                    type="radio" 
+                    label={item.name}
+                    variant={props.type}
+                  />
+                  )
+              })}
+            </RadioGroup >
 
 
             {["username", "email",  "password"].map(function(item, i){
@@ -134,7 +120,6 @@ const HQUserModal = props => {
                 />
               )
             })}
-             <pre>{JSON.stringify(values, null, 2)}</pre>
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>{props.isEditing ? `Submit changes` : `Add Item`}</Button>
           </Form>
         )}

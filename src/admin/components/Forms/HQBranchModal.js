@@ -2,16 +2,10 @@ import React, { useState } from 'react';
 
 import { Formik, Form} from 'formik';
 import { Button } from "@material-ui/core";
-import FormLabel from '@material-ui/core/FormLabel';
 
 import * as yup from 'yup';
 import FormTextField from '../../../shared/components/FormElements/FormTextField';
 import Modal from '../../../shared/components/UIElements/Modal';
-import ImageUpload from '../../../shared/components/FormElements/ImageUpload';
-import { useHttpClient } from '../../../shared/components/hooks/http-hook';
-
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 
 
 
@@ -71,11 +65,6 @@ const HQBranchModal = props => {
       >
         {({values, isSubmitting}) => (
           <Form >
-            {/* <FormLabel component="legend" className="form_label">Image</FormLabel>
-            <ImageUpload
-              name="HQImg"
-              setFieldValue={setFieldValue}
-            /> */}
             {["name", "telephone",  "address" , "email"].map(function(item, i){
               return (
                 <FormTextField 
@@ -87,7 +76,6 @@ const HQBranchModal = props => {
                 />
               )
             })}
-             <pre>{JSON.stringify(values, null, 2)}</pre>
             <Button disabled={isSubmitting} type="submit" variant="contained" style={{width: "100%", marginTop: "3%", padding: "1rem"}}>{props.isEditing ? `Submit changes` : `Add Item`}</Button>
           </Form>
         )}

@@ -2,12 +2,9 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import '../../../shared/components/TableElements/DataTable.css';
-import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import InfoIcon from '@material-ui/icons/Info';
-
 import MUIDataTable from "mui-datatables";
 import HQGarmentModal from '../../../admin/components/Forms/HQGarmentModal';
 
@@ -59,12 +56,6 @@ const HQGarmentTable = props => {
         }
       );
       setRequest(!request)
-      // setData(prevDatas => {
-      //   for (var i = 0; i < garments.length; i++) {
-      //     prevDatas.push(garments[i])
-      //   }
-      //   return prevDatas;
-      // });
     } catch (err) {}
 
     exitModal()
@@ -80,11 +71,6 @@ const HQGarmentTable = props => {
           Authorization: 'Bearer ' + auth.token 
         }
       );
-      // setData(prevDatas => {
-      //   return prevDatas.filter((garment) => {
-      //     return garment._id !== gId
-      //   })
-      // })
       setRequest(!request)
     } catch (err) {}
   }
@@ -94,6 +80,7 @@ const HQGarmentTable = props => {
     setShowAddEditModal(true)
   }
   const exitModal = () => {
+
     setShowAddEditModal(false)
   }
   
@@ -132,6 +119,11 @@ const HQGarmentTable = props => {
     {
       name: "price",
       label: "Price",
+      options: {
+        customBodyRender: (value) => (
+          <p>{`$${value.toFixed(2)}`}</p>
+        )
+      }
     },
     {
       name: "category",
@@ -219,7 +211,7 @@ const HQGarmentTable = props => {
         onCancel={exitModal}
       /> 
 
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       {isLoading && (
         <div className="center">
           <LoadingSpinner />

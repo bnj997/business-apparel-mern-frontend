@@ -21,7 +21,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import CloseIcon from '@material-ui/icons/Close';
-import Badge from '@material-ui/core/Badge';
 
 import Divider from '@material-ui/core/Divider';
 import AppBar from '@material-ui/core/AppBar';
@@ -167,7 +166,7 @@ const SideDrawerDash = props => {
       <List style={{color:  "#B3B3B3"}}>
         {['Home', 'About', 'Team', 'Contact'].map(function(link, i){
           return (
-            <NavLink to={`${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+            <NavLink to={`/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
               <ListItemIcon  style={{color:  "white"}}>
                 {link === 'Home' && <HomeIcon />}
                 {link === 'About' && <InfoIcon />}
