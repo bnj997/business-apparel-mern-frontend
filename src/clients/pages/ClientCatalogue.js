@@ -1,10 +1,12 @@
-import React, {useState, useEffect, useContext, useRef} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Dashboard from '../../shared/components/PageTemplates/Dashboard'
 import ItemCard from '../UIElements/ItemCard'
 import { Button, TextField } from '@material-ui/core';
 import { useHttpClient } from '../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
 import { useSort } from '../utils/sorting';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 
 const ClientCatalogue = props => {
   const auth = useContext(AuthContext);
@@ -29,7 +31,7 @@ const ClientCatalogue = props => {
       } catch (err) {}
     };
     fetchGarmentsForUser();
-  }, [auth.userId, auth.token])
+  }, [auth.userId, auth.token, sendRequest])
 
   
   useEffect(() => {
@@ -98,25 +100,33 @@ const ClientCatalogue = props => {
       </div>
      
       <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-        {garmentsToShow.length > 0 || isLoading ? ( 
-          garmentsToShow.map(garments => {
-            return (
-              <ItemCard
-                image={garments.image}
-                id={garments.id}
-                name={garments.name}
-                category={garments.category}
-                styleNum={garments.styleNum}
-                price={garments.price}
-                colours={garments.colours}
-                sizes={garments.sizes}
-                onAdd={addToCart}
-              />
-            )
-            }
-          )
+        <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
+        {isLoading ? (
+          <div style={{placeItems: "center"}}>
+            <LoadingSpinner />
+          </div>
         ) : (
-          <h2>Search returned no results. Please adjust filter.</h2>
+          garmentsToShow.length > 0 || isLoading ? ( 
+            garmentsToShow.map((garments, index) => {
+              return (
+                <ItemCard
+                  key={index}
+                  image={garments.image}
+                  id={garments.id}
+                  name={garments.name}
+                  category={garments.category}
+                  styleNum={garments.styleNum}
+                  price={garments.price}
+                  colours={garments.colours}
+                  sizes={garments.sizes}
+                  onAdd={addToCart}
+                />
+              )
+              }
+            )
+          ) : (
+            <h2>Search returned no results. Please adjust filter.</h2>
+          )
         )}
       </div>
     </Dashboard>

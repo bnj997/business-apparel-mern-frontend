@@ -52,8 +52,6 @@ const Authentication = () => {
 
             onSubmit={async (data, {setSubmitting, resetForm}) =>  {
               setSubmitting(true)
-              resetForm();
-
               try {
                 const responseData = await sendRequest(
                   'http://localhost:5000/api/users/login',
@@ -66,14 +64,14 @@ const Authentication = () => {
                     'Content-Type': 'application/json'
                   }
                 );
-                auth.login(responseData.userId, responseData.username, responseData.token);
                 setSubmitting(false)
-              } catch (err) {setSubmitting(false)}
-
-              
+                resetForm();
+                auth.login(responseData.userId, responseData.username, responseData.token);
+              } catch (err) {
+              }
             }}
           >
-            {({values, errors, isSubmitting}) => (
+            {({isSubmitting}) => (
               <Form>
                 <FormTextField 
                   placeholder="Username:" 

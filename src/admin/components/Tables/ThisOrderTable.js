@@ -21,7 +21,6 @@ const ThisOrderTable = props => {
   const [info, setInfo] = useState('');
   const [hq, setHQ] = useState('');
   const [branch, setBranch] = useState('');
-  const [showOrderAddModal, setShowOrderAddModal] = useState(true);
 
   useEffect(() => {
     const fetchOrderLines = async () => {
@@ -64,18 +63,9 @@ const ThisOrderTable = props => {
 
     };
     fetchOrderLines();
-  }, [sendRequest, auth.token])
+  }, [sendRequest, auth.token, orderID])
 
-
-
-  const showModal = () => {
-    setShowOrderAddModal(true)
-  }
-
-  const exitModal = () => {
-    setShowOrderAddModal(false)
-  }
-
+  
   const columns = [
     {
       name: "image",

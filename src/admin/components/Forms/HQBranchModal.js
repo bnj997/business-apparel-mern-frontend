@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Formik, Form} from 'formik';
 import { Button } from "@material-ui/core";
@@ -10,11 +10,6 @@ import Modal from '../../../shared/components/UIElements/Modal';
 
 
 const validationSchema = yup.object({
-  // HQImg: yup
-  //   .mixed().required("An image is required")
-  //   .test(
-  //     value => value && ["image/jpg", "image/jpeg", "image/gif", "image/png"].includes(value.type)
-  //   ),
   name: yup.string().required(),
   telephone: yup.number().required(),
   address: yup.string().required(),

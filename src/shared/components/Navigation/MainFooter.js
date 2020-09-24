@@ -5,9 +5,12 @@ import Details from '../UIElements/Details';
 import NavLinks from './NavLinks';
 import './MainFooter.css';
 import EnquiryForm from '../FormElements/EnquiryForm';
+import { useContactData } from '../../PageData/Contact';
+
 
 
 const MainFooter = () => {
+  const {detailSection} = useContactData();
   return (
     <div className="footer">
       <FooterCard >
@@ -22,7 +25,7 @@ const MainFooter = () => {
 
       <FooterCard >
         <h2>Get in Touch </h2>
-        <Details />
+        <Details {...detailSection} />
       </FooterCard>
       
       <FooterCard >

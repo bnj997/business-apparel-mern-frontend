@@ -32,9 +32,6 @@ const ClientCart= props => {
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  function showModal() {
-    setShowConfirmModal(true)
-  }
   function exitModal() {
     setShowConfirmModal(false)
     history.push('/' + auth.username + '/orders');
@@ -44,7 +41,7 @@ const ClientCart= props => {
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(auth.userId))
     setCart(localCart)
-  }, []) 
+  }, [auth.userId]) 
 
   useEffect(() => {
     let totalPrice = 0;
@@ -313,7 +310,7 @@ const ClientCart= props => {
               </NavLink>          
               <Button 
                 variant="contained"
-                style={{backgroundColor: "black", color: "white", width: "100%", borderRadius: "0", padding: "0", marginTop: "1rem"}}
+                style={{backgroundColor: cart.length === 0 ? 'grey' : 'black', color: "white", width: "100%", borderRadius: "0", padding: "0", marginTop: "1rem"}}
                 onClick={() => confirmOrder(cart, info)}
                 disabled={cart.length === 0}
               >

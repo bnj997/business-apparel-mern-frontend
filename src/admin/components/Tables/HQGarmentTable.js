@@ -186,6 +186,7 @@ const HQGarmentTable = props => {
     rowsPerPage: 10,
     print: false,
     download: false,
+    selectableRows: "none",
     elevation: 1,
     customToolbar: () => {
       return (
@@ -196,7 +197,7 @@ const HQGarmentTable = props => {
           style={{marginLeft: "2%"}}
           onClick={showModal}
         > 
-          New Item
+          Add Garment
         </Button>
       );
     },

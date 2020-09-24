@@ -4,11 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
 
-
 import MUIDataTable from "mui-datatables";
 import '../../../shared/components/TableElements/DataTable.css';
-
-
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
@@ -18,9 +15,7 @@ import { AuthContext } from '../../../shared/context/auth-context';
 const OrderTable = props => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
   const [Datas, setData] = useState([]);
-  const [showOrderAddModal, setShowOrderAddModal] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -33,22 +28,12 @@ const OrderTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log(responseData.orders)
         setData(responseData.orders);
       } catch (err) {}
     };
     fetchOrders();
   }, [sendRequest, auth.token])
 
-
-
-  const showModal = () => {
-    setShowOrderAddModal(true)
-  }
-
-  const exitModal = () => {
-    setShowOrderAddModal(false)
-  }
 
   const columns = [
     {
@@ -112,6 +97,11 @@ const OrderTable = props => {
     rowsPerPage: 10,
     print: false,
     download: false,
+    selectableRows: "none",
+    sortOrder: {
+      name: "date",
+      direction: "asc"
+    },
     elevation: 1,
   };
 
@@ -119,36 +109,21 @@ const OrderTable = props => {
 
   return (
     <React.Fragment>
-      {/* <Modal
-        show={showOrderAddModal}
-        onCancel={exitModal}
-        header="Your order has been successfully processed." 
-        footerClass="logout__modal-actions" 
-        footer={
-          <React.Fragment>
-            <Button variant="contained" onClick={exitModal} > Okay </Button>
-          </React.Fragment>
-        }
-      >
-       <p>Your order has been confirmed and is on its way!</p>
-      </Modal> */}
-
-
       <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
-      <div style={{position:'relative'}}>
-        {isLoading && <LoadingSpinner />}
-        {!isLoading && (
+      {isLoading ? (
+        <div style={{placeItems: "center"}}>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <div style={{position:'relative'}}>
           <MUIDataTable
             className="table-center"
             data={Datas}
             columns={columns}
             options={options}
           />
-        )}
-      </div>
-
-      
-     
+        </div>
+      )}     
     </React.Fragment>
   );
 }

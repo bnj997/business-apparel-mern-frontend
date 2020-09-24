@@ -99,9 +99,6 @@ const HQTable = props => {
       await sendRequest('http://localhost:5000/api/hqs','POST', formData, { 
         Authorization: 'Bearer ' + auth.token 
       });
-      // setData(prevDatas => {
-      //   return [...prevDatas, newData];
-      // });
       setRequest(!request)
     } catch (err) {}
     exitModal()
@@ -199,7 +196,7 @@ const HQTable = props => {
                 style={{marginRight: "5%"}}
                 component={NavLink} to={`/admin/headquarters/${tableMeta.rowData[0]}`}
               >
-                View
+                Details
               </Button>
               <Button
                 variant="contained"
@@ -210,7 +207,7 @@ const HQTable = props => {
                   setEditModeHandler(tableMeta.rowData)
                 }
               >
-                Edit
+                View/Edit
               </Button>
               <Button
                 variant="contained"
@@ -234,6 +231,7 @@ const HQTable = props => {
     tableBodyHeight: "55rem",
     rowsPerPage: 10,
     print: false,
+    selectableRows: "none",
     download: false,
     elevation: 1,
     customToolbar: () => {

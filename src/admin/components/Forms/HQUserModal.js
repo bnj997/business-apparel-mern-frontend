@@ -12,6 +12,8 @@ import Modal from '../../../shared/components/UIElements/Modal';
 import FormRadio from '../../../shared/components/FormElements/FormRadio';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
+import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
+import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
 
 
 
@@ -94,20 +96,27 @@ const HQUserModal = props => {
           <Form >
             <FormLabel component="legend" className="form_label">Supplier</FormLabel>
             <RadioGroup row aria-label="Branches" className="form_group">
-              {branches.map(function(item){
-                return (
-                  <FormRadio 
-                    key={item.name}
-                    name="branch" 
-                    value={item._id}
-                    type="radio" 
-                    label={item.name}
-                    variant={props.type}
-                  />
-                  )
-              })}
-            </RadioGroup >
 
+              <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
+              {isLoading ? (
+                <div style={{placeItems: "center"}}>
+                  <LoadingSpinner />
+                </div>
+              ) : (
+                branches.map(function(item){
+                  return (
+                    <FormRadio 
+                      key={item.name}
+                      name="branch" 
+                      value={item._id}
+                      type="radio" 
+                      label={item.name}
+                      variant={props.type}
+                    />
+                    )
+                })
+              )}     
+            </RadioGroup >
 
             {["username", "email",  "password"].map(function(item, i){
               return (

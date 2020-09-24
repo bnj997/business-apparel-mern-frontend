@@ -40,7 +40,7 @@ const ASlider = props => {
     <Slider {...settings} className="slider">
       {props.content.map((item, index) => 
         (
-          <TestimonialCard {...item}/>       
+          <TestimonialCard key={index} {...item}/>       
         )
       )
       }

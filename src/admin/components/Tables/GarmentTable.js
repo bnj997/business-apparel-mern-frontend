@@ -198,6 +198,11 @@ const GarmentTable = props => {
     {
       name: "description",
       label: "Description",
+      options: {
+        customBodyRender: (value) => (
+          value.slice(0, 10)+'...'
+        )
+      }
     },
     {
       name: "colours",
@@ -233,7 +238,7 @@ const GarmentTable = props => {
                   setEditModeHandler(tableMeta.rowData)
                 }
               >
-                Edit
+                View/Edit
               </Button>
               <Button
                 variant="contained"
@@ -257,6 +262,7 @@ const GarmentTable = props => {
     tableBodyHeight: "55rem",
     rowsPerPage: 10,
     print: false,
+    selectableRows: "none",
     download: false,
     elevation: 1,
     customToolbar: () => {

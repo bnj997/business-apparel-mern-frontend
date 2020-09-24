@@ -22,7 +22,7 @@ const HQBranchTable = props => {
   const [Datas, setData] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [showAddEditModal, setShowAddEditModal] = useState(false);
-  const [rowData, setRowData] = useState(['', '', '', '', '']);
+  const [rowData, setRowData] = useState(['', '', '', '', '', '']);
 
   const [thisBranch, setThisBranch] =  useState('');
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -138,7 +138,7 @@ const HQBranchTable = props => {
   const exitModal = () => {
     setShowAddEditModal(false)
     setIsEditing(false)
-    setRowData(['', '', '', ''])
+    setRowData(['', '', '', '', ''])
   }
 
   const setEditModeHandler = data => {
@@ -215,6 +215,7 @@ const HQBranchTable = props => {
     rowsPerPage: 10,
     print: false,
     download: false,
+    selectableRows: "none",
     elevation: 1,
     customToolbar: () => {
       return (

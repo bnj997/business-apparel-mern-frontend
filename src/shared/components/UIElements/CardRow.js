@@ -25,7 +25,7 @@ const CardRow = props => {
     <div className="center">
       {props.content.map((item, index) => 
         (
-          <Render elements={item}/>       
+          <Render key={index} elements={item}/>       
         )
       )
       }

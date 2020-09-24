@@ -199,6 +199,7 @@ const HQUserTable = props => {
     rowsPerPage: 10,
     print: false,
     download: false,
+    selectableRows: "none",
     elevation: 1,
     customToolbar: () => {
       return (

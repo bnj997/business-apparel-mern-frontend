@@ -5,7 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 const CartItem = props => {
   return (
     <div style={{display: "flex", marginLeft: "1rem", marginRight: "1rem", marginTop: "1.8rem", marginBottom: "1.8rem"}}>
-      <img style={{height: "75px", width: "75px"}} src={`http://localhost:5000/${props.image}`} />
+      <img style={{height: "75px", width: "75px"}} src={`http://localhost:5000/${props.image}`} alt="garment" />
       <div style={{marginLeft: "1.2rem"}}>
         <h3 style={{margin: 0, paddingBottom: "1rem"}}>{props.name}</h3>
         <div style={{display: "flex", flexWrap: "wrap"}}>

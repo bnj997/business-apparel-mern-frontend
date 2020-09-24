@@ -1,4 +1,4 @@
-import React, {Suspense, lazy} from 'react';
+import React, {Suspense} from 'react';
 import { 
   BrowserRouter as Router, 
   Route, 
@@ -9,119 +9,119 @@ import {
 
 import { AuthContext } from './shared/context/auth-context';
 import { useAuth } from './shared/components/hooks/auth-hook';
+import LoadingSpinner from './shared/components/UIElements/LoadingSpinner';
+
+const Home = React.lazy(() => import('./shared/pages/Home'));
+const About =  React.lazy(() => import('./shared/pages/About'));
+const Team =  React.lazy(() => import('./shared/pages/Team'));
+const Contact =  React.lazy(() => import('./shared/pages/Contact'));
+
+const Garments =  React.lazy(() => import('./admin/pages/Garments'));
+const Headquarters =  React.lazy(() => import('./admin/pages/Headquarters'));
+const Orders =  React.lazy(() => import('./admin/pages/Orders'));
+const ThisHQ =  React.lazy(() => import('./admin/pages/ThisHQ'));
+const ThisOrder =  React.lazy(() => import('./admin/pages/ThisOrder'));
+
+const ClientOrders =  React.lazy(() => import('./clients/pages/ClientOrders'));
+const ClientCatalogue =  React.lazy(() => import('./clients/pages/ClientCatalogue'));
+const ClientCart =  React.lazy(() => import('./clients/pages/ClientCart'));
+const ThisClientOrder =  React.lazy(() => import('./clients/pages/ThisClientOrder'));
+
+const Authentication =  React.lazy(() => import('./shared/pages/Authentication'));
+
 
 const App = () => {
   const {token, login, logout, userId, username,} = useAuth();
 
   let routes;
 
-  const Home = lazy(() => import('./shared/pages/Home'));
-  const About = lazy(() => import('./shared/pages/About'));
-  const Team = lazy(() => import('./shared/pages/Team'));
-  const Contact = lazy(() => import('./shared/pages/Contact'));
-
-  const Garments = lazy(() => import('./admin/pages/Garments'));
-  const Headquarters = lazy(() => import('./admin/pages/Headquarters'));
-  const Orders = lazy(() => import('./admin/pages/Orders'));
-  const ThisHQ = lazy(() => import('./admin/pages/ThisHQ'));
-  const ThisOrder = lazy(() => import('./admin/pages/ThisOrder'));
-
-  const ClientOrders = lazy(() => import('./clients/pages/ClientOrders'));
-  const ClientCatalogue = lazy(() => import('./clients/pages/ClientCatalogue'));
-  const ClientCart = lazy(() => import('./clients/pages/ClientCart'));
-  const ThisClientOrder = lazy(() => import('./clients/pages/ThisClientOrder'));
-
-  const Authentication = lazy(() => import('./shared/pages/Authentication'));
-
   if (token && username === "adminstaff") {
     routes = (
       <Switch>
-        <Route path="/" component={Home} exact> 
+         <Route path="/" exact> 
           <Home />
         </Route>
-        <Route path="/about" component={About} exact> 
+        <Route path="/about" exact> 
           <About />
         </Route>
-        <Route path="/team" component={Team} exact> 
+        <Route path="/team"  exact> 
           <Team />
         </Route>
-        <Route path="/contact" component={Contact} exact> 
+        <Route path="/contact" exact> 
           <Contact />
         </Route>
 
-        <Route path="/admin/orders" component={Orders} exact> 
+        <Route path="/admin/orders" exact> 
           <Orders />
         </Route>
-        <Route path="/admin/garments" component={Garments} exact> 
+        <Route path="/admin/garments"  exact> 
           <Garments />
         </Route>
         <Route path="/admin/headquarters" exact> 
           <Headquarters />
         </Route>
-        <Route path="/admin/headquarters/:hqId" component={ThisHQ} exact> 
+        <Route path="/admin/headquarters/:hqId"  exact> 
           <ThisHQ />
         </Route>
-        <Route path="/admin/orders/:oid" component={ThisOrder}  exact> 
+        <Route path="/admin/orders/:oid" exact> 
           <ThisOrder />
         </Route>
 
-
-        <Redirect to="/" component={Home} />
       </Switch>
     );  
   } else if (token && username !== "adminstaff") {
     routes = (
       <Switch>
-        <Route path="/" component={Home} exact> 
-          <Home />
-        </Route>
-        <Route path="/about" component={About} exact> 
-          <About />
-        </Route>
-        <Route path="/team" component={Team} exact> 
-          <Team />
-        </Route>
-        <Route path="/contact" component={Contact} exact> 
-          <Contact />
-        </Route>
+      <Route path="/" exact> 
+        <Home />
+      </Route>
+      <Route path="/about" exact> 
+        <About />
+      </Route>
+      <Route path="/team" exact> 
+        <Team />
+      </Route>
+      <Route path="/contact" exact> 
+        <Contact />
+      </Route>
 
-        <Route path="/:userId/catalogue" component={ClientCatalogue} exact> 
-          <ClientCatalogue />
-        </Route>
-        <Route path="/:userId/checkout" component={ClientCart} exact> 
-          <ClientCart />
-        </Route>
-        <Route path="/:userId/orders" component={ClientOrders} exact> 
-          <ClientOrders />
-        </Route>
-        <Route path="/:userId/orders/:oid" exact> 
-          <ThisClientOrder />
-        </Route>
+      <Route path="/:userId/catalogue" exact> 
+        <ClientCatalogue />
+      </Route>
+      <Route path="/:userId/checkout" exact> 
+        <ClientCart />
+      </Route>
+      <Route path="/:userId/orders" exact> 
+        <ClientOrders />
+      </Route>
+      <Route path="/:userId/orders/:oid" exact> 
+        <ThisClientOrder />
+      </Route>
 
 
-        <Redirect to="/" component={Home} />
-      </Switch>
+      <Redirect to="/" component={Home} />
+    </Switch>
     );  
   } else {
     routes = (
       <Switch>
-        <Route path="/" component={Home} exact> 
+        <Route path="/" exact> 
           <Home />
         </Route>
-        <Route path="/about" component={About} exact> 
+        <Route path="/about" exact> 
           <About />
         </Route>
-        <Route path="/team" component={Team} exact> 
+        <Route path="/team" exact> 
           <Team />
         </Route>
-        <Route path="/contact" component={Contact} exact> 
+        <Route path="/contact" exact> 
           <Contact />
         </Route>
-        <Route path="/login" component={Authentication} exact> 
+        <Route path="/login" exact> 
           <Authentication />
         </Route>
         <Redirect to="/" />
-      </Switch>
+    </Switch>
     );
   }
 
@@ -138,7 +138,7 @@ const App = () => {
       }}
     >
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div className="center"><LoadingSpinner/></div>}>
           {routes}
         </Suspense>
       </Router>

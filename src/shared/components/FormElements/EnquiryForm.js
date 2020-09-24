@@ -32,9 +32,6 @@ const EnquiryForm = props => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  function showModal() {
-    setShowConfirmModal(true)
-  }
   function exitModal() {
     setShowConfirmModal(false)
   }

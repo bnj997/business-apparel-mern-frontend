@@ -8,7 +8,7 @@ const TeamCard = props => {
     <div className="team-card">
       <h2>{props.name}</h2>
       <h3>{props.position}</h3>
-      <img src={props.imageURL} alt={props.name}/>
+      <img src={props.image} alt={props.name}/>
       <p>{props.description}</p>
     </div>  
   );

@@ -6,6 +6,8 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import ErrorModal from './ErrorModal';
+import LoadingSpinner from './LoadingSpinner';
 
 const Profile = props => {
   const auth = useContext(AuthContext);
@@ -15,7 +17,6 @@ const Profile = props => {
   const [BranchAddress, setBranchAddress] = useState('');
   const [BranchPhone, setBranchPhone] = useState('');
   const [BranchEmail, setBranchEmail] = useState('');
-  const [showOrderAddModal, setShowOrderAddModal] = useState(true);
 
   useEffect(() => {
     const fetchBranchInfo = async () => {
@@ -28,7 +29,6 @@ const Profile = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log()
         setBranchImage(responseData.userBranch.hq.image)
         setBranchName(responseData.userBranch.branch.name)
         setBranchAddress(responseData.userBranch.branch.address)
@@ -37,7 +37,7 @@ const Profile = props => {
       } catch (err) {}
     };
     fetchBranchInfo();
-  }, [sendRequest, auth.token])
+  }, [sendRequest, auth.token, auth.userId])
 
 
   return (
@@ -51,30 +51,33 @@ const Profile = props => {
         </img>
       </div>
       <div className="info">
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell align="left">Name: </TableCell>
-              <TableCell align="left">{BranchName}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="left">Address: </TableCell>
-              <TableCell align="left">{BranchAddress}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="left">Telephone: </TableCell>
-              <TableCell align="left">{BranchPhone}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell align="left">Email: </TableCell>
-              <TableCell align="left">{BranchEmail}</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-
-        
-
-
+        <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
+        {isLoading ? (
+          <div style={{placeItems: "center"}}>
+            <LoadingSpinner />
+          </div>
+        ) : (
+          <Table>
+            <TableBody>
+              <TableRow>
+                <TableCell align="left">Name: </TableCell>
+                <TableCell align="left">{BranchName}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="left">Address: </TableCell>
+                <TableCell align="left">{BranchAddress}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="left">Telephone: </TableCell>
+                <TableCell align="left">{BranchPhone}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell align="left">Email: </TableCell>
+                <TableCell align="left">{BranchEmail}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        )}
       </div>
     </div>
   );

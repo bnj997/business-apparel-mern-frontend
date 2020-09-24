@@ -5,10 +5,11 @@ import Modal from '../../../shared/components/UIElements/Modal';
 import { Button, Chip} from "@material-ui/core";
 import MUIDataTable from "mui-datatables";
 import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
 
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
+import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 
 
 const HQGarmentModal = props => {
@@ -210,11 +211,22 @@ const HQGarmentModal = props => {
           )
         })}
       </div>
-      <MUIDataTable
-        data={GarmentsAvailable}
-        columns={columns}
-        options={options}
-      />
+
+      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
+      {isLoading ? (
+        <div style={{placeItems: "center"}}>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <div style={{position:'relative'}}>
+          <MUIDataTable
+            data={GarmentsAvailable}
+            columns={columns}
+            options={options}
+          />
+        </div>
+      )}     
+     
 
 
 

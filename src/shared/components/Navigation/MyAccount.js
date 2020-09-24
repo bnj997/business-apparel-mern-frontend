@@ -3,18 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth-context';
 import './MyAccount.css';
-import { withStyles } from '@material-ui/core/styles';
-import Badge from '@material-ui/core/Badge';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ShoppingCart from '../../../clients/UIElements/ShoppingCart';
-
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    right: -8,
-    top: 13,
-    padding: '0 6px',
-  },
-}))(Badge);
 
 
 const MyAccount = props => {

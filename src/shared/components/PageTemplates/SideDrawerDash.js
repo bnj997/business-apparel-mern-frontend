@@ -86,7 +86,7 @@ const SideDrawerDash = props => {
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(auth.userId))
     setCart(localCart)
-  }, [props.onAdd]) 
+  }, [props.onAdd, auth.userId]) 
 
 
   useEffect(() => {
@@ -117,7 +117,7 @@ const SideDrawerDash = props => {
 
   const removeFromCart = (item) => {
     let cartCopy = [...cart]
-    cartCopy = cartCopy.filter(garment => (garment.id != item.id || garment.colour != item.colour || garment.size != item.size));
+    cartCopy = cartCopy.filter(garment => (garment.id !== item.id || garment.colour !== item.colour || garment.size !== item.size));
     setCart(cartCopy);
     
     let cartString = JSON.stringify(cartCopy)
@@ -134,13 +134,13 @@ const SideDrawerDash = props => {
         {props.user === "adminstaff" && (
           ['Orders', 'Headquarters', 'Garments'].map(function(link, i){
             return (
-              <NavLink to={`/admin/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+              <NavLink key={i} to={`/admin/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
                 <ListItemIcon style={{color: "white"}}>
                   {link === 'Orders' && <AttachMoneyIcon />}
                   {link === 'Headquarters' && <BusinessIcon />}
                   {link === 'Garments' && <PersonIcon />}
                 </ListItemIcon>
-                <ListItemText primary={`${link}`}  style={{color: "white"}}  />
+                <ListItemText  primary={`${link}`}  style={{color: "white"}}  />
               </NavLink>
             )
           })
@@ -149,7 +149,7 @@ const SideDrawerDash = props => {
         {props.user === "client" && (
           ['Orders', 'Catalogue', 'Checkout'].map(function(link, i){
             return (
-              <NavLink to={`/${auth.username}/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+              <NavLink key={i} to={`/${auth.username}/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
                 <ListItemIcon style={{color: "white"}}>
                   {link === 'Orders' && <AttachMoneyIcon />}
                   {link === 'Catalogue' && <BusinessIcon />}
@@ -162,11 +162,11 @@ const SideDrawerDash = props => {
         )}
       </List>
       <Divider style={{backgroundColor: "grey"}}/>
-      <h2 style={{color: "white", paddingLeft: "1rem"}}>Pages</h2>
+      <h2 style={{color: "white", paddingLeft: "1rem"}}>Edit Pages</h2>
       <List style={{color:  "#B3B3B3"}}>
         {['Home', 'About', 'Team', 'Contact'].map(function(link, i){
           return (
-            <NavLink to={`/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+            <NavLink key={i} to={`/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
               <ListItemIcon  style={{color:  "white"}}>
                 {link === 'Home' && <HomeIcon />}
                 {link === 'About' && <InfoIcon />}

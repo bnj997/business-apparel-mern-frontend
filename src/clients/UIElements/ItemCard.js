@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
+import React from 'react';
 
-import { Formik, Form, FieldArray} from 'formik';
+import { Formik, Form} from 'formik';
 import { Card, Button, MenuItem } from '@material-ui/core';
 import {
   withStyles
@@ -80,8 +80,8 @@ const ItemCard = props => {
                   onChange={handleChange}
                   style={{width: "6rem"}}
                 >
-                  {props.sizes.map(size => (
-                    <MenuItem value={size}>{size}</MenuItem>
+                  {props.sizes.map((size, index) => (
+                    <MenuItem key={index} value={size}>{size}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -93,8 +93,8 @@ const ItemCard = props => {
                   onChange={handleChange}
                   style={{width: "8rem"}}
                 >
-                  {props.colours.map(colour => (
-                    <MenuItem value={colour}>{colour}</MenuItem>
+                  {props.colours.map((colour, index) => (
+                    <MenuItem  key={index} value={colour}>{colour}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

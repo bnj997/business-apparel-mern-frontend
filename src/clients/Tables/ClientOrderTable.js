@@ -20,7 +20,6 @@ const ClientOrderTable = props => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   const [Datas, setData] = useState([]);
-  const [showOrderAddModal, setShowOrderAddModal] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -37,17 +36,8 @@ const ClientOrderTable = props => {
       } catch (err) {}
     };
     fetchOrders();
-  }, [sendRequest, auth.token])
+  }, [sendRequest, auth.token, auth.userId])
 
-
-
-  const showModal = () => {
-    setShowOrderAddModal(true)
-  }
-
-  const exitModal = () => {
-    setShowOrderAddModal(false)
-  }
 
   const columns = [
     {
@@ -112,29 +102,32 @@ const ClientOrderTable = props => {
     print: false,
     download: false,
     elevation: 1,
+    sortOrder: {
+      name: "date",
+      direction: "asc"
+    },
+    selectableRows: "none"
   };
 
 
 
   return (
     <React.Fragment>
-
-
       <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
-      <div style={{position:'relative'}}>
-        {isLoading && <LoadingSpinner />}
-        {!isLoading && (
+      {isLoading ? (
+        <div style={{placeItems: "center"}}>
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <div style={{position:'relative'}}>
           <MUIDataTable
             className="table-center"
             data={Datas}
             columns={columns}
             options={options}
           />
-        )}
-      </div>
-
-      
-     
+        </div>
+      )}      
     </React.Fragment>
   );
 }

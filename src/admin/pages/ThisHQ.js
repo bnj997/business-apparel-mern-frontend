@@ -15,7 +15,7 @@ const ThisHQ = props => {
   const [type, setType] = useState("Garments")
   const [name, setName] = useState('');
   const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const {sendRequest} = useHttpClient();
   const hqID = useParams().hqId;
 
   useEffect(() => {
@@ -39,7 +39,6 @@ const ThisHQ = props => {
     <Dashboard  user="adminstaff">
       <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
         <h1>{name}</h1> 
-        {/* <Button color="primary" onClick={() => setType("Orders")}> Orders </Button> */}
         <Button color="primary" onClick={() => setType("Garments")}> Garments </Button>
         <Button color="primary" onClick={() => setType("Branches")}> Branches </Button>
         <Button color="primary" onClick={() => setType("Users")}> Users </Button>

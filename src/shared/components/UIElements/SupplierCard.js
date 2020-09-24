@@ -27,7 +27,7 @@ const SupplierCard = props => {
       <CardActionArea className="focus" >
         <CardMedia
           style={{height: "420px",  backgroundSize: "cover"}}
-          image={props.imageURL}
+          image={props.image}
         />
         <CardContent className="content">
           <h1>{props.heading}</h1>

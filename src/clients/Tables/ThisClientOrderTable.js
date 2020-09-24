@@ -2,7 +2,6 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import MUIDataTable from "mui-datatables";
-import Modal from '../../shared/components/UIElements/Modal'
 
 import '../../shared/components/TableElements/ClientCart.css';
 
@@ -20,7 +19,6 @@ const ThisClientOrderTable = props => {
 
   const [Datas, setData] = useState([]);
   const [info, setInfo] = useState('');
-  const [showOrderAddModal, setShowOrderAddModal] = useState(true);
 
   useEffect(() => {
     const fetchOrderLines = async () => {
@@ -61,17 +59,8 @@ const ThisClientOrderTable = props => {
 
     };
     fetchOrderLines();
-  }, [sendRequest, auth.token])
+  }, [sendRequest, auth.token, orderID])
 
-
-
-  const showModal = () => {
-    setShowOrderAddModal(true)
-  }
-
-  const exitModal = () => {
-    setShowOrderAddModal(false)
-  }
 
   const columns = [
     {
