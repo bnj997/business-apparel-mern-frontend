@@ -46,7 +46,7 @@ const Profile = props => {
         <img
           style={{width: "250px", height: "250px"}}
           alt="organisation logo"
-          src={`http://localhost:5000/${BranchImage}`}
+          src={BranchImage}
           > 
         </img>
       </div>

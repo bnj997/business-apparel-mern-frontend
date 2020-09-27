@@ -5,7 +5,7 @@ import './ImageUpload.css';
 const ImageUpload = ({placeholder, ...props}) => {
   let url = '';
   if (props.picture !== '') {
-    url = `http://localhost:5000/${props.picture}`
+    url = `${props.picture}`
   }
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState(url);

@@ -163,7 +163,7 @@ const HQTable = props => {
           <img
             style={{width: "50px", height: "75px"}}
             alt="organisation logo"
-            src={`http://localhost:5000/${value}`}
+            src={value}
             > 
           </img>
         )

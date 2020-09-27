@@ -52,7 +52,7 @@ const ItemCard = props => {
           <CardMedia
             component="img"
             style={{height: "350px", width: "100%", objectFit: "contain"}}
-            src={`http://localhost:5000/${props.image}`}
+            src={props.image}
           />
           <CardContent style={{marginLeft: "2rem", marginRight: "2rem"}}>
             <h2 style={{marginTop: "0"}}>{props.name}</h2>

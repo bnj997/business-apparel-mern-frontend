@@ -156,7 +156,7 @@ const GarmentTable = props => {
           <img
             style={{width: "50px", height: "75px"}}
             alt="Garment"
-            src={`http://localhost:5000/${value}`}
+            src={value}
             > 
           </img>
         )

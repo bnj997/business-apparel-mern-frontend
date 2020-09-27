@@ -132,7 +132,7 @@ const ClientCart= props => {
           <img
             style={{width: "75px", height: "75px"}}
             alt="Garment"
-            src={`http://localhost:5000/${value}`}
+            src={value}
             > 
           </img>
         )
