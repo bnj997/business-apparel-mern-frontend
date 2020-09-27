@@ -81,7 +81,7 @@ const ItemCard = props => {
                   style={{width: "6rem"}}
                 >
                   {props.sizes.map((size, index) => (
-                    <MenuItem key={index} value={size}>{size}</MenuItem>
+                    <MenuItem key={index} value={size + ""}>{size}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -94,7 +94,7 @@ const ItemCard = props => {
                   style={{width: "8rem"}}
                 >
                   {props.colours.map((colour, index) => (
-                    <MenuItem  key={index} value={colour}>{colour}</MenuItem>
+                    <MenuItem  key={index} value={colour+ ""}>{colour}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

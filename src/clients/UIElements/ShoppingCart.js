@@ -17,6 +17,10 @@ const ShoppingCart = props => {
 
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(props.userId))
+    if (!localCart) {
+      localStorage.setItem(props.userId, JSON.stringify([]))
+      localCart = JSON.parse(localStorage.getItem(props.userId))
+    }
     setCart(localCart)
   }, [props.change, props.userId]) 
 

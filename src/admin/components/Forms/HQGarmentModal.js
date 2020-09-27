@@ -201,6 +201,7 @@ const HQGarmentModal = props => {
         {GarmentsToAdd.map(function(item, i){
           return (
             <Chip
+              key={i}
               style={{margin: "0.2rem"}}
               size="small"
               label={item.styleNum}

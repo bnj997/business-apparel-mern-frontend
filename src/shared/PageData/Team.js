@@ -38,7 +38,5 @@ export const useTeamData = () => {
     }
   ];
 
-  
-
   return { bannerSection, teamSection};
 };

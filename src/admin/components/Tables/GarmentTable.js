@@ -34,7 +34,6 @@ const GarmentTable = props => {
             Authorization: 'Bearer ' + auth.token
           }
         );
-        console.log(responseData.garments)
         setData(responseData.garments);
       } catch (err) {}
     };
@@ -83,9 +82,6 @@ const GarmentTable = props => {
       await sendRequest( 'http://localhost:5000/api/garments','POST', formData, { 
         Authorization: 'Bearer ' + auth.token
       });
-      // setData(prevDatas => {
-      //   return [...prevDatas, newData];
-      // });
       setRequest(!request)
     } catch (err) {}
     exitModal()
@@ -120,10 +116,6 @@ const GarmentTable = props => {
       await sendRequest(`http://localhost:5000/api/garments/${gid}`, 'PATCH', formData, { 
         Authorization: 'Bearer ' + auth.token 
       });
-      // setData(prevDatas => {
-      //   prevDatas[prevDatas.findIndex(garment => garment._id === gid )] = currentData
-      //   return prevDatas
-      // });
       setRequest(!request)
     } catch (err) {}
   }

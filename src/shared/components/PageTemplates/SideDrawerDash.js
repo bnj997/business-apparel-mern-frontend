@@ -162,11 +162,11 @@ const SideDrawerDash = props => {
         )}
       </List>
       <Divider style={{backgroundColor: "grey"}}/>
-      <h2 style={{color: "white", paddingLeft: "1rem"}}>Edit Pages</h2>
+      <h2 style={{color: "white", paddingLeft: "1rem"}}>Pages</h2>
       <List style={{color:  "#B3B3B3"}}>
         {['Home', 'About', 'Team', 'Contact'].map(function(link, i){
           return (
-            <NavLink key={i} to={`/${link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
+            <NavLink key={i} to={`/${i === 0 ? '' : link.charAt(0).toLowerCase() + link.slice(1)}`} style={{display: "flex", padding: "8px 16px 8px 16px", textDecoration: "none", color: "#B3B3B3"}}>
               <ListItemIcon  style={{color:  "white"}}>
                 {link === 'Home' && <HomeIcon />}
                 {link === 'About' && <InfoIcon />}
