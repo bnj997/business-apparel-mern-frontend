@@ -38,7 +38,7 @@ const Authentication = () => {
     <React.Fragment>
       <MainNavigation />
       <TextSection type="center normal" color="#404040" >
-        <ErrorModal header= "An Error occured "error={error} onClear={clearError} />
+        <ErrorModal header= "An Error Occured" error={error} onClear={clearError} />
         <LoginCard>
           {isLoading && <LoadingSpinner asOverlay />}
           <h1 style={{marginTop: "5%"}}> Log in </h1>
@@ -92,7 +92,6 @@ const Authentication = () => {
                 />
                 <div style={{marginTop:"3rem", marginBottom: "2rem"}}>
                   <SmallButton disabled={isSubmitting} type="submit" color="black" width="80%">Log in</SmallButton>
-                  <SmallButton disabled={isSubmitting} type="submit" color="black" width="80%">Forgot password</SmallButton>
                 </div>
               </Form>
             )}
