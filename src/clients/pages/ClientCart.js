@@ -64,7 +64,7 @@ const ClientCart= props => {
     try {
       //construct new order
       await sendRequest(
-        'http://localhost:5000/api/orders',
+        `${process.env.REACT_APP_BACKEND_URL}/orders`,
         'POST',
         JSON.stringify({
           _id: orderid,
@@ -80,7 +80,7 @@ const ClientCart= props => {
 
     try {
       const response = await sendRequest(
-        `http://localhost:5000/api/order-lines/${orderid}`,
+        `${process.env.REACT_APP_BACKEND_URL}/order-lines/${orderid}`,
         'POST',
         JSON.stringify({
           cart: cart,

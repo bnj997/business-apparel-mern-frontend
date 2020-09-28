@@ -23,7 +23,7 @@ const HQGarmentModal = props => {
     const fetchAvailableGarmentsForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments/hq/${hqID}/available`,
+          `${process.env.REACT_APP_BACKEND_URL}/garments/hq/${hqID}/available`,
           'GET',
           null,
           {

@@ -30,7 +30,7 @@ const HQUserTable = props => {
     const fetchUsersForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/users/${hqID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/${hqID}`,
           'GET',
           null,
           {
@@ -47,7 +47,7 @@ const HQUserTable = props => {
   const addUser = async newData => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/${hqID}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/${hqID}`,
         'POST',
         JSON.stringify({
           _id: newData._id,
@@ -73,7 +73,7 @@ const HQUserTable = props => {
   const editUser = async (currentData, uId) => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/${hqID}/${uId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/${hqID}/${uId}`,
         'PATCH',
         JSON.stringify({
           _id: currentData._id,
@@ -96,7 +96,7 @@ const HQUserTable = props => {
   const deleteUser = async uId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/users/${hqID}/${uId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/${hqID}/${uId}`,
         'DELETE',
         null,
         { 

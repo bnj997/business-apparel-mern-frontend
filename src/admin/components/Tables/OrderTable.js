@@ -21,7 +21,7 @@ const OrderTable = props => {
     const fetchOrders = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/orders`,
+          `${process.env.REACT_APP_BACKEND_URL}/orders`,
           'GET',
           null,
           {

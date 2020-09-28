@@ -25,7 +25,7 @@ const ClientOrderTable = props => {
     const fetchOrders = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/orders/user/${auth.userId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/orders/user/${auth.userId}`,
           'GET',
           null,
           {

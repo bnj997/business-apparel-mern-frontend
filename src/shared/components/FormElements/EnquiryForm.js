@@ -41,7 +41,7 @@ const EnquiryForm = props => {
   const sendEmail = async (data) => {
     try {
       const response = await sendRequest(
-        `http://localhost:5000/api/orders/enquiry`,
+        `${process.env.REACT_APP_BACKEND_URL}/orders/enquiry`,
         'POST',
         JSON.stringify({
           name: data.name,

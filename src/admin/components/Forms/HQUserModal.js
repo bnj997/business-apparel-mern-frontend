@@ -38,7 +38,7 @@ const HQUserModal = props => {
     const fetchBranchesForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/branches/${hqID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}`,
           'GET',
           null,
           {

@@ -38,7 +38,7 @@ const HQTable = props => {
     const fetchHQs = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/hqs`,
+          `${process.env.REACT_APP_BACKEND_URL}/hqs`,
           'GET',
           null,
           {
@@ -96,7 +96,7 @@ const HQTable = props => {
       formData.append('name', newData.name)
       formData.append('telephone', newData.telephone)
       formData.append('email', newData.email)
-      await sendRequest('http://localhost:5000/api/hqs','POST', formData, { 
+      await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/hqs`,'POST', formData, { 
         Authorization: 'Bearer ' + auth.token 
       });
       setRequest(!request)
@@ -115,7 +115,7 @@ const HQTable = props => {
       formData.append('telephone', currentData.telephone)
       formData.append('email', currentData.email)
       await sendRequest(
-        `http://localhost:5000/api/hqs/${hqId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/hqs/${hqId}`,
         'PATCH',
         formData,
         { 
@@ -130,7 +130,7 @@ const HQTable = props => {
   const deleteHandler = async hqId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/hqs/${hqId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/hqs/${hqId}`,
         'DELETE',
         null,
         { 

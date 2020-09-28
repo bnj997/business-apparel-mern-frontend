@@ -22,7 +22,7 @@ const ThisHQ = props => {
     const fetchHQName = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/hqs/${hqID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/hqs/${hqID}`,
           'GET',
           null,
           {

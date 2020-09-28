@@ -28,7 +28,7 @@ const HQGarmentTable = props => {
     const fetchGarmentsForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments/hq/${hqID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/garments/hq/${hqID}`,
           'GET',
           null,
           {
@@ -45,7 +45,7 @@ const HQGarmentTable = props => {
   const addGarments= async garments => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/garments/hq/${hqID}`,
+        `${process.env.REACT_APP_BACKEND_URL}/garments/hq/${hqID}`,
         'PATCH',
         JSON.stringify({
           garments
@@ -64,7 +64,7 @@ const HQGarmentTable = props => {
   const deleteHandler = async gId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/garments/hq/${hqID}/${gId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/garments/hq/${hqID}/${gId}`,
         'PATCH',
         null,
         { 

@@ -33,7 +33,7 @@ const HQBranchTable = props => {
     const fetchBranchesForHQ = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/branches/${hqID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}`,
           'GET',
           null,
           {
@@ -50,7 +50,7 @@ const HQBranchTable = props => {
   const addBranches = async newData => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/branches/${hqID}`,
+        `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}`,
         'POST',
         JSON.stringify({
           _id: newData._id,
@@ -75,7 +75,7 @@ const HQBranchTable = props => {
   const editBranch = async (currentData, bid) => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/branches/${hqID}/${bid}`,
+        `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}/${bid}`,
         'PATCH',
         JSON.stringify({
           _id: currentData._id,
@@ -101,7 +101,7 @@ const HQBranchTable = props => {
   const deleteBranch = async bId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/branches/${hqID}/${bId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}/${bId}`,
         'DELETE',
         null,
         { 

@@ -24,7 +24,7 @@ const ThisClientOrderTable = props => {
     const fetchOrderLines = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/order-lines/${orderID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/order-lines/${orderID}`,
           'GET',
           null,
           {
@@ -47,7 +47,7 @@ const ThisClientOrderTable = props => {
 
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/orders/${orderID}`,
+          `${process.env.REACT_APP_BACKEND_URL}/orders/${orderID}`,
           'GET',
           null,
           {

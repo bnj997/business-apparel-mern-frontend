@@ -27,7 +27,7 @@ const GarmentTable = props => {
     const fetchGarments = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments`,
+          `${process.env.REACT_APP_BACKEND_URL}/garments`,
           'GET',
           null,
           {
@@ -79,7 +79,7 @@ const GarmentTable = props => {
       }
 
       formData.append('hqs', [])
-      await sendRequest( 'http://localhost:5000/api/garments','POST', formData, { 
+      await sendRequest( `${process.env.REACT_APP_BACKEND_URL}/garments`,'POST', formData, { 
         Authorization: 'Bearer ' + auth.token
       });
       setRequest(!request)
@@ -113,7 +113,7 @@ const GarmentTable = props => {
       }
 
 
-      await sendRequest(`http://localhost:5000/api/garments/${gid}`, 'PATCH', formData, { 
+      await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/garments/${gid}`, 'PATCH', formData, { 
         Authorization: 'Bearer ' + auth.token 
       });
       setRequest(!request)
@@ -123,7 +123,7 @@ const GarmentTable = props => {
   const deleteHandler = async gId => {
     try {
       await sendRequest(
-        `http://localhost:5000/api/garments/${gId}`,
+        `${process.env.REACT_APP_BACKEND_URL}/garments/${gId}`,
         'DELETE',
         null,
         { 

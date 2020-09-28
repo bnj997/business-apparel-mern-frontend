@@ -20,7 +20,7 @@ const ClientCatalogue = props => {
     const fetchGarmentsForUser = async () => {
       try {
         const responseData = await sendRequest(
-          `http://localhost:5000/api/garments/user/${auth.userId}`,
+          `${process.env.REACT_APP_BACKEND_URL}/garments/user/${auth.userId}`,
           'GET',
           null,
           {
