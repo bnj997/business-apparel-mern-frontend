@@ -100,7 +100,7 @@ const OrderTable = props => {
     selectableRows: "none",
     sortOrder: {
       name: "date",
-      direction: "asc"
+      direction: "desc"
     },
     elevation: 1,
   };

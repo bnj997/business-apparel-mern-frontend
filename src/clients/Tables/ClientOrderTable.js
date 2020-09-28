@@ -104,7 +104,7 @@ const ClientOrderTable = props => {
     elevation: 1,
     sortOrder: {
       name: "date",
-      direction: "asc"
+      direction: "desc"
     },
     selectableRows: "none"
   };
