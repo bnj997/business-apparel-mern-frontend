@@ -3,14 +3,11 @@ import React, {useContext, useState, useEffect} from 'react'
 import { NavLink } from 'react-router-dom';
 import { Button} from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
-
-import MUIDataTable from "mui-datatables";
 import '../../../shared/components/TableElements/DataTable.css';
 
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
+import DataTable from '../../../shared/components/TableElements/DataTable';
 
 const OrderTable = props => {
   const auth = useContext(AuthContext);
@@ -109,21 +106,15 @@ const OrderTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
-      {isLoading ? (
-        <div style={{placeItems: "center"}}>
-          <LoadingSpinner />
-        </div>
-      ) : (
-        <div style={{position:'relative'}}>
-          <MUIDataTable
-            className="table-center"
-            data={Datas}
-            columns={columns}
-            options={options}
-          />
-        </div>
-      )}     
+      <DataTable
+        height="62.5rem"
+        error={error}
+        clearError={clearError}
+        isLoading={isLoading}
+        Datas={Datas}
+        columns={columns}
+        options={options}
+      />
     </React.Fragment>
   );
 }

@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ErrorModal from './ErrorModal';
 import LoadingSpinner from './LoadingSpinner';
+import { Paper } from '@material-ui/core';
 
 const Profile = props => {
   const auth = useContext(AuthContext);
@@ -43,41 +44,49 @@ const Profile = props => {
   return (
     <div className="profile_section">
       <div className="hq_logo">  
-        <img
-          style={{width: "250px", height: "250px"}}
-          alt="organisation logo"
-          src={BranchImage}
-          > 
-        </img>
+        {isLoading ? (
+          <div style={{width: '250px', height: '250px', display: "grid", placeItems: "center"}}>
+            <LoadingSpinner />
+          </div>
+          ) : (
+          <img
+            style={{width: "250px", height: "250px"}}
+            alt="organisation logo"
+            src={BranchImage}
+            > 
+          </img>
+          )}
       </div>
       <div className="info">
         <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
-        {isLoading ? (
-          <div style={{placeItems: "center"}}>
-            <LoadingSpinner />
-          </div>
-        ) : (
           <Table>
             <TableBody>
-              <TableRow>
-                <TableCell align="left">Name: </TableCell>
-                <TableCell align="left">{BranchName}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="left">Address: </TableCell>
-                <TableCell align="left">{BranchAddress}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="left">Telephone: </TableCell>
-                <TableCell align="left">{BranchPhone}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="left">Email: </TableCell>
-                <TableCell align="left">{BranchEmail}</TableCell>
-              </TableRow>
+            {isLoading ? (
+              <div style={{width: '30rem', height: '15rem', display: "grid", placeItems: "center"}}>
+                <LoadingSpinner />
+              </div>
+             ) : (
+              <React.Fragment>
+                <TableRow>
+                  <TableCell align="left">Name: </TableCell>
+                  <TableCell align="left">{BranchName}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Address: </TableCell>
+                  <TableCell align="left">{BranchAddress}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Telephone: </TableCell>
+                  <TableCell align="left">{BranchPhone}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell align="left">Email: </TableCell>
+                  <TableCell align="left">{BranchEmail}</TableCell>
+                </TableRow>
+              </React.Fragment>
+             )}
             </TableBody>
           </Table>
-        )}
       </div>
     </div>
   );

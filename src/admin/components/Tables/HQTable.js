@@ -8,15 +8,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import InfoIcon from '@material-ui/icons/Info';
 
-import MUIDataTable from "mui-datatables";
 import HQModal from '../../../admin/components/Forms/HQModal';
 import Modal from '../../../shared/components/UIElements/Modal'
 
 
 import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
+import DataTable from '../../../shared/components/TableElements/DataTable';
 
 
 
@@ -277,18 +276,15 @@ const HQTable = props => {
        <p>Are you sure you want to delete HQ? This will delete all associated users and branches.</p>
       </Modal>
 
-      {isLoading ? (
-        <div style={{placeItems: "center"}}>
-          <LoadingSpinner />
-        </div>
-      ) : (
-        <MUIDataTable
-          className="table-center"
-          data={Datas}
-          columns={columns}
-          options={options}
-        />
-      )}  
+      <DataTable
+        height="62.5rem"
+        error={error}
+        clearError={clearError}
+        isLoading={isLoading}
+        Datas={Datas}
+        columns={columns}
+        options={options}
+      />
 
         
      

@@ -5,13 +5,11 @@ import { Button} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import MUIDataTable from "mui-datatables";
 import GarmentModal from '../../../admin/components/Forms/GarmentModal';
 
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { AuthContext } from '../../../shared/context/auth-context';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
+import DataTable from '../../../shared/components/TableElements/DataTable';
 
 
 const GarmentTable = props => {
@@ -274,7 +272,6 @@ const GarmentTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <GarmentModal
         isEditing={isEditing}
         rowData={rowData}
@@ -284,18 +281,15 @@ const GarmentTable = props => {
         onCancel={exitModal}
       /> 
 
-      {isLoading ? (
-        <div style={{placeItems: "center"}}>
-          <LoadingSpinner />
-        </div>
-      ) : (
-        <MUIDataTable
-          className="table-center"
-          data={Datas}
-          columns={columns}
-          options={options}
-        />
-      )}  
+      <DataTable
+        height="62.5rem"
+        error={error}
+        clearError={clearError}
+        isLoading={isLoading}
+        Datas={Datas}
+        columns={columns}
+        options={options}
+      />
 
       
     </React.Fragment>

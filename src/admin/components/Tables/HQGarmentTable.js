@@ -2,16 +2,14 @@ import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
 import '../../../shared/components/TableElements/DataTable.css';
-import { Button} from "@material-ui/core";
+import { Button, Paper} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import MUIDataTable from "mui-datatables";
 import HQGarmentModal from '../../../admin/components/Forms/HQGarmentModal';
 
-import ErrorModal from '../../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
+import DataTable from '../../../shared/components/TableElements/DataTable';
 
 
 
@@ -212,20 +210,15 @@ const HQGarmentTable = props => {
         onCancel={exitModal}
       /> 
 
-      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
-      {isLoading && (
-        <div className="center">
-          <LoadingSpinner />
-        </div>
-      )}
-       {!isLoading && (
-        <MUIDataTable
-          className="table-center"
-          data={Datas}
-          columns={columns}
-          options={options}
-        />
-      )}
+      <DataTable 
+        height="57rem"
+        error={error}
+        clearError={clearError}
+        isLoading={isLoading}
+        Datas={Datas}
+        columns={columns}
+        options={options}
+      />
     </React.Fragment>
   );
 }

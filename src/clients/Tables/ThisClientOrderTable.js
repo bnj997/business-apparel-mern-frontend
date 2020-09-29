@@ -1,14 +1,12 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 
-import MUIDataTable from "mui-datatables";
 
 import '../../shared/components/TableElements/ClientCart.css';
 
-import ErrorModal from '../../shared/components/UIElements/ErrorModal';
-import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 import { useHttpClient } from '../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../shared/context/auth-context';
+import DataTable from '../../shared/components/TableElements/DataTable';
 
 
 const ThisClientOrderTable = props => {
@@ -132,21 +130,17 @@ const ThisClientOrderTable = props => {
 
   return (
     <React.Fragment>
-      <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
       <div className="checkout_table" style={{display: "flex",  justifyContent: "space-between",  flexWrap: "wrap"}}>
         <div className="order_table "style={{backgroundColor: "white"}}>
-          {isLoading ? (
-            <div style={{placeItems: "center"}}>
-              <LoadingSpinner />
-            </div>
-          ) : (
-            <MUIDataTable
-              className="table-center"
-              data={Datas}
-              columns={columns}
-              options={options}
-            />
-          )}
+          <DataTable
+            height="57.5rem"
+            error={error}
+            clearError={clearError}
+            isLoading={isLoading}
+            Datas={Datas}
+            columns={columns}
+            options={options}
+          />
         </div>
         <div className="additional_info" style={{backgroundColor: "white"}}>
           <div style={{margin: "2rem"}}>
