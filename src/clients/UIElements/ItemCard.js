@@ -51,7 +51,7 @@ const ItemCard = props => {
         <Form >
           <CardMedia
             component="img"
-            style={{height: "350px", width: "100%", objectFit: "contain"}}
+            style={{width: "100%", objectFit: "contain"}}
             src={props.image}
           />
           <CardContent style={{marginLeft: "2rem", marginRight: "2rem"}}>

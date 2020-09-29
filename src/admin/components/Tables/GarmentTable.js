@@ -239,7 +239,7 @@ const GarmentTable = props => {
                   deleteHandler(tableMeta.rowData[0])
                 }
               >
-                delete
+                Delete
               </Button>
             </React.Fragment>
           )

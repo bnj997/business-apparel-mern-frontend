@@ -8,7 +8,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import ErrorModal from './ErrorModal';
 import LoadingSpinner from './LoadingSpinner';
-import { Paper } from '@material-ui/core';
 
 const Profile = props => {
   const auth = useContext(AuthContext);

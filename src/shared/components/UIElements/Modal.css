@@ -3,7 +3,6 @@
   top: 13vh;
   left: 10%;  
   width: 80%;
-  overflow: scroll;
 }
 
 .form_section {
@@ -81,7 +80,7 @@
   }
 
   .info_modal {
-    height: 30vh;
+    height: 23rem;
     left: calc(50% - 20rem);
     width: 40rem; 
   }
