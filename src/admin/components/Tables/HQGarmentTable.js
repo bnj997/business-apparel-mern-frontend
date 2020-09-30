@@ -134,6 +134,11 @@ const HQGarmentTable = props => {
     {
       name: "description",
       label: "Description",
+      options: {
+        customBodyRender: (value) => (
+          value.slice(0, 10)+'...'
+        )
+      }
     },
     {
       name: "colours",
@@ -149,7 +154,7 @@ const HQGarmentTable = props => {
       label: "Sizes",
       options: {
         customBodyRender: (value) => (
-          <p>{`${value}`}</p>
+          <p>{`${value}`.slice(0,12)+'...'}</p>
         )
       }
     },

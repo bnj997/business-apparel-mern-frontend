@@ -208,7 +208,7 @@ const GarmentTable = props => {
       label: "Sizes",
       options: {
         customBodyRender: (value) => (
-          <p>{`${value}`}</p>
+          <p>{`${value}`.slice(0,12)+'...'}</p>
         )
       }
     },

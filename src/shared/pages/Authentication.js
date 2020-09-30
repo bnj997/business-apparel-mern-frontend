@@ -19,12 +19,11 @@ import LoadingSpinner from '../components/UIElements/LoadingSpinner';
 const validationSchema = yup.object({
   username: yup
     .string()
-    .required()
-    .max(15),
+    .required(),
   password: yup
     .string()
     .required()
-    .min(8)
+    .min(4)
 });
 
 
