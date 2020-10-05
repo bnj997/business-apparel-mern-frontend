@@ -4,8 +4,6 @@
   height: 50px;
 }
 
-
-
 .image-drawer {
   display: block;
   margin-left: auto;
@@ -18,8 +16,8 @@
 
   .image {
     margin: 1rem;
-    width: 75px;
-    height: 75px;
+    width: 80px;
+    height: 80px;
   }
 
 }

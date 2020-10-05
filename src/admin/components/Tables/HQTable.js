@@ -31,7 +31,7 @@ const HQTable = props => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [request, setRequest] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [rowData, setRowData] = useState(['','', '', '', '']);
+  const [rowData, setRowData] = useState(['','', '', '', '', '']);
 
   useEffect(() => {
     const fetchHQs = async () => {
@@ -88,11 +88,14 @@ const HQTable = props => {
 
 
   const addData = async newData => {
+    exitModal()
     try {
+      console.log("add data")
       const formData = new FormData();
       formData.append('_id', newData._id)
       formData.append('image', newData.image)
       formData.append('name', newData.name)
+      formData.append('address', newData.address)
       formData.append('telephone', newData.telephone)
       formData.append('email', newData.email)
       await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/hqs`,'POST', formData, { 
@@ -100,10 +103,10 @@ const HQTable = props => {
       });
       setRequest(!request)
     } catch (err) {}
-    exitModal()
   }
 
   const editData = async (currentData, hqId) => {
+    exitModal()
     try {
       const formData = new FormData();
       formData.append('_id', currentData._id)
@@ -111,6 +114,7 @@ const HQTable = props => {
         formData.append('image', currentData.image)
       }
       formData.append('name', currentData.name)
+      formData.append('address', currentData.address)
       formData.append('telephone', currentData.telephone)
       formData.append('email', currentData.email)
       await sendRequest(
@@ -123,7 +127,6 @@ const HQTable = props => {
       );
       setRequest(!request)
     } catch (err) {}
-    exitModal()
   }
 
   const deleteHandler = async hqId => {
@@ -172,6 +175,10 @@ const HQTable = props => {
     {
       name: "name",
       label: "Name",
+    },
+    {
+      name: "address",
+      label: "Address",
     },
     {
       name: "telephone",
@@ -273,7 +280,7 @@ const HQTable = props => {
           </React.Fragment>
         }
       >
-       <p>Are you sure you want to delete HQ? This will delete all associated users and branches.</p>
+       <p>Are you sure you want to delete HQ? This will delete all associated users, branches and orders.</p>
       </Modal>
 
       <DataTable

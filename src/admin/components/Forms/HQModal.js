@@ -15,6 +15,7 @@ const validationSchema = yup.object({
   image: yup
     .mixed().required("An image is required"),
   name: yup.string().required(),
+  address: yup.string().required(),
   telephone: yup.number().required(),
   email: yup.string().email().required(),
 });
@@ -43,8 +44,9 @@ const HQModal = props => {
           _id: id,
           image: props.rowData[1],
           name: props.rowData[2],
-          telephone: props.rowData[3],
-          email: props.rowData[4]
+          address: props.rowData[3],
+          telephone: props.rowData[4],
+          email: props.rowData[5]
         }}
         validationSchema={validationSchema}
         onSubmit={ async (data, {setSubmitting, resetForm}) =>  {
@@ -69,7 +71,7 @@ const HQModal = props => {
               name="image"
               setFieldValue={setFieldValue}
             />
-            {["name", "telephone", "email"].map(function(item, i){
+            {["name", "address", "telephone", "email"].map(function(item, i){
               return (
                 <FormTextField 
                   variant={props.type}

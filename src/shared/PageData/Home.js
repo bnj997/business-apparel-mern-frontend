@@ -27,14 +27,17 @@ export const useHomeData = () => {
     {
       image: bizCollection,
       heading: "Biz Collection",
+      link: 'https://www.bizcollection.com.au'
     },
     {
       image: winningSpirit,
       heading: "Winning Spirit",
+      link: 'https://www.winningspirit.com.au',
     },
     {
       image: jbWears,
       heading: "JB Wears",
+      link: 'https://www.jbswear.com.au'
     }
   ];
   

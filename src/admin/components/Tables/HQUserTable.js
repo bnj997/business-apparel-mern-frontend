@@ -39,10 +39,11 @@ const HQUserTable = props => {
       } catch (err) {}
     };
     fetchUsersForHQ();
-  }, [sendRequest, hqID, auth.token, request])
+  }, [sendRequest, hqID, auth.token])
 
 
   const addUser = async newData => {
+    exitModal()
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/users/${hqID}`,
@@ -60,15 +61,14 @@ const HQUserTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      // setData(prevDatas => {
-      //   return [...prevDatas, newData];
-      // });
-      setRequest(!request)
+      setData(prevDatas => {
+        return [...prevDatas, newData];
+      });
     } catch (err) {}
-    exitModal()
   }
 
   const editUser = async (currentData, uId) => {
+    exitModal()
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/users/${hqID}/${uId}`,
@@ -86,9 +86,11 @@ const HQUserTable = props => {
           Authorization: 'Bearer ' + auth.token
         }
       );
-      setRequest(!request)
+      setData(prevDatas => {
+        prevDatas[prevDatas.findIndex(user => user._id === uId )] = currentData
+        return prevDatas
+      });
     } catch (err) {}
-    exitModal()
   }
 
   const deleteUser = async uId => {

@@ -40,8 +40,8 @@ const GarmentModal = props => {
 
   const sizes1 = ["N/A", "2XS" , "XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL"]
   const sizes2 = ["4", "6", "8", "10", "12", "14", "16", "18", "20", "22", "24", "26", "28", "30", "32", "34", "36", "38"]
-  const sizes3 = ["72R", "77R", "82R", "87R", "92R", "97R", "102R", "107R", "112R", "117R", "122R", "127R", "132R", "137R", "142R"]
-  const sizes4 = ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"]
+  const sizes3 = ["67R", "72R", "77R", "82R", "87R", "92R", "97R", "102R", "107R", "112R", "117R", "122R", "127R", "132R", "137R", "142R", "147R"]
+  const sizes4 = ["3", "4", "5", "6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12", "12.5", "13", "14"]
 
   const [sizeType, setType] = useState(sizes1)
   return (
@@ -68,15 +68,12 @@ const GarmentModal = props => {
         validationSchema={validationSchema}
         onSubmit={(data, {setSubmitting, resetForm}) =>  {
           setSubmitting(true)
-
           //make async call
           if (!props.isEditing) {
             props.onAdd(data)
           } else {
             props.onEdit(data, props.rowData[0])
           }
-
-
           setSubmitting(false)
           resetForm();
         }}
@@ -136,10 +133,10 @@ const GarmentModal = props => {
 
               <FormLabel component="legend" className="form_label" >Sizes</FormLabel>
               <div className="form_group">
-                <Button variant="contained" onClick={() => setType(sizes1)}> N/A - 7XL</Button>
-                <Button variant="contained" onClick={() => setType(sizes2)}> 4 - 37</Button>
-                <Button variant="contained" onClick={() => setType(sizes3)}> 72R - 142R</Button>
-                <Button variant="contained" onClick={() => setType(sizes4)}> 3 - 14</Button>
+                <Button style={{margin: "0.5rem"}} variant="contained" onClick={() => setType(sizes1)}> N/A - 7XL</Button>
+                <Button style={{margin: "0.5rem"}} variant="contained" onClick={() => setType(sizes2)}> 4 - 38</Button>
+                <Button style={{margin: "0.5rem"}} variant="contained" onClick={() => setType(sizes3)}> 67R - 142R</Button>
+                <Button style={{margin: "0.5rem"}} variant="contained" onClick={() => setType(sizes4)}> 3 - 14</Button>
               </div>
               <FormGroup row>
                 {sizeType.map(function(item) {

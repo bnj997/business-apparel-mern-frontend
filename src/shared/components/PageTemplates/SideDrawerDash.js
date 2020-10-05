@@ -30,7 +30,7 @@ import CartItem from '../../../clients/UIElements/CartItem'
 import './SideDrawerDash.css';
 import ShoppingCart from '../../../clients/UIElements/ShoppingCart';
 
-const drawerWidth = 350;
+const drawerWidth = 310;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {

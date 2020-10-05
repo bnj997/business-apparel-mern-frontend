@@ -47,6 +47,7 @@ const HQBranchTable = props => {
 
 
   const addBranches = async newData => {
+    exitModal()
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}`,
@@ -68,10 +69,10 @@ const HQBranchTable = props => {
         return [...prevDatas, newData];
       });
     } catch (err) {}
-    exitModal()
   }
 
   const editBranch = async (currentData, bid) => {
+    exitModal()
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/branches/${hqID}/${bid}`,
@@ -94,7 +95,6 @@ const HQBranchTable = props => {
         return prevDatas
       });
     } catch (err) {}
-    exitModal()
   }
 
   const deleteBranch = async bId => {

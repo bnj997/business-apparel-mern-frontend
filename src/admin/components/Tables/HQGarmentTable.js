@@ -41,6 +41,7 @@ const HQGarmentTable = props => {
 
 
   const addGarments= async garments => {
+    exitModal()
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/garments/hq/${hqID}`,
@@ -55,8 +56,6 @@ const HQGarmentTable = props => {
       );
       setRequest(!request)
     } catch (err) {}
-
-    exitModal()
   }
 
   const deleteHandler = async gId => {
@@ -78,7 +77,6 @@ const HQGarmentTable = props => {
     setShowAddEditModal(true)
   }
   const exitModal = () => {
-
     setShowAddEditModal(false)
   }
   

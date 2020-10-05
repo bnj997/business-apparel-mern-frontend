@@ -24,12 +24,12 @@ const MyCard = withStyles({
 const SupplierCard = props => {
   return (
     <MyCard>
-      <CardActionArea className="focus" >
+      <CardActionArea className="focus" href={props.link} target="_blank" >
         <CardMedia
-          style={{height: "420px",  backgroundSize: "cover"}}
+          style={{height: "350px",  backgroundSize: "cover"}}
           image={props.image}
         />
-        <CardContent className="content">
+        <CardContent className="supplier_content">
           <h1>{props.heading}</h1>
           <h3>Access Catalgoue Here</h3>
         </CardContent>

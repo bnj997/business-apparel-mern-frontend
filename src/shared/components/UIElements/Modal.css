@@ -3,6 +3,7 @@
   top: 13vh;
   left: 10%;  
   width: 80%;
+  overflow: scroll;
 }
 
 .form_section {
@@ -76,7 +77,7 @@
 
 @media (min-width: 1200px) {
   .modal {
-    overflow: hidden;
+    overflow: auto;
   }
 
   .info_modal {

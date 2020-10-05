@@ -29,7 +29,7 @@ const MainNavigation = props => {
       {drawerIsOpen && <Backdrop onClick={closeDrawer} /> }
       <SideDrawer show={drawerIsOpen} onClick={closeDrawer}>
         <nav className="main-navigation__drawer-nav">
-          <Logo width="120" height="120" drawerIsOpen={drawerIsOpen}/>
+          <Logo drawerIsOpen={drawerIsOpen}/>
           <MyAccount drawerIsOpen={drawerIsOpen} />
           <NavLinks />
           <Login />

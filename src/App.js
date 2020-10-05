@@ -26,6 +26,10 @@ const ClientOrders =  React.lazy(() => import('./clients/pages/ClientOrders'));
 const ClientCatalogue =  React.lazy(() => import('./clients/pages/ClientCatalogue'));
 const ClientCart =  React.lazy(() => import('./clients/pages/ClientCart'));
 const ThisClientOrder =  React.lazy(() => import('./clients/pages/ThisClientOrder'));
+// import ClientOrders from './clients/pages/ClientOrders'
+// import ClientCatalogue from './clients/pages/ClientOrders'
+// import ClientCart from './clients/pages/ClientOrders'
+// import ThisClientOrder from './clients/pages/ClientOrders'
 
 const Authentication =  React.lazy(() => import('./shared/pages/Authentication'));
 

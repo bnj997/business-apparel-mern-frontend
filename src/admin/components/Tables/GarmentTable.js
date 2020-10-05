@@ -57,6 +57,7 @@ const GarmentTable = props => {
 
 
   const addData = async newData => {
+    exitModal()
     try {
       const formData = new FormData();
       formData.append('_id', newData._id)
@@ -82,7 +83,6 @@ const GarmentTable = props => {
       });
       setRequest(!request)
     } catch (err) {}
-    exitModal()
   }
 
 

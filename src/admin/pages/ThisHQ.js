@@ -35,6 +35,7 @@ const ThisHQ = props => {
     fetchHQName();
   }, [sendRequest, hqID, auth.token])
 
+
   return (
     <Dashboard  user="adminstaff">
       <div style={{marginLeft: "4rem", marginRight: "4rem", marginTop: "3rem"}}>
@@ -43,9 +44,9 @@ const ThisHQ = props => {
         <Button color="primary" onClick={() => setType("Branches")}> Branches </Button>
         <Button color="primary" onClick={() => setType("Users")}> Users </Button>
         <div style={{marginTop: "2rem"}}>
-          { (type === "Garments") && <HQGarmentTable />}
-          { (type === "Branches") && <HQBranchTable />}
-          { (type === "Users") && <HQUserTable />}
+          {(type === "Branches") && <HQBranchTable />}
+          {(type === "Garments") && <HQGarmentTable />}
+          {(type === "Users") && <HQUserTable />}
         </div>
       </div>
     </Dashboard>

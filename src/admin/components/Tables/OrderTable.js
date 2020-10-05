@@ -1,10 +1,13 @@
 import React, {useContext, useState, useEffect} from 'react'
 
 import { NavLink } from 'react-router-dom';
-import { Button} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import InfoIcon from '@material-ui/icons/Info';
+import DeleteIcon from '@material-ui/icons/Delete';
 import '../../../shared/components/TableElements/DataTable.css';
 
+
+import Modal from '../../../shared/components/UIElements/Modal'
 import { useHttpClient } from '../../../shared/components/hooks/http-hook';
 import { AuthContext } from '../../../shared/context/auth-context';
 import DataTable from '../../../shared/components/TableElements/DataTable';
@@ -12,6 +15,8 @@ import DataTable from '../../../shared/components/TableElements/DataTable';
 const OrderTable = props => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [thisOrder, setThisOrder] =  useState('');
   const [Datas, setData] = useState([]);
 
   useEffect(() => {
@@ -30,6 +35,40 @@ const OrderTable = props => {
     };
     fetchOrders();
   }, [sendRequest, auth.token])
+
+
+  const deleteHandler = async oid => {
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/orders/${oid}`,
+        'DELETE',
+        null,
+        { 
+          Authorization: 'Bearer ' + auth.token 
+        }
+      );
+      setData(prevDatas => {
+        return prevDatas.filter((order) => {
+          return order._id !== oid
+        })
+      })
+    } catch (err) {}
+  }
+
+
+  const showWarning = row => {
+    setThisOrder(row)
+    setShowConfirmModal(true)
+  }
+
+  const cancelDelete = () => {
+    setShowConfirmModal(false)
+  }
+
+  const confirmDelete = () => {
+    setShowConfirmModal(false)
+    deleteHandler(thisOrder);
+  }
 
 
   const columns = [
@@ -82,6 +121,17 @@ const OrderTable = props => {
               >
                 View
               </Button>
+              <Button
+                variant="contained"
+                color="default"
+                startIcon={<DeleteIcon />}
+                style={{margin: "0"}}
+                onClick={ () =>
+                  showWarning(tableMeta.rowData[0])
+                }
+              >
+                Delete
+              </Button>
             </React.Fragment>
           )
         }
@@ -106,6 +156,20 @@ const OrderTable = props => {
 
   return (
     <React.Fragment>
+      <Modal
+        show={showConfirmModal}
+        onCancel={cancelDelete}
+        header="Are you sure?" 
+        footerClass="logout__modal-actions" 
+        footer={
+          <React.Fragment>
+            <Button variant="contained" onClick={cancelDelete} > Cancel </Button>
+            <Button variant="contained" onClick={confirmDelete} > Delete Order </Button>
+          </React.Fragment>
+        }
+      >
+       <p>Are you sure you want to delete Order? This will delete all associated orderlines</p>
+      </Modal>
       <DataTable
         height="62.5rem"
         error={error}

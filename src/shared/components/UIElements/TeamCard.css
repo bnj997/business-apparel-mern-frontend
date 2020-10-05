@@ -2,6 +2,7 @@
   width: 100%;
 }
 
+
 .team-card p {
   text-align: justify;
 }
@@ -15,7 +16,7 @@
 @media (min-width: 1200px) {
 
   .team-card {
-    width: 45%;
+    width: 20%;
   }
   
   .team-card img {

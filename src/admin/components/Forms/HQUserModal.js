@@ -94,7 +94,7 @@ const HQUserModal = props => {
       >
         {({values, isSubmitting}) => (
           <Form >
-            <FormLabel component="legend" className="form_label">Supplier</FormLabel>
+            <FormLabel component="legend" className="form_label">Branch</FormLabel>
             <RadioGroup row aria-label="Branches" className="form_group">
 
               <ErrorModal header="An Error Occured" error={error} onClear={clearError} />
