@@ -1,6 +1,7 @@
 import bizCollection from '../../images/biz-collection.jpg';
 import winningSpirit from '../../images/winning-spirit.jpg';
 import jbWears from '../../images/jb-wear.jpg';
+import cityCollection from '../../images/city-collection.jpg';
 import slide1 from '../../images/slide1.jpg';
 import slide2 from '../../images/slide2.jpg';
 import slide3 from '../../images/slide3.jpg';
@@ -38,6 +39,11 @@ export const useHomeData = () => {
       image: jbWears,
       heading: "JB Wears",
       link: 'https://www.jbswear.com.au'
+    },
+    {
+      image: cityCollection,
+      heading: "City Collection",
+      link: 'https://citycollection.com.au/'
     }
   ];
   

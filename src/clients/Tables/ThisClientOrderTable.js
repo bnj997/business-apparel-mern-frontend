@@ -77,6 +77,10 @@ const ThisClientOrderTable = props => {
       }
     },
     {
+      name: "styleNum",
+      label: "Style Number",
+    },
+    {
       name: "name",
       label: "Name",
     },

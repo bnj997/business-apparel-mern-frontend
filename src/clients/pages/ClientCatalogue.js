@@ -54,8 +54,10 @@ const ClientCatalogue = props => {
     
     if (existingItem) {
       existingItem.quantity += item.quantity //update item
+      existingItem.subtotal += item.quantity * item.price
     } else { //if item doesn't exist, simply add it
       cartTemp.push(item)
+      item.subtotal = item.quantity * item.price
     }
     
     //update app state

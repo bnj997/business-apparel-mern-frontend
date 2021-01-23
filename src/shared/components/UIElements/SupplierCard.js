@@ -15,7 +15,7 @@ const MyCard = withStyles({
     color: "black",
     fontSize: "1.3rem",
     margin: "1rem",
-    width: "20rem",
+    width: "15rem",
   }
 })(Card);
 
@@ -31,7 +31,7 @@ const SupplierCard = props => {
         />
         <CardContent className="supplier_content">
           <h1>{props.heading}</h1>
-          <h3>Access Catalgoue Here</h3>
+          <h3>Access Catalgoue</h3>
         </CardContent>
       </CardActionArea>
     </MyCard>  

@@ -42,7 +42,7 @@ const ItemCard = props => {
         enableReinitialize = {true}
         onSubmit={(data, {setSubmitting}) =>  {
           setSubmitting(true)
-          data.subtotal = data.price * data.quantity;
+          //data.subtotal = data.price * data.quantity;
           props.onAdd(data)
           setSubmitting(false)
         }}
@@ -51,7 +51,7 @@ const ItemCard = props => {
         <Form >
           <CardMedia
             component="img"
-            style={{width: "100%", objectFit: "contain"}}
+            style={{width: "250px", objectFit: "contain", marginLeft: "auto", marginRight: "auto"}}
             src={props.image}
           />
           <CardContent style={{marginLeft: "2rem", marginRight: "2rem"}}>

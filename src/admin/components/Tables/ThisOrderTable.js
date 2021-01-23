@@ -81,6 +81,10 @@ const ThisOrderTable = props => {
       }
     },
     {
+      name: "styleNum",
+      label: "Style Number",
+    },
+    {
       name: "name",
       label: "Name",
     },

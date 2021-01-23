@@ -168,7 +168,7 @@ const OrderTable = props => {
           </React.Fragment>
         }
       >
-       <p>Are you sure you want to delete Order? This will delete all associated orderlines</p>
+       <p>Are you sure you want to delete this Order? This will delete all associated orderlines.</p>
       </Modal>
       <DataTable
         height="62.5rem"

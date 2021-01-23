@@ -1,8 +1,6 @@
 import React from 'react';
 import TableCell from '@material-ui/core/TableCell';
 
-import CloseIcon from '@material-ui/icons/Close';
-
 
 const CheckoutItem = props => {
   return (

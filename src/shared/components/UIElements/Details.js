@@ -10,10 +10,6 @@ const Details = props => {
         <p>{props.email}</p>
       </div>
       <div>
-        {props.phoneIcon}
-        <p>{props.phone}</p>
-      </div>
-      <div>
         {props.timeIcon}
         <section>
           <p> {props.openingWeekday}</p>

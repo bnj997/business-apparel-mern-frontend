@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import Dashboard from '../../shared/components/PageTemplates/Dashboard'
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../shared/context/auth-context'
+import { Paper } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { Formik, Form} from 'formik';
 
@@ -59,10 +60,10 @@ const ClientCart= props => {
 
 
   const confirmOrder = async (cart, info) =>  {
-
     const orderid  = uuidv4()
     try {
       //construct new order
+      console.log("make order")
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}/orders`,
         'POST',
@@ -78,30 +79,85 @@ const ClientCart= props => {
       );
     } catch (err) {}
 
-    try {
-      const response = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/order-lines/${orderid}`,
-        'POST',
-        JSON.stringify({
-          cart: cart,
-        }),
-        { 
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + auth.token
+    if (cart.length > 25) {
+      let remainder = cart.length
+      let start = 0
+      let end = 26
+      while (remainder > 0) {
+        try {
+          const response = await sendRequest(
+            `${process.env.REACT_APP_BACKEND_URL}/order-lines/${orderid}`,
+            'POST',
+            JSON.stringify({
+              cart: cart.slice(start, end),
+              mainCart: cart,
+            }),
+            { 
+         
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + auth.token
+            }
+          );
+          if (remainder <= 25) {
+            setCart([]);
+            setShowConfirmModal(response)
+            localStorage.setItem(auth.userId, JSON.stringify([]))
+          }
+        } catch (err) {}
+        remainder = remainder - 25
+        start = end 
+        if (remainder <= 25) {
+          end = end + remainder
+        } else {
+          end = end + 25
         }
-      );
-      setCart([]);
-      setShowConfirmModal(response)
-      localStorage.setItem(auth.userId, JSON.stringify([]))
-    } catch (err) {}
+      }
+    } else {
+      try {
+        const response = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/order-lines/${orderid}`,
+          'POST',
+          JSON.stringify({
+            cart: cart,
+            mainCart: cart,
+          }),
+          { 
+       
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + auth.token
+          }
+        );
+        setCart([]);
+        setShowConfirmModal(response)
+        localStorage.setItem(auth.userId, JSON.stringify([]))
+      } catch (err) {}
+    }
+    // try {
+    //   //construct new order
+    //   const response = await sendRequest(
+    //     `${process.env.REACT_APP_BACKEND_URL}/orders/makeorder/${orderid}`,
+    //     'POST',
+    //     JSON.stringify({
+    //       cart: cart,
+    //     }),
+    //     { 
+    //       'Content-Type': 'application/json',
+    //       Authorization: 'Bearer ' + auth.token
+    //     }
+    //   );
+    //   setCart([]);
+    //   setShowConfirmModal(response)
+    //   localStorage.setItem(auth.userId, JSON.stringify([]))
+    // } catch (err) {}
+
   }
 
 
   const setChange = (rowData, quantity) => {
     let cartTemp = [...cart];
-    const thisItem = cartTemp.find(cartItem => cartItem.name === rowData[1] && cartItem.colour === rowData[2] && cartItem.size === rowData[3])
-    thisItem.quantity = quantity
-    thisItem.subtotal = quantity * rowData[4]
+    const thisItem = cartTemp.find(cartItem => (cartItem.styleNum === rowData[1] && cartItem.name === rowData[2] && cartItem.colour === rowData[3] && cartItem.size === rowData[4]))
+    thisItem.quantity = parseInt(quantity)
+    thisItem.subtotal = quantity * rowData[5]
     setCart(cartTemp)
     let stringCart = JSON.stringify(cartTemp);
     localStorage.setItem(auth.userId, stringCart)
@@ -110,7 +166,7 @@ const ClientCart= props => {
 
   const removeFromCart  = (rowData) => {
     let cartTemp = [...cart]
-    cartTemp = cartTemp.filter(cartItem => (cartItem.name !== rowData[1] || cartItem.colour !== rowData[2] || cartItem.size !== rowData[3]));
+    cartTemp = cartTemp.filter(cartItem => (cartItem.styleNum !== rowData[1] || cartItem.name !== rowData[2] || cartItem.colour !== rowData[3] || cartItem.size !== rowData[4]));
     setCart(cartTemp);    
     let cartString = JSON.stringify(cartTemp)
     localStorage.setItem(auth.userId, cartString)
@@ -137,6 +193,10 @@ const ClientCart= props => {
           </img>
         )
       }
+    },
+    {
+      name: "styleNum",
+      label: "Style Number",
     },
     {
       name: "name",
@@ -258,9 +318,10 @@ const ClientCart= props => {
 
           <div className="order_table "style={{backgroundColor: "white"}}>
             {isLoading ? (
-              <div style={{placeItems: "center"}}>
+              <Paper style={{width: '100%', height: '900px', display: "grid", placeItems: "center"}}>
+                <h2>Your order is loading. Very large orders may take up to a minute to be processed. Please wait. </h2>
                 <LoadingSpinner />
-              </div>
+              </Paper>
             ) : (
               <MUIDataTable
                 data={cart}
@@ -310,11 +371,15 @@ const ClientCart= props => {
               </NavLink>          
               <Button 
                 variant="contained"
-                style={{backgroundColor: cart.length === 0 ? 'grey' : 'black', color: "white", width: "100%", borderRadius: "0", padding: "0", marginTop: "1rem"}}
+                style={{backgroundColor: (cart.length === 0 || isLoading) ? 'grey' : 'black', color: "white", width: "100%", borderRadius: "0", padding: "0", marginTop: "1rem"}}
                 onClick={() => confirmOrder(cart, info)}
-                disabled={cart.length === 0}
+                disabled={cart.length === 0 || isLoading}
               >
-                <h3>CONFIRM ORDER</h3>
+                {isLoading ? (
+                  <h3>ORDER PROCESSING...</h3>
+                ) : (
+                  <h3>CONFIRM ORDER</h3>
+                )}
               </Button>
             </div>
           </div>
