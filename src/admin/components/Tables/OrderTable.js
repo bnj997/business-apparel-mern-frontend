@@ -100,6 +100,13 @@ const OrderTable = props => {
           return (
            value.name
           )
+        },
+        sortCompare: (order) => {
+          return (obj1, obj2) => { 
+            let val1 = obj1.data.name;
+            let val2 = obj2.data.name;
+            return (val1.localeCompare(val2)) * (order === 'asc' ? 1 : -1)
+          }
         }
       }
     },
@@ -111,6 +118,13 @@ const OrderTable = props => {
           return (
            value.name
           )
+        },
+        sortCompare: (order) => {
+          return (obj1, obj2) => { 
+            let val1 = obj1.data.name;
+            let val2 = obj2.data.name;
+            return (val1.localeCompare(val2)) * (order === 'asc' ? 1 : -1)
+          }
         }
       }
     },
