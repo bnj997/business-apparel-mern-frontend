@@ -46,6 +46,15 @@ const ClientOrderTable = props => {
     {
       name: "date",
       label: "Order Date",
+      options: {
+        sortCompare: (order) => {
+          return (obj1, obj2) => {
+            let val1 = Date.parse(obj1.data);
+            let val2 = Date.parse(obj2.data);
+            return (val1 - val2) * (order === 'asc' ? 1 : -1);
+          };
+        }
+      }
     },
     {
       name: "hq",
