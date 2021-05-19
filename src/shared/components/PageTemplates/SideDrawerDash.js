@@ -83,6 +83,7 @@ const SideDrawerDash = props => {
   const { window } = props;
   const classes = useStyles();
 
+
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(auth.userId))
     setCart(localCart)
@@ -118,6 +119,7 @@ const SideDrawerDash = props => {
   const removeFromCart = (item) => {
     let cartCopy = [...cart]
     cartCopy = cartCopy.filter(garment => (garment.id !== item.id || garment.colour !== item.colour || garment.size !== item.size));
+    //cartCopy.sort((a, b) => (a.name > b.name) ? 1 : -1)
     setCart(cartCopy);
     
     let cartString = JSON.stringify(cartCopy)

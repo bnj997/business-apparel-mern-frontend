@@ -31,6 +31,8 @@ const ClientCart= props => {
   const [totalPrice, setTotalPrice] = useState(0.00)
   const [info, setInfo] = useState('')
 
+  const sizes1 = ["N/A", "2XS" , "XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL"]
+
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   function exitModal() {
@@ -41,7 +43,18 @@ const ClientCart= props => {
 
   useEffect(() => {
     let localCart = JSON.parse(localStorage.getItem(auth.userId))
-    setCart(localCart)
+
+    var sortedCart =  localCart.sort(function(a, b) {
+      if (a.size.slice(-1) === "R") {
+        return a.name.localeCompare(b.name) || a.colour.localeCompare(b.colour) || a.size.slice(0,-2) - b.size.slice(0,-2)
+      } else if (a.size.includes("S") || a.size.includes("L") || a.size.includes("M") || a.size.includes("N/A")) {
+        return a.name.localeCompare(b.name) || a.colour.localeCompare(b.colour) || sizes1.indexOf(a.size) - sizes1.indexOf(b.size)
+      } else {
+        return a.name.localeCompare(b.name) || a.colour.localeCompare(b.colour) || a.size - b.size 
+      }
+    });
+   
+    setCart(sortedCart)
   }, [auth.userId]) 
 
   useEffect(() => {
