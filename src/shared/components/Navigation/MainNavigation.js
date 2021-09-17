@@ -36,7 +36,7 @@ const MainNavigation = props => {
         </nav>
       </SideDrawer>
       <SecondaryHeader>
-        <p className="email"> info@businessapparel.com</p>
+        <p className="email"> info@businessapparel.com.au</p>
         <MyAccount />
       </SecondaryHeader>
       <MainHeader>

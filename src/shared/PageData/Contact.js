@@ -16,7 +16,7 @@ export const useContactData = () => {
 
   const detailSection =  {
     emailIcon: <MailIcon/>,
-    email: "info@businessapparel.com",
+    email: "info@businessapparel.com.au",
     timeIcon: <AccessTimeIcon/>,
     openingWeekday: "Weekdays: 9am - 6pm",
     openingWeekend: "Saturday: 9am - 2pm"
