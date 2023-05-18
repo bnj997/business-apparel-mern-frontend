@@ -93,7 +93,7 @@ const OrderTable = (props) => {
       label: "HQ",
       options: {
         customBodyRender: (value) => {
-          return value.name ?? "Unknown HQ";
+          return value?.name ?? "Unknown HQ";
         },
         sortCompare: (order) => {
           return (obj1, obj2) => {
@@ -158,12 +158,25 @@ const OrderTable = (props) => {
     rowsPerPage: 10,
     print: false,
     download: false,
-    selectableRows: "none",
+    selectableRows: "multiple",
     sortOrder: {
       name: "date",
       direction: "desc",
     },
     elevation: 1,
+    customToolbar: () => {
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<EditIcon />}
+          style={{ marginLeft: "2%" }}
+          onClick={showModal}
+        >
+          Mass Delete
+        </Button>
+      );
+    },
   };
 
   return (
