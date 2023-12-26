@@ -164,19 +164,6 @@ const OrderTable = (props) => {
       direction: "desc",
     },
     elevation: 1,
-    customToolbar: () => {
-      return (
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<EditIcon />}
-          style={{ marginLeft: "2%" }}
-          onClick={showModal}
-        >
-          Mass Delete
-        </Button>
-      );
-    },
   };
 
   return (
