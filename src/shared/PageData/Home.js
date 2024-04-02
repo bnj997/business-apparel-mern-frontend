@@ -11,8 +11,8 @@ export const useHomeData = () => {
   const bannerSection = {
     video1: video1,
     image1: slide1,
-    image2: slide2,
-    image3: slide3,
+    // image2: slide2,
+    // image3: slide3,
   };
 
   const storySection = {

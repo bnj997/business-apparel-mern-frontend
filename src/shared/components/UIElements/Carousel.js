@@ -23,12 +23,12 @@ const MyCarousel = (props) => {
           <source src={props.banners.video1} type="video/mp4" />
         </video>
       </div>
-      <div>
+      {/* <div>
         <img src={props.banners.image2} alt="slide2" />
       </div>
       <div>
         <img src={props.banners.image3} alt="slide3" />
-      </div>
+      </div> */}
     </Carousel>
   );
 };
