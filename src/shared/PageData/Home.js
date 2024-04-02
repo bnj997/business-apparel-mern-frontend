@@ -3,8 +3,6 @@ import winningSpirit from "../../images/winning-spirit.jpg";
 import jbWears from "../../images/jb-wear.jpg";
 import cityCollection from "../../images/city-collection.jpg";
 import slide1 from "../../images/slide1.jpg";
-import slide2 from "../../images/slide2.jpg";
-import slide3 from "../../images/slide3.jpg";
 import video1 from "../../videos/video1.mp4";
 
 export const useHomeData = () => {
