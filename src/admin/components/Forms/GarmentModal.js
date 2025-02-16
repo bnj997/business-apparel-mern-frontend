@@ -111,6 +111,7 @@ const GarmentModal = (props) => {
     "13",
     "14",
   ];
+  const sizes5 = ["55cm", "57cm", "59cm", "61cm"];
 
   const [sizeType, setType] = useState(sizes1);
   return (
@@ -192,6 +193,7 @@ const GarmentModal = (props) => {
                   "Winning Spirit",
                   "JB Wears",
                   "City Collection",
+                  "Grace Collection",
                 ].map(function (item) {
                   return (
                     <FormRadio
@@ -241,6 +243,14 @@ const GarmentModal = (props) => {
                 >
                   {" "}
                   3 - 14
+                </Button>
+                <Button
+                  style={{ margin: "0.5rem" }}
+                  variant="contained"
+                  onClick={() => setType(sizes5)}
+                >
+                  {" "}
+                  55cm - 61cm
                 </Button>
               </div>
               <FormGroup row>
